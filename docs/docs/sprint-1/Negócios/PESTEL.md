@@ -72,3 +72,31 @@ Fatores legais referem-se às leis e regulamentações que impactam as operaçõ
 Em conjunto, a análise PESTEL oferece uma visão holística do ambiente externo da empresa, permitindo que ela identifique tendências, antecipe mudanças e desenvolva estratégias adaptativas para se manter competitiva e bem-sucedida em seu setor.
 
 Isso nos proporciona uma visão abrangente de como o projeto a ser desenvolvido para a "Prodan" afeta os diversos aspectos que compõem a sociedade ao nosso redor, especialmente por influenciar diretamente a cidade onde residimos.
+
+## Referências
+
+Referências utilizadas para a construção da análise:
+
+1. Poluição no ar mata 11 mil por ano em São Paulo. Disponível em: [pbmc.coppe.ufrj.br/index.php/pt/noticias/832-poluicao-no-ar-mata-11-mil-por-ano-em-sao-paulo](http://pbmc.coppe.ufrj.br/index.php/pt/noticias/832-poluicao-no-ar-mata-11-mil-por-ano-em-sao-paulo)
+
+2. Mercado de sensores. Disponível em: [proximonivel.embratel.com.br/mercado-de-sensores/](https://proximonivel.embratel.com.br/mercado-de-sensores/)
+
+3. Brasil tem condições de monitorar e combater desmatamento, afirmam especialistas. Disponível em: [www12.senado.leg.br/noticias/materias/2020/12/17/brasil-tem-condicoes-de-monitorar-e-combater-desmatamento-afirmam-especialistas](https://www12.senado.leg.br/noticias/materias/2020/12/17/brasil-tem-condicoes-de-monitorar-e-combater-desmatamento-afirmam-especialistas)
+
+4. Conselho Nacional do Meio Ambiente. Disponível em: [conama.mma.gov.br/component/content/article?id=91](https://conama.mma.gov.br/component/content/article?id=91)
+
+5. Plano de Controle de Poluição Veicular do Estado de São Paulo 2020-2022. Disponível em: [cetesb.sp.gov.br/veicular/wp-content/uploads/sites/6/2021/01/PCPV-Plano-de-Controle-de-Poluicao-Veicular-do-Estado-de-Sao-Paulo-2020-2022.pdf](https://cetesb.sp.gov.br/veicular/wp-content/uploads/sites/6/2021/01/PCPV-Plano-de-Controle-de-Poluicao-Veicular-do-Estado-de-Sao-Paulo-2020-2022.pdf)
+
+6. Financiamento à inovação. Disponível em: [finep.gov.br/finep-inovacao-finep-inovacao-e-pesquisa](http://www.finep.gov.br/finep-inovacao-finep-inovacao-e-pesquisa)
+
+7. Boas práticas para cidades sustentáveis. Disponível em: [cidadessustentaveis.org.br/institucional/participacao-cidada_boas-praticas](https://www.cidadessustentaveis.org.br/institucional/participacao-cidada_boas-praticas)
+
+8. Sete em cada dez paulistanos se informam sobre a qualidade do ar. Disponível em: [noticias.r7.com/sao-paulo/sete-em-cada-dez-paulistanos-se-informam-sobre-a-qualidade-do-ar-20092018](https://noticias.r7.com/sao-paulo/sete-em-cada-dez-paulistanos-se-informam-sobre-a-qualidade-do-ar-20092018)
+
+9. Prefeitura de São Paulo - Secretaria Municipal da Saúde. Disponível em: [prefeitura.sp.gov.br/cidade/secretarias/saude/noticias/?p=352547](https://www.prefeitura.sp.gov.br/cidade/secretarias/saude/noticias/?p=352547)
+
+10. Linhas de financiamento BNDES. Disponível em: [bndes.gov.br/SiteBNDES/bndes/bndes_pt/Galerias/Convivencia/Restauracao_Ecologica/linhas_financiamento.html](https://www.bndes.gov.br/SiteBNDES/bndes/bndes_pt/Galerias/Convivencia/Restauracao_Ecologica/linhas_financiamento.html)
+
+11. Programas e Linhas de Financiamento - FINEP. Disponível em: [finep.gov.br/afinep/28-apoio-e-financiamento/programas-e-linhas](http://finep.gov.br/afinep/28-apoio-e-financiamento/programas-e-linhas#:~:text=O%20Finep%20Mais%20Inova%C3%A7%C3%A3o%20%C3%A9,o%20Desenvolvimento%20Tecnol%C3%B3gico%20das%20Telecomunica%C3%A7%C3%B5es)
+
+12. Lei nº 13.709, de 14 de agosto de 2018. Disponível em: [planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm](https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm)
