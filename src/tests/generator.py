@@ -18,7 +18,7 @@ def generate_mock_sensor_value(min_value, max_value, resolution):
     return mock_sensor_value
 
 if len(sys.argv) != 6:
-    print("Usage: python generator.py <num_leituras> <resolucao> <min_valor> <max_valor>")
+    print("Usage: python generator.py <num_leituras> <resolucao> <min_valor> <max_valor> <filename>")
     sys.exit(1)
 
 # Extract command-line arguments
