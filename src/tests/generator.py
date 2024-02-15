@@ -17,8 +17,8 @@ def generate_mock_sensor_value(min_value, max_value, resolution):
     
     return mock_sensor_value
 
-if len(sys.argv) != 5:
-    print("Usage: python script.py <num_leituras> <resolucao> <min_valor> <max_valor>")
+if len(sys.argv) != 6:
+    print("Usage: python generator.py <num_leituras> <resolucao> <min_valor> <max_valor>")
     sys.exit(1)
 
 # Extract command-line arguments
@@ -27,7 +27,6 @@ resolucao = float(sys.argv[2])
 min_valor = float(sys.argv[3])
 max_valor = float(sys.argv[4])
 filename = str(sys.argv[5])
-
 
 print(num_leituras, resolucao, min_valor, max_valor)
 # Gerar leituras e escrever no arquivo CSV
