@@ -1,0 +1,9 @@
+pyproject.toml
+setup.cfg
+setup.py
+mqtt.egg-info/PKG-INFO
+mqtt.egg-info/SOURCES.txt
+mqtt.egg-info/dependency_links.txt
+mqtt.egg-info/not-zip-safe
+mqtt.egg-info/requires.txt
+mqtt.egg-info/top_level.txt

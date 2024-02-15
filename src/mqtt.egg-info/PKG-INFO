@@ -1,0 +1,17 @@
+Metadata-Version: 2.1
+Name: mqtt
+Version: 1.0
+Summary: SImulador de MQTT
+Home-page: https://inteli.edu
+Author: Elisa Flemer
+Author-email: elisa.flemer@sou.inteli.edu.br
+License: UNKNOWN
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+Provides-Extra: test
+
+UNKNOWN
+

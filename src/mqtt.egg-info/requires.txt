@@ -1,0 +1,10 @@
+importlib-metadata
+pydantic
+requests
+
+[test]
+flake8
+mypy
+pytest
+pytest-cov
+tox
