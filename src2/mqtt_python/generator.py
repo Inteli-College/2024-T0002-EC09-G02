@@ -2,23 +2,18 @@ import csv
 import random
 import sys
 
+
 def generate_mock_sensor_value(min_value, max_value, resolution):
-    # Calculate the range of possible values within the given min and max
     value_range = max_value - min_value
-    
-    # Calculate the number of possible steps within the range based on resolution
     num_steps = int(value_range / resolution)
-    
-    # Generate a random step within the range
     random_step = random.randint(0, num_steps)
-    
-    # Calculate the actual value based on the random step and resolution
     mock_sensor_value = min_value + random_step * resolution
-    
     return mock_sensor_value
 
+
 if len(sys.argv) != 6:
-    print("Usage: python generator.py <num_leituras> <resolucao> <min_valor> <max_valor> <filename>")
+    print('''Usage: python generator.py <num_leituras> <resolucao>
+          <min_valor> <max_valor> <filename>''')
     sys.exit(1)
 
 # Extract command-line arguments

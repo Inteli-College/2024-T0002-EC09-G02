@@ -7,3 +7,4 @@ mqtt.egg-info/dependency_links.txt
 mqtt.egg-info/not-zip-safe
 mqtt.egg-info/requires.txt
 mqtt.egg-info/top_level.txt
+tests/test_publisher.py
