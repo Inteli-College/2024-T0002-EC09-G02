@@ -16,7 +16,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: '~/src'
+        working-directory: 'src'
 
     steps:
       - uses: actions/checkout@v4
