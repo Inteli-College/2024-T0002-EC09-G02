@@ -1,5 +1,5 @@
 Metadata-Version: 2.1
-Name: mqtt_python
+Name: mqtt-python
 Version: 1.0
 Summary: SImulador de MQTT
 Home-page: https://inteli.edu
@@ -12,6 +12,8 @@ Description-Content-Type: text/markdown
 Requires-Dist: requests
 Requires-Dist: importlib-metadata
 Requires-Dist: pydantic
+Requires-Dist: paho-mqtt
+Requires-Dist: types-paho-mqtt
 Provides-Extra: test
 Requires-Dist: pytest; extra == "test"
 Requires-Dist: pytest-cov; extra == "test"

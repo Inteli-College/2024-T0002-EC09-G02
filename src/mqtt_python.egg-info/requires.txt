@@ -1,6 +1,8 @@
 requests
 importlib-metadata
 pydantic
+paho-mqtt
+types-paho-mqtt
 
 [test]
 pytest
