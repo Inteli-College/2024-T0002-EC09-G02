@@ -4,5 +4,5 @@
     "latitude": 55.0,
     "transmission_rate_hz": 100,
     "unit": "W/m²",
-    "QoS": 1
+    "qos": 1
 }
