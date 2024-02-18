@@ -1,5 +1,5 @@
 ---
-sidebar_position: 3
+sidebar_position: 5
 slug: '/sprint_1/arquitetura/simulador'
 label: "Primeiro simulador MQTT"
 ---
@@ -9,7 +9,7 @@ Durante a Sprint 1, o grupo desenvolveu a primeira versão do simulador MQTT, qu
 
 ## Diagrama de Blocos do Simulador MQTT - v1.0
 
-![alt text](<../../../static/img/Diagrama de blocos - MQTT.png>)
+![alt text](../../../static/img/Diagrama de blocos - MQTT.png)
 
 ## Testes e validações do simulador MQTT
 
