@@ -2,3 +2,8 @@
 env
 */env/*
 env/*
+.vscode/
+
+__pycache__/
+setup.cfg
+__init__.py
