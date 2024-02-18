@@ -11,4 +11,3 @@ resource "aws_vpc" "prod_vpc" {
     Name = "VPC_Arquitetura_Corp2"
   }
 }
-
