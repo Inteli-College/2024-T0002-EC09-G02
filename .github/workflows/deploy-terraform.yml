@@ -35,7 +35,7 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Download Terraform State files from S3
-        working-directory: infrastructure
+        working-directory: infrastructure/global
         run: |
           aws s3 cp s3://infrastructure-state-terraform/state-files/terraform.tfstate terraform.tfstate
           aws s3 cp s3://infrastructure-state-terraform/state-files/terraform.tfstate.backup terraform.tfstate.backup
@@ -45,7 +45,8 @@ jobs:
         uses: hashicorp/setup-terraform@v1
 
       - name: Terraform Init
-        run: cd infrastructure && terraform init
+        working-directory: infrastructure/global
+        run: terraform init
 
       - name: Check for Changes in 'infrastructure' folder
         run: |
@@ -57,10 +58,11 @@ jobs:
           fi
 
       - name: Terraform Plan e Terraform Apply
-        run: cd infrastructure && terraform plan -input=false -out=tfplan && terraform apply -auto-approve -input=false tfplan
+        working-directory: infrastructure/global
+        run: terraform plan -input=false -out=tfplan && terraform apply -auto-approve -input=false tfplan
 
       - name: Upload Terraform State files to S3
-        working-directory: infrastructure
+        working-directory: infrastructure/global
         run: |
           aws s3 cp terraform.tfstate s3://infrastructure-state-terraform/state-files/terraform.tfstate
           aws s3 cp terraform.tfstate.backup s3://infrastructure-state-terraform/state-files/terraform.tfstate.backup
