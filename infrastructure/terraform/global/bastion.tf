@@ -12,3 +12,4 @@ resource "aws_instance" "bastion_host" {
     Name = "Bastion_Host_Publica_ArqCorp"
   }
 }
+
