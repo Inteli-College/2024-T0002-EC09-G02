@@ -38,7 +38,7 @@ A organização operacional do projeto deu-se a partir dos pilares postulados pe
 
 **Apresentação de sprint review**
 
-[text](<../static/pdf/Grupo 2 Megamente - Sprint 1.pdf>)
+[Clique aqui!](<../static/pdf/Grupo 2 Megamente - Sprint 1.pdf>)
 
 
 ### Sprint 2: 

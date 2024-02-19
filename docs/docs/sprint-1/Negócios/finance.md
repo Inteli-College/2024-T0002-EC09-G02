@@ -20,12 +20,12 @@ Para a implementação do projeto, será necessário uma equipe composta por uma
 
 | Cargo     | Quantidade | Preço p/ Ano   | Preço p/ mês |
 |-----------|------------|----------------|--------------|
-| Juniors   | 1          | R$84,000.00    | R$7,000.00   |
-| Plenos    | 3          | R$468,000.00   | R$39,000.00  |
-| Seniors   | 1          | R$204,000.00   | R$17,000.00  |
-| Gerentes  | 1          | R$120,000.00   | R$10,000.00  |
-| QA        | 1          | R$180,000.00   | R$15,000.00  |
-| **Total** | **7**      | **R$1,056,000.00** | **R$88,000.00** |
+| Juniors   | 1          | R$84.000,00    | R$7.000,00   |
+| Plenos    | 3          | R$468.000,00   | R$39.000,00  |
+| Seniors   | 1          | R$204.000,00   | R$17.000,00  |
+| Gerentes  | 1          | R$120.000,00   | R$10.000,00  |
+| QA        | 1          | R$180.000,00   | R$15.000,00  |
+| **Total** | **7**      | **R$1.056.000,00** | **R$88.000,00** |
 
 ### Gastos com serviços Cloud
 
@@ -38,9 +38,9 @@ Este quadro apresenta um resumo dos custos anuais e mensais associados ao uso de
 | Amazon Elastic Container Registry   | $24.00         | $2.00        |
 | Amazon EC2                          | $659.52        | $54.96       |
 | Amazon VPC                          | $8,556.00      | $713.00      |
-| **Total em dólares**                | **$20,515.08** | **$1,709.59** |
-| **Total em reais**                  | **R$101,959.95** | **R$8,496.66** |
-| **Taxa de câmbio (Dólar para Real)**| **R$4.97**     |              |
+| **Total em dólares**                | **$20.515,08** | **$1.709,59** |
+| **Total em reais**                  | **R$101.959,95** | **R$8.496,66** |
+| **Taxa de câmbio (Dólar para Real)**| **R$4,97**     |              |
 
 ### Terceirização de serviços
 
@@ -48,11 +48,11 @@ Este quadro detalha os custos envolvidos em uma possível terceirização de ser
 
 | Descrição                | Preço por Ano   | Preço por Mês |
 |--------------------------|-----------------|---------------|
-| Serviço                  | R$600,000.00    | R$50,000.00   |
-| AWS                      | R$101,959.95    | R$8,496.66    |
-| **Total em reais**       | **R$701,959.95**| **R$58,496.66**|
-| **Lucro estimado**       | **R$498,040.05**| **R$41,503.34**|
-| **Imposto (20%)**        | **R$607,365.92**| Não aplicável |
+| Serviço                  | R$600.000,00    | R$50.000,00   |
+| AWS                      | R$101.959,95    | R$8.496,66    |
+| **Total em reais**       | **R$701.959,95**| **R$58.496,66**|
+| **Lucro estimado**       | **R$498.040,05**| **R$41.503,34**|
+| **Imposto (20%)**        | **R$607.365,92**| Não aplicável |
 
 ## Custo total do MVP
 
@@ -60,9 +60,9 @@ Para representar todos os gastos de forma resumida, este quadro apresenta uma vi
 
 | Item                   | Preço por Ano    | Preço por Mês  |
 |------------------------|------------------|----------------|
-| Equipe de Engenheiro   | R$1,056,000.00   | R$88,000.00    |
-| AWS                    | R$101,959.95     | R$8,496.66     |
-| Implementação          | R$1,157,959.95   | R$96,496.66    |
-| Manutenção do modelo   | R$355,000.00     | R$29,583.33    |
-| **Total em reais**     | **R$2,670,919.90** | **R$222,576.66**|
-| **Imposto (20%)**      | **R$3,205,103.88**| Não aplicável  |
+| Equipe de Engenheiro   | R$1.056.000,00   | R$88.000,00    |
+| AWS                    | R$101.959,95     | R$8.496,66     |
+| Implementação          | R$1.157.959,95   | R$96.496,66    |
+| Manutenção do modelo   | R$355.000,00     | R$29.583,33    |
+| **Total em reais**     | **R$2.670.919,90** | **R$222.576,66**|
+| **Imposto (20%)**      | **R$3.205.103,88**| Não aplicável  |
