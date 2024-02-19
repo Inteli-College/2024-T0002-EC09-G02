@@ -66,6 +66,7 @@ jobs:
       - name: Terraform Plan e Terraform Apply        
         working-directory: infrastructure/terraform/global
         run: terraform plan -input=false -out=tfplan && terraform apply -auto-approve -input=false tfplan
+        continue-on-error: true
 
       - name: Upload Terraform State files to S3
         working-directory: infrastructure/terraform/global
