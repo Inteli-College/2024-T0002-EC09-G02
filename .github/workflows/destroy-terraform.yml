@@ -51,7 +51,7 @@ jobs:
 
       - name: Terraform Destroy     
         working-directory: infrastructure/terraform/global
-        run: terraform plan -input=false -out=tfplan && terraform destroy -auto-approve -input=false tfplan
+        run: terraform destroy -auto-approve
         continue-on-error: true
 
       - name: Upload Terraform State files to S3
