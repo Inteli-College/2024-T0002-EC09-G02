@@ -11,6 +11,8 @@ Durante a Sprint 1, o grupo desenvolveu a primeira versão do simulador MQTT, qu
 
 ![alt text](<../../../static/img/Diagrama de blocos - MQTT.png>)
 
+O simulador atua nos primeiros dois blocos, gerando dados randomizados, representando os sensores, e publicando-os em tópicos segundo um padrão de nomenclatura. Nas próximas sprints, objetiva-se progredir na integração com o banco de dados e o dashboard.
+
 ## Funcionamento do simulador
 
 Utilizamos abstrações em arquivos .json e CSV para garantir a reutilização do código. O arquivo .json contém configurações como taxa de transmissão, tipo de sensor, região e unidade, enquanto o CSV armazena valores simulados do sensor. Esses arquivos são especificados como argumentos de linha de comando do publisher. 
