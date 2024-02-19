@@ -20,13 +20,11 @@ Em resumo, a elaboração dos Requisitos Funcionais, apresentados abaixo, result
 | 1   | Funcional | O dashboard deve oferecer a funcionalidade de exportar relatórios dos dados coletados em formato CSV, incluindo a filtragem por data, sensor e tipo de dados.|
 | 2   | Funcional | O sistema deve manter um armazenamento histórico das entradas de dados dos sensores, garantindo a retenção de dados por no mínimo 5 anos para facilitar análises retrospectivas e auditorias.|
 | 3   | Funcional | O sistema deve possuir a implementação de um módulo administrativo capaz de gerenciar usuários, configurar sensores, e controlar as permissões de acesso às informações, com logs de atividades para auditoria.|
-| 4   | Funcional | O dashboard deve possuir um módulo de visualização pública, disponibilizando informações atualizadas sobre condições marítimas, acessível sem necessidade de autenticação.|
-| 5   | Funcional | O dashboard deve integrar gráficos dinâmicos e interativos, como gráficos de linha, barra e mapa de calor, para aprimorar a compreensão das informações coletadas.|
-| 6   | Funcional | O sistema deve incluir um processo de normalização para os dados recebidos dos sensores, garantindo que estejam em um formato padrão e consistente antes de serem armazenados ou processados.|
-| 7   | Funcional | O sistema deve possuir a capacidade de integrar dados de sensores com sistemas externos e plataformas de terceiros via API, facilitando o compartilhamento e análise de dados em diferentes aplicações.|
-| 8   | Funcional | O sistema deve fornecer alertas em tempo real baseados em critérios pré-definidos (ex.: condições meteorológicas adversas, falhas de sensores), enviando notificações para os administradores e usuários relevantes.|
-| 9   | Funcional |O sistema deve possuir a funcionalidade de filtragem e pesquisa avançada que permitam aos usuários localizar rapidamente informações específicas baseadas em múltiplos critérios (ex.: data, tipo de sensor, localização).|
-| 10  | Funcional | A arquitetura do sistema deve possuir uma estratégia de backup e recuperação para garantir a integridade e disponibilidade dos dados históricos em caso de falha de sistema ou desastres.|
+| 4  | Funcional | O sistema deve incluir um processo de normalização para os dados recebidos dos sensores, garantindo que estejam em um formato padrão e consistente antes de serem armazenados ou processados.|
+| 5   | Funcional | O sistema deve possuir a capacidade de integrar dados de sensores com sistemas externos e plataformas de terceiros via API, facilitando o compartilhamento e análise de dados em diferentes aplicações.|
+| 6   | Funcional | O sistema deve fornecer alertas em tempo real baseados em critérios pré-definidos (ex.: condições meteorológicas adversas, falhas de sensores), enviando notificações para os administradores e usuários relevantes.|
+| 7   | Funcional |O sistema deve possuir a funcionalidade de filtragem e pesquisa avançada que permitam aos usuários localizar rapidamente informações específicas baseadas em múltiplos critérios (ex.: data, tipo de sensor, localização).|
+| 8  | Funcional | A arquitetura do sistema deve possuir uma estratégia de backup e recuperação para garantir a integridade e disponibilidade dos dados históricos em caso de falha de sistema ou desastres.|
 
 ## Planejamento de Validação dos Requisitos
 

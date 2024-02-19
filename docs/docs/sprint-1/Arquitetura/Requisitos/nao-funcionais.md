@@ -22,14 +22,13 @@ Resumindo, a formulação dos Requisitos Não Funcionais, apresentados a seguir,
 | --- | ------------- | --------- |
 | 1   | Não-funcional | O sistema deve ser capaz de receber os dados enviados pelos 3 sensores lidando com mais de 100 mil requisições |
 | 2   | Não-funcional | O sistema deve ser capaz de armazenar esses dados de forma que qualquer consulta não tome mais que 10 segundos|
-| 3   | Não-funcional | O sistema deve permitir monitoramento em tempo real notificando problemas em menos de 1 hora  |
+| 3   | Não-funcional | O sistema deve permitir monitoramento em tempo real notificando problemas em menos de 1 minuto  |
 | 4   | Não-funcional | A aplicação deve gerar pelo menos 3 dashboards validados pelo parceiro|
-| 5   | Não-funcional | O sistema deve emitir notificações e alertas sobre disastres ambientais em menos de 1 hora|
+| 5   | Não-funcional | O sistema deve emitir notificações e alertas sobre disastres ambientais em menos de 10 minutos|
 | 6   | Não-funcional | Os dados devem ser disponibilizados em uma plataforma pública que aguente mais de mil acessos|
-| 7   | Não-funcional | A aplicação deve ser capaz de parar o robô em menos de 10 segundo após a solicitação |
-| 8   | Não-funcional | Os dados devem ser coletados em tempo real com menos de 10 segundos de delay de envio|
-| 9   | Não-funcional | O sistema deve aguentar grande volumetria de dados sendo capaz de armazenar mais 4 anos de dados|
-| 10  | Não-funcional | O sistema deve tratar os dados em menos de 10 segundos|
+| 7  | Não-funcional | Os dados devem ser coletados em tempo real com menos de 10 segundos de delay de envio|
+| 8   | Não-funcional | O sistema deve aguentar grande volumetria de dados sendo capaz de armazenar mais 4 anos de dados|
+| 9  | Não-funcional | O sistema deve tratar os dados em menos de 10 segundos|
 
 </div>
 
