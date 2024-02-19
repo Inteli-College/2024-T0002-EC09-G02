@@ -63,7 +63,7 @@ def test_message_reception():
 
 
 def test_message_integrity():
-    setup_test()  # Assuming setup_test() is defined elsewhere
+    setup_test()  
     decoded_messages = []
     for msg in received_messages:
         m = json.loads(msg)
@@ -74,7 +74,7 @@ def test_message_integrity():
 
 
 def test_transmission_rate():
-    setup_test()  # Assuming setup_test() is defined elsewhere
+    setup_test()  
     print(first_message_timestamp, last_message_timestamp)
     time_period = timedelta(
         seconds=(last_message_timestamp - first_message_timestamp)
