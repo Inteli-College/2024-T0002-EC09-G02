@@ -80,7 +80,7 @@ A comunicação com as secretarias deve ser conduzida com maior formalidade, dad
 
 Dentre os canais utilizados, reuniões presenciais e online seriam úteis para estabelecer um contato direto com as secretarias e validar a plataforma de acordo com o público-alvo principal, recebendo feedback de um grupo menor e mais controlado. Além disso, a divulgação por meio de canais internos seria a mais eficaz com as secretarias, uma vez que estão inseridas no mesmo contexto dos desenvolvedores da nova plataforma. Canais como a intranet e o email institucional são úteis nesse sentido.
 
-#### Secreterias
+#### Cidadãos
 
 Já com os cidadãos, a forma mais efetiva seria divulgar em canais mais acessados pela população em geral. Redes sociais, como TikTok e Instagram, programas de televisão e divulgações em meios de transporte público são parte integrante da rotina dos moradores de São Paulo.
 
