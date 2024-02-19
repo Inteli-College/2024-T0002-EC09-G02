@@ -1,6 +1,6 @@
 resource "aws_eks_cluster" "eks_prod" {
   name     = "eks-prod"
-  role_arn = "arn:aws:iam::916589015610:role/LabRole"
+  role_arn = "arn:aws:iam::992382595225:role/LabRole"
 
   version = "1.27"
 
