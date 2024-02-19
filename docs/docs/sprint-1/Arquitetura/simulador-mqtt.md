@@ -9,7 +9,7 @@ Durante a Sprint 1, o grupo desenvolveu a primeira versão do simulador MQTT, qu
 
 ## Diagrama de Blocos do Simulador MQTT - v1.0
 
-[text](simulador-mqtt.md)
+![alt text](<../../../static/img/Diagrama de blocos - MQTT.png>)
 
 ## Funcionamento do simulador
 
