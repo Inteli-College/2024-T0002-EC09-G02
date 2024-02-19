@@ -9,17 +9,17 @@ label: "Análise de mercado"
 
 # TAM-SAM-SOM
 
-A análise de mercado TAM SAM SOM é uma ferramenta utilizada no campo do marketing e estratégia empresarial para compreender o potencial de um determinado mercado. Vamos nos aprofundar em cada sigla:
-TAM (Total Addressable Market): Refere-se ao tamanho total do mercado, ou seja, a totalidade de todas as oportunidades de vendas disponíveis para um produto ou serviço, sem levar em consideração a concorrência.<br/>
-SAM (Serviceable Addressable Market): É a porção do mercado que é atendida ou pode ser atendida pelos produtos ou serviços de uma empresa. Isso considera fatores como localização geográfica, capacidade de produção, canais de distribuição, entre outros.<br/>
-SOM (Serviceable Obtainable Market): É a parcela do mercado que uma empresa ou produto específico realmente possui ou pretende capturar. Essencialmente, é a fatia de mercado que a empresa espera conquistar com seus produtos ou serviços.
+A análise de mercado TAM SAM SOM é uma ferramenta utilizada no campo do marketing e estratégia empresarial para compreender o potencial de um determinado mercado. Vamos nos aprofundar em cada sigla:<br/>
+*TAM (Total Addressable Market)*: Refere-se ao tamanho total do mercado, ou seja, a totalidade de todas as oportunidades de vendas disponíveis para um produto ou serviço, sem levar em consideração a concorrência.<br/>
+*SAM (Serviceable Addressable Market)*: É a porção do mercado que é atendida ou pode ser atendida pelos produtos ou serviços de uma empresa. Isso considera fatores como localização geográfica, capacidade de produção, canais de distribuição, entre outros.<br/>
+*SOM (Serviceable Obtainable Market)*: É a parcela do mercado que uma empresa ou produto específico realmente possui ou pretende capturar. Essencialmente, é a fatia de mercado que a empresa espera conquistar com seus produtos ou serviços.
 
 A análise TAM SAM SOM é crucial para ajudar as empresas a identificar oportunidades de crescimento, entender a concorrência e definir estratégias de marketing e expansão. Ao analisar esses três aspectos do mercado, as empresas podem segmentar melhor seus esforços, direcionando recursos de forma mais eficaz e maximizando seu potencial de sucesso.
 Para podermos entender o potencial financeiro do mercado e a relação dele com o nosso produto, primeiro precisamos estimar um preço de venda. Para isso, utilizaremos a técnica de precificação conhecida como "Markup".<br/>
 Segundo nossa análise financeira, o custo total do projeto é de aproximadamente R$3,205,103.88. Nossa margem de lucro desejada inicialmente será de 20%. Ou seja:<br/>
 Preço de Venda Anual = Custo Total / (1 - Margem de Lucro)<br/>
 R$3,205,103.88 / (1 - 0.20) = R$3,205,103.88 / 0.80 ≈ R$4,006,379.85<br/>
-Preço de Venda Mensal = R$333.864,98
+Preço de Venda Mensal = **R$333.864,98**
 
 
 
