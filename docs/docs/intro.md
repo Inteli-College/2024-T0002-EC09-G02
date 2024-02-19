@@ -36,6 +36,11 @@ A organização operacional do projeto deu-se a partir dos pilares postulados pe
 - Compreensão detalhada da experiência do usuário no contexto do projeto.
 - Desenvolvimento da arquitetura do sistema, incorporando requisitos de forma coerente.
 
+**Apresentação de sprint review**
+
+[Clique aqui!](<../static/pdf/Grupo 2 Megamente - Sprint 1.pdf>)
+
+
 ### Sprint 2: 
 <img src="https://i.redd.it/q0dd3k02unqb1.gif" alt="Boot process" style={{ display: 'block', marginLeft: 'auto', maxHeight: '30vh', marginRight: 'auto' }} />
 

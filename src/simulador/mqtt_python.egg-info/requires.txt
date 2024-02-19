@@ -1,0 +1,12 @@
+requests
+importlib-metadata
+pydantic
+paho-mqtt
+types-paho-mqtt
+
+[test]
+pytest
+pytest-cov
+mypy
+flake8
+tox

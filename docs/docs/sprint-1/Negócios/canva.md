@@ -8,7 +8,7 @@ label: "Canva"
 
 O Canvas de Proposta de Valor é uma ferramenta estratégica que auxilia as empresas a definirem e comunicarem de forma clara o valor que oferecem aos seus clientes. Ele permite identificar as principais tarefas, dores, aliviadores de dor, proposta de valor, criadores de ganho e ganhos que a empresa proporciona aos seus clientes, facilitando o desenvolvimento de estratégias eficazes para atender às necessidades do mercado.
 
-![alt text](../../../static/canvas.png)
+![alt text](../../../static/img/canvas.png)
 
 **Tarefas do Cliente (PRODAM):**
 - *Posicionar-se como agente de inovação:* Ao utilizar uma plataforma de monitoramento avançada, a PRODAM se posiciona como líder em inovação, oferecendo soluções tecnológicas de ponta para a gestão urbana.
