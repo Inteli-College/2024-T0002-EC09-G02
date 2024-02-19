@@ -21,7 +21,7 @@ resource "aws_eks_cluster" "eks_prod" {
 resource "aws_eks_node_group" "eks_prod_ng" {
   cluster_name = aws_eks_cluster.eks_prod.name
   node_group_name = "eks-prod-ng"
-  node_role_arn = "arn:aws:iam::916589015610:role/LabRole"
+  node_role_arn = "arn:aws:iam::992382595225:role/LabRole"
   subnet_ids = [ aws_subnet.public_subnet_az1.id, aws_subnet.public_subnet_az2.id, aws_subnet.private_subnet_az1.id, aws_subnet.private_subnet_az2.id ]
 
   scaling_config {
