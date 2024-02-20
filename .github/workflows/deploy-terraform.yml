@@ -56,7 +56,7 @@ jobs:
 
       - name: Check for Changes in 'infrastructure' folder
         run: |
-          if git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep -q '^infrastructure/'; then
+          if git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep -q '^infrastructure/terraform/global/'; then
             echo "Alterações encontradas na pasta 'infrastructure'. Executando Terraform Plan."
           else
             echo "Nenhuma alteração na pasta 'infrastructure'. Ignorando o Terraform Plan."
