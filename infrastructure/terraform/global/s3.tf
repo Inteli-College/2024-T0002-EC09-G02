@@ -1,5 +1,6 @@
 resource "aws_s3_bucket" "infrastructure_state_terraform" {
   bucket_prefix = "infrastructure-state-terraform"
+  object_ownership = "BucketOwnerEnforced"
   acl    = "public-read"
 
   versioning {
