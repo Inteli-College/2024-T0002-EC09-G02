@@ -2,6 +2,17 @@
 # stop script on error
 set -e
 
+if [ "$#" -ne 2 ]; then
+    echo "Usage: $0 <config_path> <csv_path>"
+    exit 1
+fi
+
+# Get absolute path for config file
+config_path="$(readlink -f "$1")"
+
+# Get absolute path for CSV file
+csv_path="$(readlink -f "$2")"
+
 # Check for python 3
 if ! python3 --version &> /dev/null; then
   printf "\nERROR: python3 must be installed.\n"
@@ -33,4 +44,4 @@ fi
 
 # run pub/sub sample app using certificates downloaded in package
 printf "\nRunning pub/sub sample application...\n"
-python3 src/publisher.py --endpoint a3ru784j6s0pfl-ats.iot.us-east-1.amazonaws.com --ca_file root-CA.crt --cert solar_radiation_sensor.cert.pem --key solar_radiation_sensor.private.key --client_id basicPubSub --topic sdk/test/python --count 0
+python3 src/publisher.py --config_path "$config_path" --csv_path "$csv_path" --endpoint a3ru784j6s0pfl-ats.iot.us-east-1.amazonaws.com --ca_file root-CA.crt --cert solar_radiation_sensor.cert.pem --key solar_radiation_sensor.private.key --client_id basicPubSub --topic sdk/test/python --count 0
