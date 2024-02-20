@@ -16,6 +16,7 @@ env:
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
   AWS_REGION: ${{ secrets.AWS_REGION }}
+  BUCKET_TERRAFORM_STATE: ${{ secrets.BUCKET_TERRAFORM_STATE }}
 
 jobs:
   terraform:
@@ -43,8 +44,8 @@ jobs:
       - name: Download Terraform State files from S3
         working-directory: infrastructure/terraform/global
         run: |
-          aws s3 cp s3://infrastructure-state-terraform/state-files/terraform.tfstate terraform.tfstate
-          aws s3 cp s3://infrastructure-state-terraform/state-files/terraform.tfstate.backup terraform.tfstate.backup
+          aws s3 cp s3://${{env.BUCKET_TERRAFORM_STATE}}/state-files/terraform.tfstate terraform.tfstate
+          aws s3 cp s3://${{env.BUCKET_TERRAFORM_STATE}}/state-files/terraform.tfstate.backup terraform.tfstate.backup
         continue-on-error: true
 
       - name: Setup Terraform
@@ -71,5 +72,5 @@ jobs:
       - name: Upload Terraform State files to S3
         working-directory: infrastructure/terraform/global
         run: |
-          aws s3 cp terraform.tfstate s3://infrastructure-state-terraform/state-files/terraform.tfstate
-          aws s3 cp terraform.tfstate.backup s3://infrastructure-state-terraform/state-files/terraform.tfstate.backup
+          aws s3 cp terraform.tfstate s3://${{env.BUCKET_TERRAFORM_STATE}}/state-files/terraform.tfstate
+          aws s3 cp terraform.tfstate.backup s3://${{env.BUCKET_TERRAFORM_STATE}}/state-files/terraform.tfstate.backup
