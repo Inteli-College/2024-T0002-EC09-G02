@@ -1,4 +1,4 @@
-name: "Terraform - Down Infrastructure"
+name: "Terraform - Up S3 State"
 
 on:
   workflow_dispatch:
@@ -36,27 +36,20 @@ jobs:
           aws-session-token: ${{ env.AWS_SESSION_TOKEN }}
           aws-region: ${{ env.AWS_REGION }}
 
-      - name: Download Terraform State files from S3
-        working-directory: infrastructure/terraform/global
-        run: |
-          aws s3 cp s3://${{env.BUCKET_TERRAFORM_STATE}}/state-files/terraform.tfstate terraform.tfstate
-          aws s3 cp s3://${{env.BUCKET_TERRAFORM_STATE}}/state-files/terraform.tfstate.backup terraform.tfstate.backup
-        continue-on-error: true
-
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
 
       - name: Terraform Init
-        working-directory: infrastructure/terraform/global
+        working-directory: infrastructure/terraform/s3-state
         run: terraform init
 
-      - name: Terraform Destroy     
-        working-directory: infrastructure/terraform/global
-        run: terraform destroy -auto-approve
+      - name: Terraform Plan e Terraform Apply        
+        working-directory: infrastructure/terraform/s3-state
+        run: terraform plan -input=false -out=tfplan && terraform apply -auto-approve -input=false tfplan
         continue-on-error: true
 
       - name: Upload Terraform State files to S3
-        working-directory: infrastructure/terraform/global
+        working-directory: infrastructure/terraform/s3-state
         run: |
           aws s3 cp terraform.tfstate s3://${{env.BUCKET_TERRAFORM_STATE}}/state-files/terraform.tfstate
           aws s3 cp terraform.tfstate.backup s3://${{env.BUCKET_TERRAFORM_STATE}}/state-files/terraform.tfstate.backup
