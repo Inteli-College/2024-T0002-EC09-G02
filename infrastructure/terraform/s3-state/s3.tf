@@ -1,6 +1,10 @@
 resource "aws_s3_bucket" "infrastructure_state_terraform" {
   bucket_prefix = "infrastructure-state-terraform"
 
+  versioning {
+    enabled = true
+  }
+  
   cors_rule {
     allowed_headers = ["*"]
     allowed_methods = ["GET", "PUT", "POST", "DELETE", "HEAD"]
