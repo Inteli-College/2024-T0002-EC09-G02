@@ -143,6 +143,19 @@ class CommandLineUtils:
             "Port of the http proxy to use (optional, default='8080')",
             type=int,
             default=8080)
+        
+    def add_simulator_commands(self):
+        self.register_command(
+            CommandLineUtils.m_cmd_config_path,
+            "<str>",
+            "The config_path to use (mandatory, default='config.json')",
+            default="config.json")
+        
+        self.register_command(
+            CommandLineUtils.m_cmd_csv_path,
+            "<str>",
+            "The csv_path to use (mandatory, default='data.csv')",
+            default="data.csv")
 
     def add_common_topic_message_commands(self):
         self.register_command(
@@ -312,6 +325,7 @@ class CommandLineUtils:
         cmdUtils = CommandLineUtils("Basic Connect - Make a MQTT connection.")
         cmdUtils.add_common_mqtt_commands()
         cmdUtils.add_common_proxy_commands()
+        cmdUtils.add_simulator_commands()
         cmdUtils.add_common_logging_commands()
         cmdUtils.add_common_key_cert_commands()
         cmdUtils.register_command(CommandLineUtils.m_cmd_port, "<int>",
@@ -334,6 +348,8 @@ class CommandLineUtils:
         cmdData.input_proxy_host = cmdUtils.get_command(CommandLineUtils.m_cmd_proxy_host)
         cmdData.input_proxy_port = int(cmdUtils.get_command(CommandLineUtils.m_cmd_proxy_port))
         cmdData.input_is_ci = cmdUtils.get_command(CommandLineUtils.m_cmd_is_ci, None) != None
+        cmdData.config_path = cmdUtils.get_command_required(CommandLineUtils.m_cmd_config_path)
+        cmdData.csv_path = cmdUtils.get_command_required(CommandLineUtils.m_cmd_csv_path)
         return cmdData
 
     def parse_sample_input_basic_discovery():
@@ -699,6 +715,7 @@ class CommandLineUtils:
     def parse_sample_input_pubsub():
         cmdUtils = CommandLineUtils("PubSub - Send and receive messages through an MQTT connection.")
         cmdUtils.add_common_mqtt_commands()
+        cmdUtils.add_simulator_commands()
         cmdUtils.add_common_topic_message_commands()
         cmdUtils.add_common_proxy_commands()
         cmdUtils.add_common_logging_commands()
@@ -721,6 +738,8 @@ class CommandLineUtils:
         cmdData.parse_input_topic(cmdUtils)
         cmdData.input_count = int(cmdUtils.get_command(CommandLineUtils.m_cmd_count, 10))
         cmdData.input_is_ci = cmdUtils.get_command(CommandLineUtils.m_cmd_is_ci, None) != None
+        cmdData.config_path = cmdUtils.get_command_required(CommandLineUtils.m_cmd_config_path)
+        cmdData.csv_path = cmdUtils.get_command_required(CommandLineUtils.m_cmd_csv_path)
         return cmdData
 
     def parse_sample_input_shadow():
@@ -837,6 +856,7 @@ class CommandLineUtils:
         # Parse arguments
         cmdUtils = CommandLineUtils("PKCS12 Connect - Make a MQTT connection.")
         cmdUtils.add_common_mqtt_commands()
+        cmdUtils.add_simulator_commands()
         cmdUtils.add_common_proxy_commands()
         cmdUtils.add_common_logging_commands()
         cmdUtils.register_command(CommandLineUtils.m_cmd_pkcs12_file, "<path>",
@@ -863,6 +883,8 @@ class CommandLineUtils:
         cmdData.input_proxy_host = cmdUtils.get_command(CommandLineUtils.m_cmd_proxy_host)
         cmdData.input_proxy_port = int(cmdUtils.get_command(CommandLineUtils.m_cmd_proxy_port))
         cmdData.input_is_ci = cmdUtils.get_command(CommandLineUtils.m_cmd_is_ci, None) != None
+        cmdData.config_path = cmdUtils.get_command(CommandLineUtils.m_cmd_config_path, None)
+        cmdData.csv_path = cmdUtils.get_command(CommandLineUtils.m_cmd_csv_path, None)
         return cmdData
 
 
@@ -920,3 +942,5 @@ class CommandLineUtils:
     m_cmd_session_token = "session_token"
     m_cmd_secret_access_key = "secret_access_key"
     m_cmd_access_key_id = "access_key_id"
+    m_cmd_config_path = "config_path"
+    m_cmd_csv_path = "csv_path"

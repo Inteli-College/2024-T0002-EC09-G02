@@ -9,6 +9,59 @@ import time
 import json
 from utils.command_line_utils import CommandLineUtils
 
+class Configuration:
+    def __init__(self, unit, transmission_rate_hz,
+                 region, sensor, qos):
+        self.unit = unit
+        self.transmission_rate_hz = transmission_rate_hz
+        self.region = region
+        self.sensor = sensor
+        self.qos = qos
+
+
+class Data:
+    def __init__(self, value, unit, transmission_rate_hz, region,
+                 sensor, timestamp, qos):
+        self.value = value
+        self.unit = unit
+        self.transmission_rate_hz = transmission_rate_hz
+        self.region = region
+        self.sensor = sensor
+        self.timestamp = timestamp
+        self.qos = qos
+
+
+def read_config(filename):
+    with open(filename, 'r') as file:
+        config_json = json.load(file)
+        config = Configuration(**config_json)
+    return config
+
+
+def read_csv(path):
+    with open(path, 'r') as csv:
+        data = [float(line.strip()) for line in csv]
+    return data
+
+
+def connect_mqtt(node_name):
+    client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2, node_name)
+    try:
+        client.connect("localhost", 1891, 60)
+        return client
+    except Exception:
+        print("Erro ao conectar-se ao servidor MQTT")
+        client.disconnect()
+        return None
+
+
+def create_json_message(config, rounded_value):
+    timestamp = time.time()
+    data = Data(rounded_value, config.unit, config.transmission_rate_hz,
+                config.region, config.sensor,
+                timestamp, config.qos)
+    return data.__dict__
+
 # This sample uses the Message Broker for AWS IoT to send and receive messages
 # through an MQTT connection. On startup, the device connects to the server,
 # subscribes to a topic, and begins publishing messages to that topic.
@@ -18,6 +71,7 @@ from utils.command_line_utils import CommandLineUtils
 # cmdData is the arguments/input from the command line placed into a single struct for
 # use in this sample. This handles all of the command line parsing, validating, etc.
 # See the Utils/CommandLineUtils for more information.
+
 cmdData = CommandLineUtils.parse_sample_input_pubsub()
 
 received_count = 0
@@ -105,11 +159,13 @@ if __name__ == '__main__':
 
     # Future.result() waits until a result is available
     connect_future.result()
-    print("Connected!")
 
     message_count = cmdData.input_count
     message_topic = cmdData.input_topic
     message_string = cmdData.input_message
+
+    config = read_config(cmdData.config_path)
+    data = read_csv(cmdData.csv_path)
 
     # Subscribe
     print("Subscribing to topic '{}'...".format(message_topic))
@@ -121,34 +177,18 @@ if __name__ == '__main__':
     subscribe_result = subscribe_future.result()
     print("Subscribed with {}".format(str(subscribe_result['qos'])))
 
-    # Publish message to server desired number of times.
-    # This step is skipped if message is blank.
-    # This step loops forever if count was set to 0.
-    if message_string:
-        if message_count == 0:
-            print("Sending messages until program killed")
-        else:
-            print("Sending {} message(s)".format(message_count))
-
-        publish_count = 1
-        while (publish_count <= message_count) or (message_count == 0):
-            message = "{} [{}]".format(message_string, publish_count)
-            print("Publishing message to topic '{}': {}".format(message_topic, message))
-            message_json = json.dumps(message)
-            mqtt_connection.publish(
+    interval = 1/config.transmission_rate_hz
+    for value in data:
+        rounded_value = round(value, 2)
+        
+        message = create_json_message(config, rounded_value)
+        message = json.dumps(message)
+        mqtt_connection.publish(
                 topic=message_topic,
-                payload=message_json,
+                payload=message,
                 qos=mqtt.QoS.AT_LEAST_ONCE)
-            time.sleep(1)
-            publish_count += 1
 
-    # Wait for all messages to be received.
-    # This waits forever if count was set to 0.
-    if message_count != 0 and not received_all_event.is_set():
-        print("Waiting for all messages to be received...")
-
-    received_all_event.wait()
-    print("{} message(s) received.".format(received_count))
+        time.sleep(interval)
 
     # Disconnect
     print("Disconnecting...")
