@@ -452,7 +452,7 @@ resource "aws_iot_policy" "east_thing_policy" {
 }
 
 resource "aws_iot_policy" "test_thing_policy" {
-  name = "thingpolicy_${aws_iot_thing.sensor_test_thing.name}"
+  name = "thingpolicy_${aws_iot_thing.sensor_test_thing.name}_test"
   policy = jsonencode(
     {
       "Version" : "2012-10-17",

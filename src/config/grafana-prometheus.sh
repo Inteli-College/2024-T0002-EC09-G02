@@ -21,7 +21,7 @@ curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/d
   
 sudo mv /tmp/eksctl /usr/local/bin
   
-eksctl create addon --name aws-ebs-csi-driver --cluster eks-prod --service-account-role-arn arn:aws:iam::767397878164:role/LabRole_EBS_CSI_DriverRole --force
+eksctl create addon --name aws-ebs-csi-driver --cluster eks-prod --service-account-role-arn arn:aws:iam::975050195533:role/LabRole_EBS_CSI_DriverRole --force
   
 ## install helm 3 cli
 curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
