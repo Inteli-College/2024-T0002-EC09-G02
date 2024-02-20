@@ -1,8 +1,5 @@
 resource "aws_s3_bucket" "infrastructure_state_terraform" {
   bucket_prefix = "infrastructure-state-terraform"
-  object_ownership = "BucketOwnerEnforced"
-  acl    = "public-read"
-
   versioning {
     enabled = true
   }
@@ -19,7 +16,6 @@ resource "aws_s3_bucket" "infrastructure_state_terraform" {
 resource "aws_s3_bucket_object" "infrastructure_state_terraform_folder" {
   bucket = aws_s3_bucket.infrastructure_state_terraform.bucket
   key    = "state-files/"
-  acl    = "public-read"
   content_type = "application/x-directory"
 }
 
@@ -47,4 +43,30 @@ resource "aws_s3_bucket_policy" "public_access" {
         }
     ]
   })
+}
+
+resource "aws_s3_bucket_ownership_controls" "infrastructure_state_terraform_oc" {
+  bucket = aws_s3_bucket.infrastructure_state_terraform.id
+  rule {
+    object_ownership = "BucketOwnerPreferred"
+  }
+}
+
+resource "aws_s3_bucket_public_access_block" "infrastructure_state_terraform" {
+  bucket = aws_s3_bucket.infrastructure_state_terraform.id
+
+  block_public_acls       = false
+  block_public_policy     = false
+  ignore_public_acls      = false
+  restrict_public_buckets = false
+}
+
+resource "aws_s3_bucket_acl" "infrastructure_state_terraform_acl" {
+  depends_on = [
+    aws_s3_bucket_ownership_controls.infrastructure_state_terraform_oc,
+    aws_s3_bucket_public_access_block.infrastructure_state_terraform,
+  ]
+
+  bucket = aws_s3_bucket.infrastructure_state_terraform.id
+  acl    = "public-read"
 }
