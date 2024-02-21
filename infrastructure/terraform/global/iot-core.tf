@@ -1,6 +1,6 @@
 # Create an IoT Thing
 resource "aws_iot_thing" "sensor_north_particle_thing" {
-  name = "Sensor North Particle IoT Thing"
+  name = "SensorNorthParticleIoTThing"
 }
 
 # IoT policy to allow publishing to DynamoDB
