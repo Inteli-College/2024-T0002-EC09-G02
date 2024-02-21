@@ -83,6 +83,7 @@ resource "aws_iot_topic_rule" "example_rule" {
   enabled     = true
 
   sql = "SELECT * FROM 'sensor_north_particle'"
+  sql_version = "2016-03-23"
 
   dynamodbv2 {
     role_arn = aws_iam_role.iot_dynamodb_role.arn
