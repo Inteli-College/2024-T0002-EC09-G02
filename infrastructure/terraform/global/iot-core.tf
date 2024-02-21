@@ -25,11 +25,6 @@ resource "aws_iot_policy" "publish_policy" {
 EOF
 }
 
-# Attach policy to the IoT Thing
-resource "aws_iot_policy_attachment" "iot_policy_attachment" {
-  policy = aws_iot_policy.publish_policy.name
-  target = aws_iot_thing.sensor_north_particle_thing.arn
-}
 
 # Role for IoT to interact with DynamoDB
 resource "aws_iam_role" "iot_dynamodb_role" {
