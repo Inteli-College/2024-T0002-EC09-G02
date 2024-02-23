@@ -7,90 +7,102 @@ resource "aws_iot_thing" "sensor_west_particle_thing" {
   name = "SensorWestParticleIoTThing"
 }
 
-data "aws_iam_policy_document" "policy_document" {
-  statement {
-    effect    = "Allow"
-    actions   = [
-      "iot:Connect",
-      "iot:Publish",
-      "iot:Receive",
-      "iot:Subscribe"
-    ]
-    resources = ["*"]
-    sid       = "AllowAllIotActions"
-  }
+resource "tls_private_key" "north_key" {
+  algorithm = "RSA"
+  rsa_bits  = 2048
+}
 
-  statement {
-    effect    = "Allow"
-    actions   = ["dynamodb:PutItem"]
-    resources = [var.dynamodb_arn]
-    sid       = "AllowDynamoDBPutItemOnAnyTable"
+resource "tls_self_signed_cert" "north_signed_cert" {
+  private_key_pem = tls_private_key.north_key.private_key_pem
+
+  validity_period_hours = 87600
+
+  allowed_uses = []
+
+  subject {
+    organization = "test"
   }
 }
 
-# IoT policy to allow publishing to DynamoDB
-resource "aws_iot_policy" "policy_document" {
-  name   = "policy_all"
-  policy = data.aws_iam_policy_document.policy_document.json
+resource "aws_iot_certificate" "north_cert" {
+  certificate_pem = trimspace(tls_self_signed_cert.north_signed_cert.cert_pem)
+  active          = true
 }
 
-resource "aws_iot_certificate" "north_certificate" {
-  active = true
+resource "aws_iot_thing_principal_attachment" "attachment" {
+  principal = aws_iot_certificate.north_cert.arn
+  thing     = aws_iot_thing.sensor_north_particle_thing.name
 }
 
-resource "aws_iot_certificate" "west_certificate" {
-  active = true
+output "cert" {
+  value = tls_self_signed_cert.north_signed_cert.cert_pem
 }
 
-resource "aws_iot_policy_attachment" "north_policy_attachment" {
-  policy = aws_iot_policy.policy_document.name
-  target = aws_iot_certificate.north_certificate.arn
+output "key" {
+  value     = tls_private_key.north_key.private_key_pem
+  sensitive = true
 }
 
-resource "aws_iot_policy_attachment" "west_policy_attachment" {
-  policy = aws_iot_policy.policy_document.name
-  target = aws_iot_certificate.west_certificate.arn
+data "aws_arn" "north_thing_arn" {
+  arn = aws_iot_thing.sensor_north_particle_thing.arn
 }
 
-resource "aws_iot_thing_principal_attachment" "iot_thing_principal_attachment_north" {
-  thing = aws_iot_thing.sensor_north_particle_thing.name
-  principal  = aws_iot_certificate.north_certificate.arn
-}
+resource "aws_iot_policy" "north_thing_policy" {
+  name = "thingpolicy_${aws_iot_thing.sensor_north_particle_thing.name}"
 
-resource "aws_iot_thing_principal_attachment" "iot_thing_principal_attachment_west" {
-  thing    = aws_iot_thing.sensor_west_particle_thing.name
-  principal = aws_iot_certificate.west_certificate.arn
-}
-
-# Rule to send data from IoT Core to DynamoDB
-resource "aws_iot_topic_rule" "sensor_west_particle_to_dynamodb_rule" {
-  name        = "SensorWestParticleToDynamoDBRule"
-  description = "IoT rule to insert data into DynamoDB"
-  enabled     = true
-
-  sql         = "SELECT * FROM '/sensor/west/particle'"
-  sql_version = "2016-03-23"
-
-  dynamodbv2 {
-    role_arn = var.lab_role
-    put_item {
-      table_name = "sensor_west_particle"
+  policy = jsonencode(
+    {
+      "Version" : "2012-10-17",
+      "Statement" : [
+        {
+          "Effect" : "Allow",
+          "Action" : [
+            "iot:Publish",
+            "iot:Receive",
+            "iot:PublishRetain"
+          ],
+          "Resource" : "arn:aws:iot:${data.aws_arn.north_thing_arn.region}:${data.aws_arn.north_thing_arn.account}:topic/*"
+        },
+        {
+          "Effect" : "Allow",
+          "Action" : "iot:Subscribe",
+          "Resource" : "arn:aws:iot:${data.aws_arn.north_thing_arn.region}:${data.aws_arn.north_thing_arn.account}:topicfilter/*"
+        },
+        {
+          "Effect" : "Allow",
+          "Action" : "iot:Connect",
+          "Resource" : [
+            "arn:aws:iot:${data.aws_arn.north_thing_arn.region}:${data.aws_arn.north_thing_arn.account}:client/*"
+          ]
+        }
+      ]
     }
-  }
+  )
 }
 
-resource "aws_iot_topic_rule" "sensor_north_particle_to_dynamodb_rule" {
-  name        = "SensorNorthParticleToDynamoDBRule"
-  description = "IoT rule to insert data into DynamoDB"
-  enabled     = true
+resource "aws_iot_policy_attachment" "north_attachment" {
+  policy = aws_iot_policy.north_thing_policy.name
+  target = aws_iot_certificate.north_cert.arn
+}
 
-  sql         = "SELECT * FROM '/sensor/north/particle'"
-  sql_version = "2016-03-23"
+data "aws_iot_endpoint" "iot_endpoint" {
+  endpoint_type = "iot:Data-ATS"
+}
 
-  dynamodbv2 {
-    role_arn = var.lab_role
-    put_item {
-      table_name = "sensor_north_particle"
-    }
-  }
+output "iot_endpoint" {
+  value = data.aws_iot_endpoint.iot_endpoint.endpoint_address
+}
+
+resource "aws_s3_bucket_object" "north_private_key_object" {
+  bucket                 = var.bucket_state
+  key                    = "authentication-key/north_key.pem"
+  content                = tls_private_key.north_key.private_key_pem
+  server_side_encryption = "AES256"
+}
+
+resource "aws_s3_bucket_object" "north_cert_object" {
+  bucket                 = var.bucket_state
+  key                    = "authentication-key/north_cert.pem"
+  content                = tls_self_signed_cert.north_signed_cert.cert_pem
+  server_side_encryption = "AES256"
 }
