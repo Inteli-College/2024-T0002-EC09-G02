@@ -8,6 +8,13 @@ import threading
 import time
 import json
 
+endpoint = "a3ru784j6s0pfl-ats.iot.us-east-1.amazonaws.com"
+port = 8883
+certificate = "certificate.cert.pem"
+private_key = "chave.private.key"
+ca_cert = "root-CA.crt"
+clientId = "elisa"
+
 class Configuration:
     def __init__(self, unit, transmission_rate_hz,
                  region, sensor, qos):
@@ -61,26 +68,6 @@ def create_json_message(config, rounded_value):
                 timestamp, config.qos)
     return data.__dict__
 
-class CmdData():
-    def __init__(self, endpoint, port, cert, key, ca, clientid, topic):
-        self.input_endpoint = endpoint
-        self.input_port = port
-        self.input_cert = cert
-        self.input_key = key
-        self.input_ca = ca
-        self.input_clientId = clientid
-        self.input_topic = topic
-
-input_endpoint = "a3ru784j6s0pfl-ats.iot.us-east-1.amazonaws.com"
-input_port = 8883
-input_cert = "certificate.cert.pem"
-input_key = "chave.private.key"
-input_ca = "root-CA.crt"
-input_clientId = "elisa"
-input_topic = "giovanna"
-
-cmdData = CmdData(input_endpoint, input_port, input_cert, input_key, input_ca, input_clientId, input_topic)
-
 def on_connection_interrupted(connection, error, **kwargs):
     print("Connection interrupted. error: {}".format(error))
 
@@ -119,24 +106,23 @@ if __name__ == '__main__':
 
     config = read_config(config_path)
 
-    # Create a MQTT connection from the command line data
     mqtt_connection = mqtt_connection_builder.mtls_from_path(
-        endpoint=cmdData.input_endpoint,
-        port=cmdData.input_port,
-        cert_filepath=cmdData.input_cert,
-        pri_key_filepath=cmdData.input_key,
-        ca_filepath=cmdData.input_ca,
+        endpoint=endpoint,
+        port=port,
+        cert_filepath=certificate,
+        pri_key_filepath=private_key,
+        ca_filepath=ca_cert,
         on_connection_interrupted=on_connection_interrupted,
         on_connection_resumed=on_connection_resumed,
-        client_id=cmdData.input_clientId,
+        client_id=clientId,
         clean_session=False,
         keep_alive_secs=30,
         on_connection_success=on_connection_success,
         on_connection_failure=on_connection_failure,
         on_connection_closed=on_connection_closed)
 
-    print(f"Connecting to {cmdData.input_endpoint} with client ID '{cmdData.input_clientId}'...")
-    print(f'sensor/{config.region}/{config.sensor}')
+    print(f"Connecting to {endpoint} with client ID '{clientId}'...")
+    print(f'Topic: sensor/{config.region}/{config.sensor}')
 
     connect_future = mqtt_connection.connect()
 
@@ -145,7 +131,6 @@ if __name__ == '__main__':
 
     data = read_csv(csv_path)
 
-    message_topic = cmdData.input_topic
 
     interval = 1/config.transmission_rate_hz
     for value in data:
@@ -153,7 +138,7 @@ if __name__ == '__main__':
         message = create_json_message(config, rounded_value)
         message = json.dumps(message)
         mqtt_connection.publish(
-        topic='giovanna',
+        topic='sensor/{}/{}'.format(config.region, config.sensor),
         payload=message,
         qos=mqtt.QoS.AT_LEAST_ONCE)
         time.sleep(interval)
