@@ -3,6 +3,11 @@ env
 */env/*
 env/*
 .vscode/
+venv
+*/venv/
+venv
+*/venv/*
+venv/*
 
 __pycache__/
 setup.cfg
