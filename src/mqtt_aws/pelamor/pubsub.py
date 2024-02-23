@@ -6,6 +6,60 @@ from awsiot import mqtt_connection_builder
 import sys
 import threading
 import time
+import json
+
+class Configuration:
+    def __init__(self, unit, transmission_rate_hz,
+                 region, sensor, qos):
+        self.unit = unit
+        self.transmission_rate_hz = transmission_rate_hz
+        self.region = region
+        self.sensor = sensor
+        self.qos = qos
+
+
+class Data:
+    def __init__(self, value, unit, transmission_rate_hz, region,
+                 sensor, timestamp, qos):
+        self.value = value
+        self.unit = unit
+        self.transmission_rate_hz = transmission_rate_hz
+        self.region = region
+        self.sensor = sensor
+        self.timestamp = timestamp
+        self.qos = qos
+
+
+def read_config(filename):
+    with open(filename, 'r') as file:
+        config_json = json.load(file)
+        config = Configuration(**config_json)
+    return config
+
+
+def read_csv(path):
+    with open(path, 'r') as csv:
+        data = [float(line.strip()) for line in csv]
+    return data
+
+
+def connect_mqtt(node_name):
+    client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2, node_name)
+    try:
+        client.connect("localhost", 1891, 60)
+        return client
+    except Exception:
+        print("Erro ao conectar-se ao servidor MQTT")
+        client.disconnect()
+        return None
+
+
+def create_json_message(config, rounded_value):
+    timestamp = time.time()
+    data = Data(rounded_value, config.unit, config.transmission_rate_hz,
+                config.region, config.sensor,
+                timestamp, config.qos)
+    return data.__dict__
 
 class CmdData():
     def __init__(self, endpoint, port, cert, key, ca, clientid, topic):
@@ -55,7 +109,15 @@ def on_connection_closed(connection, callback_data):
     print("Connection closed")
 
 if __name__ == '__main__':
-    
+    import sys
+    if len(sys.argv) != 3:
+        print("Usage: python publisher.py <config_path> <csv_path>")
+        exit(1)
+
+    config_path = sys.argv[1]
+    csv_path = sys.argv[2]
+
+    config = read_config(config_path)
 
     # Create a MQTT connection from the command line data
     mqtt_connection = mqtt_connection_builder.mtls_from_path(
@@ -74,18 +136,27 @@ if __name__ == '__main__':
         on_connection_closed=on_connection_closed)
 
     print(f"Connecting to {cmdData.input_endpoint} with client ID '{cmdData.input_clientId}'...")
+    print(f'sensor/{config.region}/{config.sensor}')
 
     connect_future = mqtt_connection.connect()
 
     connect_future.result()
     print("Connected!")
 
+    data = read_csv(csv_path)
+
     message_topic = cmdData.input_topic
 
-    mqtt_connection.publish(
-        topic=message_topic,
-        payload='oi',
+    interval = 1/config.transmission_rate_hz
+    for value in data:
+        rounded_value = round(value, 2)
+        message = create_json_message(config, rounded_value)
+        message = json.dumps(message)
+        mqtt_connection.publish(
+        topic='giovanna',
+        payload=message,
         qos=mqtt.QoS.AT_LEAST_ONCE)
+        time.sleep(interval)
 
     # Disconnect
     print("Disconnecting...")
