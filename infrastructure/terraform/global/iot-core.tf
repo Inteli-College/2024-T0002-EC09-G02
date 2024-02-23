@@ -21,23 +21,34 @@ resource "aws_iot_policy" "policy_document" {
   policy = data.aws_iam_policy_document.policy_document.json
 }
 
-resource "aws_iot_certificate" "certificate" {
+resource "aws_iot_certificate" "north_certificate" {
+  csr = file("./authentication-keys/north.pem.csr")
   active = true
 }
 
-resource "aws_iot_policy_attachment" "att" {
+resource "aws_iot_certificate" "west_certificate" {
+  csr = file("./authentication-keys/west.pem.csr")
+  active = true
+}
+
+resource "aws_iot_policy_attachment" "north_policy_attachment" {
   policy = aws_iot_policy.policy_document.name
-  target = aws_iot_certificate.certificate.arn
+  target = aws_iot_certificate.north_certificate.arn
+}
+
+resource "aws_iot_policy_attachment" "west_policy_attachment" {
+  policy = aws_iot_policy.policy_document.name
+  target = aws_iot_certificate.west_certificate.arn
 }
 
 resource "aws_iot_thing_principal_attachment" "iot_thing_principal_attachment_north" {
   thing = aws_iot_thing.sensor_north_particle_thing.name
-  principal  = aws_iot_certificate.certificate.arn
+  principal  = aws_iot_certificate.north_certificate.arn
 }
 
 resource "aws_iot_thing_principal_attachment" "iot_thing_principal_attachment_west" {
   thing    = aws_iot_thing.sensor_west_particle_thing.name
-  principal = aws_iot_certificate.certificate.arn
+  principal = aws_iot_certificate.west_certificate.arn
 }
 
 # Rule to send data from IoT Core to DynamoDB
