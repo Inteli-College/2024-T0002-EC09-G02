@@ -10,11 +10,24 @@ resource "aws_iot_thing" "sensor_west_particle_thing" {
 data "aws_iam_policy_document" "policy_document" {
   statement {
     effect    = "Allow"
-    actions   = ["iot:*"]
+    actions   = [
+      "iot:Connect",
+      "iot:Publish",
+      "iot:Receive",
+      "iot:Subscribe"
+    ]
     resources = ["*"]
-    sid      = "AllowAllIotActions"
+    sid       = "AllowAllIotActions"
+  }
+
+  statement {
+    effect    = "Allow"
+    actions   = ["dynamodb:PutItem"]
+    resources = [var.dynamodb_arn]
+    sid       = "AllowDynamoDBPutItemOnAnyTable"
   }
 }
+
 # IoT policy to allow publishing to DynamoDB
 resource "aws_iot_policy" "policy_document" {
   name   = "policy_all"
