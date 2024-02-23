@@ -21,3 +21,9 @@ variable "lab_role" {
   description = "Lab role"
   default     = "arn:aws:iam::992382595225:role/LabRole"
 }
+
+variable "dynamodb_arn"{
+  type        = string
+  description = "DynamoDB ARN"
+  default     = "arn:aws:dynamodb:us-east-1:992382595225:table/*"
+}
