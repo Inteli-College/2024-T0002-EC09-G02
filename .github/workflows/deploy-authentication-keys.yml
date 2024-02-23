@@ -44,8 +44,8 @@ jobs:
             aws iot create-keys-and-certificate --set-as-active --certificate-pem-outfile north.pem.crt --private-key-outfile north.pem.key
 
             echo "Enviando novos certificado e chave para o S3."
-            aws s3 cp certificado.pem.crt s3://${{ env.BUCKET_TERRAFORM_STATE }}/authentication-key/north.pem.crt
-            aws s3 cp chave-privada.pem.key s3://${{ env.BUCKET_TERRAFORM_STATE }}/authentication-key/north.pem.key
+            aws s3 cp north.pem.crt s3://${{ env.BUCKET_TERRAFORM_STATE }}/authentication-key/north.pem.crt
+            aws s3 cp north.pem.key s3://${{ env.BUCKET_TERRAFORM_STATE }}/authentication-key/north.pem.key
           fi
 
       - name: Verify if the West certificate and key already exist in S3
@@ -57,8 +57,8 @@ jobs:
             aws iot create-keys-and-certificate --set-as-active --certificate-pem-outfile west.pem.crt --private-key-outfile west.pem.key
 
             echo "Enviando novos certificado e chave para o S3."
-            aws s3 cp certificado.pem.crt s3://${{ env.BUCKET_TERRAFORM_STATE }}/authentication-key/west.pem.crt
-            aws s3 cp chave-privada.pem.key s3://${{ env.BUCKET_TERRAFORM_STATE }}/authentication-key/west.pem.key
+            aws s3 cp west.pem.crt s3://${{ env.BUCKET_TERRAFORM_STATE }}/authentication-key/west.pem.crt
+            aws s3 cp west.pem.key s3://${{ env.BUCKET_TERRAFORM_STATE }}/authentication-key/west.pem.key
           fi
 
       - name: Upload Terraform State files to S3
