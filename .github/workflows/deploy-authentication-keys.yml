@@ -37,27 +37,27 @@ jobs:
 
       - name: Verify if the North certificate and key already exist in S3
         run: |
-          if aws s3 ls "s3://${{ env.BUCKET_TERRAFORM_STATE }}/authentication-key/north.pem.crt" && aws s3 ls "s3://${{ env.BUCKET_TERRAFORM_STATE }}/authentication-key/north.pem.key"; then
+          if aws s3 ls "s3://${{ env.BUCKET_TERRAFORM_STATE }}/authentication-key/north.pem.crt" && aws s3 ls "s3://${{ env.BUCKET_TERRAFORM_STATE }}/authentication-key/private-north.pem.key && aws s3 ls "s3://${{ env.BUCKET_TERRAFORM_STATE }}/authentication-key/public-north.pem.key"; then
             echo "Certificado e chave já existem no S3."
           else
             echo "Certificado ou chave não encontrados, gerando novos."
-            aws iot create-keys-and-certificate --set-as-active --certificate-pem-outfile north.pem.crt --private-key-outfile north.pem.key
+            aws iot create-keys-and-certificate --set-as-active --certificate-pem-outfile north.pem.crt --private-key-outfile private-north.pem.key --public-key-outfile "public-north.pem.key"
 
             echo "Enviando novos certificado e chave para o S3."
             aws s3 cp north.pem.crt s3://${{ env.BUCKET_TERRAFORM_STATE }}/authentication-key/north.pem.crt
-            aws s3 cp north.pem.key s3://${{ env.BUCKET_TERRAFORM_STATE }}/authentication-key/north.pem.key
+            aws s3 cp private-north.pem.key s3://${{ env.BUCKET_TERRAFORM_STATE }}/authentication-key/private-north.pem.key
+            aws s3 cp public-north.pem.key s3://${{ env.BUCKET_TERRAFORM_STATE }}/authentication-key/public-north.pem.key
           fi
-
       - name: Verify if the West certificate and key already exist in S3
         run: |
-          if aws s3 ls "s3://${{ env.BUCKET_TERRAFORM_STATE }}/authentication-key/west.pem.crt" && aws s3 ls "s3://${{ env.BUCKET_TERRAFORM_STATE }}/authentication-key/west.pem.key"; then
+          if aws s3 ls "s3://${{ env.BUCKET_TERRAFORM_STATE }}/authentication-key/west.pem.crt" && aws s3 ls "s3://${{ env.BUCKET_TERRAFORM_STATE }}/authentication-key/private-west.pem.key && aws s3 ls "s3://${{ env.BUCKET_TERRAFORM_STATE }}/authentication-key/public-west.pem.key"; then
             echo "Certificado e chave já existem no S3."
           else
             echo "Certificado ou chave não encontrados, gerando novos."
-            aws iot create-keys-and-certificate --set-as-active --certificate-pem-outfile west.pem.crt --private-key-outfile west.pem.key
+            aws iot create-keys-and-certificate --set-as-active --certificate-pem-outfile west.pem.crt --private-key-outfile private-west.pem.key --public-key-outfile "public-west.pem.key"
 
             echo "Enviando novos certificado e chave para o S3."
             aws s3 cp west.pem.crt s3://${{ env.BUCKET_TERRAFORM_STATE }}/authentication-key/west.pem.crt
-            aws s3 cp west.pem.key s3://${{ env.BUCKET_TERRAFORM_STATE }}/authentication-key/west.pem.key
+            aws s3 cp private-west.pem.key s3://${{ env.BUCKET_TERRAFORM_STATE }}/authentication-key/private-west.pem.key
+            aws s3 cp public-west.pem.key s3://${{ env.BUCKET_TERRAFORM_STATE }}/authentication-key/public-west.pem.key
           fi
-

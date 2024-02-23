@@ -22,12 +22,10 @@ resource "aws_iot_policy" "policy_document" {
 }
 
 resource "aws_iot_certificate" "north_certificate" {
-  //csr = file("authentication-keys/north.pem.crt")
   active = true
 }
 
 resource "aws_iot_certificate" "west_certificate" {
-  //csr = file("authentication-keys/west.pem.crt")
   active = true
 }
 
