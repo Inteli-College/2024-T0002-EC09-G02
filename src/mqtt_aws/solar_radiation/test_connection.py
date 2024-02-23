@@ -18,7 +18,6 @@ def on_connect(client, userdata, flags, reason_code, properties):
 client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2, "iotconsole-3075b2fb-1e46-45f3-bba1-45cc055597a7")
 client.tls_set(ca_certs="public.pem", certfile=cert_path, keyfile=key_path)
 
-
 client.on_connect = on_connect
 client.on_message = on_message
 
