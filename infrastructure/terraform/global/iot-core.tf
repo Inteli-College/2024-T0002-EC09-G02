@@ -55,7 +55,7 @@ resource "aws_iot_topic_rule" "sensor_west_particle_to_dynamodb_rule" {
   description = "IoT rule to insert data into DynamoDB"
   enabled     = true
 
-  sql         = "SELECT * FROM 'your/topic/here'"
+  sql         = "SELECT * FROM '/sensor/west/particle'"
   sql_version = "2016-03-23"
 
   dynamodbv2 {
@@ -71,7 +71,7 @@ resource "aws_iot_topic_rule" "sensor_north_particle_to_dynamodb_rule" {
   description = "IoT rule to insert data into DynamoDB"
   enabled     = true
 
-  sql         = "SELECT * FROM 'your/topic/here'"
+  sql         = "SELECT * FROM '/sensor/north/particle'"
   sql_version = "2016-03-23"
 
   dynamodbv2 {
