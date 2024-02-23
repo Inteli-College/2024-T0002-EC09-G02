@@ -52,13 +52,13 @@ jobs:
         working-directory: infrastructure/terraform/global/authentication-keys
         run: |
           aws s3 cp s3://${{env.BUCKET_TERRAFORM_STATE}}/authentication-key/north.pem.crt north.pem.crt
-          aws s3 cp s3://${{env.BUCKET_TERRAFORM_STATE}}/authentication-key/north.pem.key north.pem.key
+          aws s3 cp s3://${{env.BUCKET_TERRAFORM_STATE}}/authentication-key/private-north.pem.key north.pem.key
 
       - name: Download Certificate West Sensor
         working-directory: infrastructure/terraform/global/authentication-keys
         run: |
           aws s3 cp s3://${{env.BUCKET_TERRAFORM_STATE}}/authentication-key/west.pem.crt west.pem.crt
-          aws s3 cp s3://${{env.BUCKET_TERRAFORM_STATE}}/authentication-key/west.pem.key west.pem.key
+          aws s3 cp s3://${{env.BUCKET_TERRAFORM_STATE}}/authentication-key/private-west.pem.key west.pem.key
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
