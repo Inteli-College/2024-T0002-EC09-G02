@@ -44,4 +44,4 @@ fi
 
 # run pub/sub sample app using certificates downloaded in package
 printf "\nRunning pub/sub sample application...\n"
-python3 src/pubsub.py --config_path "$config_path" --csv_path "$csv_path" --endpoint a1c08ash4mpwrf-ats.iot.us-east-1.amazonaws.com --ca_file root-CA.crt --cert air_quality_sensor.cert.pem --key air_quality_sensor.private.key --client_id basicPubSub --topic sdk/test/python --count 0
+python3 src/pubsub.py --config_path "$config_path" --csv_path "$csv_path" --endpoint a1c08ash4mpwrf-ats.iot.us-east-1.amazonaws.com --ca_file root-CA.crt --cert porfavor.cert.pem --key porfavor.private.key --client_id basicPubSub --topic elisa --count 0
