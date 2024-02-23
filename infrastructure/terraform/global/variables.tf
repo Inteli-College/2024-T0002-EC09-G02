@@ -19,5 +19,5 @@ variable "default_availability_zone" {
 variable "lab_role" {
   type        = string
   description = "Lab role"
-  default     = "arn:aws:iam::992382595225:role/LabRole"
+  default     = "arn:aws:iam::975050250831:role/LabRole"
 }
