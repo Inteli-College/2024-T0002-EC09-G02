@@ -61,8 +61,3 @@ jobs:
             aws s3 cp west.pem.key s3://${{ env.BUCKET_TERRAFORM_STATE }}/authentication-key/west.pem.key
           fi
 
-      - name: Upload Terraform State files to S3
-        working-directory: infrastructure/terraform/global
-        run: |
-          aws s3 cp terraform.tfstate s3://${{env.BUCKET_TERRAFORM_STATE}}/state-files/terraform.tfstate
-          aws s3 cp terraform.tfstate.backup s3://${{env.BUCKET_TERRAFORM_STATE}}/state-files/terraform.tfstate.backup
