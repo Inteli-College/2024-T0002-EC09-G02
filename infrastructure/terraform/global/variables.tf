@@ -22,8 +22,14 @@ variable "lab_role" {
   default     = "arn:aws:iam::992382595225:role/LabRole"
 }
 
-variable "dynamodb_arn"{
+variable "dynamodb_arn" {
   type        = string
   description = "DynamoDB ARN"
   default     = "arn:aws:dynamodb:us-east-1:992382595225:table/*"
+}
+
+variable "bucket_state" {
+  type        = string
+  description = "S3 bucket for state"
+  default     = "infrastructure-state-terraform"
 }

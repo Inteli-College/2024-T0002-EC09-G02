@@ -7,6 +7,9 @@ resource "aws_internet_gateway" "gw" {
 
 resource "aws_eip" "nat_gateway_eip" {
   vpc = true
+  tags = {
+    Name = "NatGatewayEIP_ArqCorp"
+  }
 }
 
 resource "aws_nat_gateway" "ng" {
