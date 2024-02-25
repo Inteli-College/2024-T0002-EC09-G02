@@ -67,6 +67,14 @@ jobs:
         working-directory: infrastructure/terraform/global
         run: terraform init
 
+      - name: Terraform Format
+        working-directory: infrastructure/terraform/global
+        run: terraform fmt -check
+
+      - name: Terraform Validate
+        working-directory: infrastructure/terraform/global
+        run: terraform validate
+
       - name: Check for Changes in 'infrastructure' folder
         run: |
           if git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep -q '^infrastructure/terraform/global/'; then
