@@ -1,5 +1,5 @@
 resource "aws_dynamodb_table" "sensor_north" {
-  name         = "sensor_north"
+  name         = "sensorNorth"
   billing_mode = "PAY_PER_REQUEST"
   hash_key     = "id"
 
@@ -14,7 +14,7 @@ resource "aws_dynamodb_table" "sensor_north" {
 }
 
 resource "aws_dynamodb_table" "sensor_south" {
-  name         = "sensor_south"
+  name         = "sensorSouth"
   billing_mode = "PAY_PER_REQUEST"
   hash_key     = "id"
 
@@ -29,7 +29,7 @@ resource "aws_dynamodb_table" "sensor_south" {
 }
 
 resource "aws_dynamodb_table" "sensor_east" {
-  name         = "sensor_east"
+  name         = "sensorEast"
   billing_mode = "PAY_PER_REQUEST"
   hash_key     = "id"
 
@@ -44,7 +44,7 @@ resource "aws_dynamodb_table" "sensor_east" {
 }
 
 resource "aws_dynamodb_table" "sensor_west" {
-  name         = "sensor_west"
+  name         = "sensorWest"
   billing_mode = "PAY_PER_REQUEST"
   hash_key     = "id"
 
@@ -59,7 +59,7 @@ resource "aws_dynamodb_table" "sensor_west" {
 }
 
 resource "aws_dynamodb_table" "sensor_center" {
-  name         = "sensor_center"
+  name         = "sensorCenter"
   billing_mode = "PAY_PER_REQUEST"
   hash_key     = "id"
 
@@ -97,14 +97,13 @@ resource "aws_iam_policy" "iot_dynamodb_policy" {
 EOF
 }
 
-
 # Rule to send data from IoT Core to DynamoDB
 resource "aws_iot_topic_rule" "sensor_north_topic_rule" {
   name        = "SensorNorthRule"
   description = "Sensor North rule to send data to DynamoDB"
   enabled     = true
 
-  sql         = "SELECT * FROM 'sensor_north'"
+  sql         = "SELECT * FROM '/sensor/region/north'"
   sql_version = "2016-03-23"
 
   dynamodbv2 {
@@ -120,7 +119,7 @@ resource "aws_iot_topic_rule" "sensor_south_topic_rule" {
   description = "Sensor South rule to send data to DynamoDB"
   enabled     = true
 
-  sql         = "SELECT * FROM 'sensor_south'"
+  sql         = "SELECT * FROM '/sensor/region/south'"
   sql_version = "2016-03-23"
 
   dynamodbv2 {
@@ -136,7 +135,7 @@ resource "aws_iot_topic_rule" "sensor_east_topic_rule" {
   description = "Sensor East rule to send data to DynamoDB"
   enabled     = true
 
-  sql         = "SELECT * FROM 'sensor_east'"
+  sql         = "SELECT * FROM '/sensor/region/east'"
   sql_version = "2016-03-23"
 
   dynamodbv2 {
@@ -152,7 +151,7 @@ resource "aws_iot_topic_rule" "sensor_west_topic_rule" {
   description = "Sensor West rule to send data to DynamoDB"
   enabled     = true
 
-  sql         = "SELECT * FROM 'sensor_west'"
+  sql         = "SELECT * FROM '/sensor/region/west'"
   sql_version = "2016-03-23"
 
   dynamodbv2 {
@@ -168,7 +167,7 @@ resource "aws_iot_topic_rule" "sensor_center_topic_rule" {
   description = "Sensor Center rule to send data to DynamoDB"
   enabled     = true
 
-  sql         = "SELECT * FROM 'sensor_center'"
+  sql         = "SELECT * FROM '/sensor/region/center'"
   sql_version = "2016-03-23"
 
   dynamodbv2 {
