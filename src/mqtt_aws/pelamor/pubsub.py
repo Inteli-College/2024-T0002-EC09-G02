@@ -7,6 +7,7 @@ import sys
 import threading
 import time
 import json
+import uuid
 
 endpoint = "a3ru784j6s0pfl-ats.iot.us-east-1.amazonaws.com"
 port = 8883
@@ -17,24 +18,27 @@ clientId = "elisa"
 
 class Configuration:
     def __init__(self, unit, transmission_rate_hz,
-                 region, sensor, qos):
+                 region, sensor_type, qos):
         self.unit = unit
         self.transmission_rate_hz = transmission_rate_hz
         self.region = region
-        self.sensor = sensor
+        self.sensor_type = sensor_type
         self.qos = qos
 
 
 class Data:
     def __init__(self, value, unit, transmission_rate_hz, region,
-                 sensor, timestamp, qos):
+                 sensor_type, qos):
+            
         self.value = value
         self.unit = unit
         self.transmission_rate_hz = transmission_rate_hz
         self.region = region
-        self.sensor = sensor
-        self.timestamp = timestamp
+        self.sensor_type = sensor_type
+        self.timestamp = str(time.time())
         self.qos = qos
+        self.sensor_id: uuid.uuid4()
+
 
 
 def read_config(filename):
@@ -62,10 +66,8 @@ def connect_mqtt(node_name):
 
 
 def create_json_message(config, rounded_value):
-    timestamp = time.time()
     data = Data(rounded_value, config.unit, config.transmission_rate_hz,
-                config.region, config.sensor,
-                timestamp, config.qos)
+                config.region, config.sensor_type, config.qos)
     return data.__dict__
 
 def on_connection_interrupted(connection, error, **kwargs):
@@ -122,7 +124,7 @@ if __name__ == '__main__':
         on_connection_closed=on_connection_closed)
 
     print(f"Connecting to {endpoint} with client ID '{clientId}'...")
-    print(f'Topic: sensor/{config.region}/{config.sensor}')
+    print(f'Topic: sensor/{config.region}/{config.sensor_type}')
 
     connect_future = mqtt_connection.connect()
 
@@ -133,12 +135,13 @@ if __name__ == '__main__':
 
 
     interval = 1/config.transmission_rate_hz
+    print(len(data))
     for value in data:
         rounded_value = round(value, 2)
         message = create_json_message(config, rounded_value)
         message = json.dumps(message)
         mqtt_connection.publish(
-        topic='sensor/{}/{}'.format(config.region, config.sensor),
+        topic=f'sensor/{config.region}/{config.sensor_type}',
         payload=message,
         qos=mqtt.QoS.AT_LEAST_ONCE)
         time.sleep(interval)
