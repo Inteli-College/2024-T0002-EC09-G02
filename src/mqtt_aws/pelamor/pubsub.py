@@ -11,9 +11,9 @@ import uuid
 
 endpoint = "a3ru784j6s0pfl-ats.iot.us-east-1.amazonaws.com"
 port = 8883
-certificate = "certificate.cert.pem"
-private_key = "chave.private.key"
-ca_cert = "root-CA.crt"
+certificate = "../../authentication-keys/north_cert.pem"
+private_key = "../../authentication-keys/north_key.pem.key"
+ca_cert = "../../authentication-keys/root-CA.crt"
 clientId = "elisa"
 
 class Configuration:
