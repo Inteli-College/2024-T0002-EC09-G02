@@ -32,4 +32,4 @@ jobs:
       run: |
         curl -L -o root-CA.crt https://www.amazontrust.com/repository/AmazonRootCA1.pem
     - name: Run script
-      run: python3 https://github.com/Inteli-College/2024-T0002-EC09-G02/tree/main/src/mqtt_aws/pelamor/pubsub.py config.json data.csv
+      run: python3 tree/main/src/mqtt_aws/pelamor/pubsub.py config.json data.csv
