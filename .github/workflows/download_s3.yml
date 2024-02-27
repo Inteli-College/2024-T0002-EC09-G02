@@ -6,6 +6,9 @@ on:
 jobs:
   download_from_s3:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ../src/mqtt_aws/pelamor
 
     steps:
     - name: Download certificate
@@ -32,5 +35,4 @@ jobs:
       run: |
         curl -L -o root-CA.crt https://www.amazontrust.com/repository/AmazonRootCA1.pem
     - name: Run script
-      working-directory: src/mqtt_aws/pelamor
       run: python3 pubsub.py config.json data.csv
