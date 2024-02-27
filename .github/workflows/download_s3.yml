@@ -1,40 +1,77 @@
-name: Download from S3
+name: " Test - Sensors Sending Data"
 
 on:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
+env:
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
+  AWS_REGION: ${{ secrets.AWS_REGION }}
+  BUCKET_TERRAFORM_STATE: ${{ secrets.BUCKET_TERRAFORM_STATE }}
+
 jobs:
-  download_from_s3:
+  terraform:
+    name: "Download - Sensors Keys"
     runs-on: ubuntu-latest
+    environment: production
+
     defaults:
       run:
-        working-directory: src/mqtt_aws/pelamor
+        shell: bash
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-    - name: Download certificate
-      uses: keithweaver/aws-s3-github-action@v1.0.0
-      with:
-        command: cp
-        source: s3://infrastructure-state-terraform20240226124632827500000002/authentication-key/north_cert.pem
-        destination: ./certificate.cert.pem
-        aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws_session_token: ${{ secrets.AWS_SESSION_TOKEN }}
-        aws_region: us-east-1
-    - name: Download key
-      uses: keithweaver/aws-s3-github-action@v1.0.0
-      with:
-        command: cp
-        source: s3://infrastructure-state-terraform20240226124632827500000002/authentication-key/north_key.pem
-        destination: ./chave.private.key
-        aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws_session_token: ${{ secrets.AWS_SESSION_TOKEN }}
-        aws_region: us-east-1
-    - name: Download CA
-      run: |
-        curl -L -o root-CA.crt https://www.amazontrust.com/repository/AmazonRootCA1.pem
-    - name: Run script
-      run: python3 pubsub.py config.json data.csv
+        
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ env.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
+          aws-session-token: ${{ env.AWS_SESSION_TOKEN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Download Certificate North Sensor
+        working-directory: src/authentication-keys
+        run: |
+          aws s3 cp s3://${{env.BUCKET_TERRAFORM_STATE}}/authentication-key/north_key.pem north_key.pem
+          aws s3 cp s3://${{env.BUCKET_TERRAFORM_STATE}}/authentication-key/north_cert.pem north_cert.pem
+
+      - name: Download Certificate South Sensor
+        working-directory: src/authentication-keys
+        run: |
+          aws s3 cp s3://${{env.BUCKET_TERRAFORM_STATE}}/authentication-key/south_key.pem south_key.pem
+          aws s3 cp s3://${{env.BUCKET_TERRAFORM_STATE}}/authentication-key/south_cert.pem south_cert.pem
+
+      - name: Download Certificate East Sensor
+        working-directory: src/authentication-keys
+        run: |
+          aws s3 cp s3://${{env.BUCKET_TERRAFORM_STATE}}/authentication-key/east_key.pem east_key.pem
+          aws s3 cp s3://${{env.BUCKET_TERRAFORM_STATE}}/authentication-key/east_cert.pem east_cert.pem
+
+      - name: Download Certificate West Sensor
+        working-directory: src/authentication-keys
+        run: |
+          aws s3 cp s3://${{env.BUCKET_TERRAFORM_STATE}}/authentication-key/west_key.pem west_key.pem
+          aws s3 cp s3://${{env.BUCKET_TERRAFORM_STATE}}/authentication-key/west_cert.pem west_cert.pem
+
+      - name: Download Certificate Central Sensor
+        working-directory: src/authentication-keys
+        run: |
+          aws s3 cp s3://${{env.BUCKET_TERRAFORM_STATE}}/authentication-key/center_key.pem center_key.pem
+          aws s3 cp s3://${{env.BUCKET_TERRAFORM_STATE}}/authentication-key/center_cert.pem center_cert.pem
+
+
+      - name: Download CA
+        working-directory: src/authentication-keys
+        run: |
+          curl -L -o root-CA.crt https://www.amazontrust.com/repository/AmazonRootCA1.pem
+
+      - name: Run script
+        working-directory: src/mqtt_aws/pelamor
+        run: python3 pubsub.py config.json data.csv
