@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: src/mqtt_aws/pelamor
+        working-directory: /src/mqtt_aws/pelamor
 
     steps:
     - name: Download certificate
