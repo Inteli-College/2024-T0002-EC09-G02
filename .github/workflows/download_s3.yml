@@ -1,0 +1,35 @@
+name: Download from S3
+
+on:
+  workflow_dispatch:
+
+jobs:
+  download_from_s3:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Download certificate
+      uses: keithweaver/aws-s3-github-action@v1.0.0
+      with:
+        command: cp
+        source: s3://infrastructure-state-terraform20240226124632827500000002/authentication-key/north_cert.pem
+        destination: ./certificate.cert.pem
+        aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws_session_token: ${{ secrets.AWS_SESSION_TOKEN }}
+        aws_region: us-east-1
+    - name: Download key
+      uses: keithweaver/aws-s3-github-action@v1.0.0
+      with:
+        command: cp
+        source: s3://infrastructure-state-terraform20240226124632827500000002/authentication-key/north_key.pem
+        destination: ./chave.private.key
+        aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws_session_token: ${{ secrets.AWS_SESSION_TOKEN }}
+        aws_region: us-east-1
+    - name: Download CA
+      run: |
+        curl -L -o root-CA.crt https://www.amazontrust.com/repository/AmazonRootCA1.pem
+    - name: Run script
+      run: python3 https://github.com/Inteli-College/2024-T0002-EC09-G02/tree/main/src/mqtt_aws/pelamor/pubsub.py config.json data.csv
