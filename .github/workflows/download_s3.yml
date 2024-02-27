@@ -8,9 +8,11 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./src/mqtt_aws/pelamor
+        working-directory: src/mqtt_aws/pelamor
 
     steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
     - name: Download certificate
       uses: keithweaver/aws-s3-github-action@v1.0.0
       with:
