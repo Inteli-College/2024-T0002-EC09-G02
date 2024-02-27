@@ -72,6 +72,8 @@ jobs:
         run: |
           curl -L -o root-CA.crt https://www.amazontrust.com/repository/AmazonRootCA1.pem
 
+      - name: Install Python dependencies
+        run: python3 -m pip install awsiotsdk
       - name: Run script
         working-directory: src/mqtt_aws/pelamor
         run: python3 pubsub.py config.json data.csv
