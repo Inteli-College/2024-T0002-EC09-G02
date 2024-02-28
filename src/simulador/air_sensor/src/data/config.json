@@ -1,5 +1,5 @@
 {
-    "sensor": "solar",
+    "sensor_type": "air",
     "region": "Butanta",
     "transmission_rate_hz": 1,
     "unit": "W/m²",

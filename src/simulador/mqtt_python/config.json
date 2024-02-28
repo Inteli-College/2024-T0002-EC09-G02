@@ -1,7 +1,0 @@
-{
-    "sensor": "solar",
-"region": "Butanta",
-    "transmission_rate_hz": 100,
-    "unit": "W/m²",
-    "qos": 1
-}

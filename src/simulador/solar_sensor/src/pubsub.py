@@ -9,12 +9,12 @@ import time
 import json
 import uuid
 
-endpoint = "a3ru784j6s0pfl-ats.iot.us-east-1.amazonaws.com"
+endpoint = "a32jmg845uczmw-ats.iot.us-east-1.amazonaws.com"
 port = 8883
-certificate = "../../authentication-keys/north_cert.pem"
-private_key = "../../authentication-keys/north_key.pem"
-ca_cert = "../../authentication-keys/root-CA.crt"
-clientId = "elisa"
+certificate = "../../../authentication-keys/north_cert.pem"
+private_key = "../../../authentication-keys/north_key.pem"
+ca_cert = "../../../authentication-keys/root-CA.crt"
+clientId = "SolarSensorNorth"
 
 class Configuration:
     def __init__(self, unit, transmission_rate_hz,
@@ -145,6 +145,7 @@ if __name__ == '__main__':
         payload=message,
         qos=mqtt.QoS.AT_LEAST_ONCE)
         time.sleep(interval)
+        print(f"Published message: {message}")
 
     # Disconnect
     print("Disconnecting...")
