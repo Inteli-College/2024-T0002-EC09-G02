@@ -21,17 +21,17 @@ variable "default_availability_zone" {
 variable "lab_role" {
   type        = string
   description = "Lab role"
-  default     = "arn:aws:iam::975050250831:role/LabRole"
+  default     = "arn:aws:iam::767397878164:role/LabRole"
 }
 
 variable "dynamodb_arn" {
   type        = string
   description = "DynamoDB ARN"
-  default     = "arn:aws:dynamodb:us-east-1:975050250831:table/*"
+  default     = "arn:aws:dynamodb:us-east-1:767397878164:table/*"
 }
 
 variable "bucket_state" {
   type        = string
   description = "S3 bucket for state"
-  default     = "infrastructure-state-terraform20240226124632827500000002"
+  default     = "infrastructure-state-terraform20240228122538175600000002"
 }
