@@ -53,3 +53,25 @@ resource "aws_s3_bucket_acl" "data_storage_acl" {
   bucket = aws_s3_bucket.data_storage.id
   acl    = "public-read"
 }
+
+
+resource "aws_s3_bucket_policy" "data_storage_policy" {
+  bucket = aws_s3_bucket.data_storage.id
+
+  policy = jsonencode({
+  "Version": "2012-10-17",
+  "Id": "Policy1675708971162",
+  "Statement": [
+    {
+      "Sid": "Stmt1675708951915",
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": "s3:GetObject",
+      "Resource": [
+        "${aws_s3_bucket.data_storage.arn}",
+        "${aws_s3_bucket.data_storage.arn}/*"
+      ]
+    }
+  ]
+})
+}

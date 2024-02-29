@@ -32,7 +32,7 @@ resource "aws_glue_crawler" "north_crawler" {
     update_behavior = "UPDATE_IN_DATABASE"
   }
 
-  schedule = "cron(*/5 * * * ? *)"
+  schedule = "cron(*/60 * * * ? *)"
 }
 
 resource "aws_glue_crawler" "west_crawler" {
@@ -40,8 +40,8 @@ resource "aws_glue_crawler" "west_crawler" {
   role          = var.lab_role
   database_name = aws_glue_catalog_database.db_west.name
 
-  dynamodb_target {
-    path = "sensorWest"
+  s3_target {
+    path = "s3://${aws_s3_bucket.data_storage.bucket}/"
   }
 
   schema_change_policy {
@@ -49,7 +49,7 @@ resource "aws_glue_crawler" "west_crawler" {
     update_behavior = "UPDATE_IN_DATABASE"
   }
 
-  schedule = "cron(*/5 * * * ? *)"
+  schedule = "cron(*/60 * * * ? *)"
 }
 
 resource "aws_glue_crawler" "east_crawler" {
@@ -57,8 +57,8 @@ resource "aws_glue_crawler" "east_crawler" {
   role          = var.lab_role
   database_name = aws_glue_catalog_database.db_east.name
 
-  dynamodb_target {
-    path = "sensorEast"
+  s3_target {
+    path = "s3://${aws_s3_bucket.data_storage.bucket}/"
   }
 
   schema_change_policy {
@@ -66,7 +66,7 @@ resource "aws_glue_crawler" "east_crawler" {
     update_behavior = "UPDATE_IN_DATABASE"
   }
 
-  schedule = "cron(*/5 * * * ? *)"
+  schedule = "cron(*/60 * * * ? *)"
 }
 
 resource "aws_glue_crawler" "south_crawler" {
@@ -74,8 +74,8 @@ resource "aws_glue_crawler" "south_crawler" {
   role          = var.lab_role
   database_name = aws_glue_catalog_database.db_south.name
 
-  dynamodb_target {
-    path = "sensorSouth"
+  s3_target {
+    path = "s3://${aws_s3_bucket.data_storage.bucket}/"
   }
 
   schema_change_policy {
@@ -83,7 +83,7 @@ resource "aws_glue_crawler" "south_crawler" {
     update_behavior = "UPDATE_IN_DATABASE"
   }
 
-  schedule = "cron(*/5 * * * ? *)"
+  schedule = "cron(*/60 * * * ? *)"
 }
 
 resource "aws_glue_crawler" "center_crawler" {
@@ -91,8 +91,8 @@ resource "aws_glue_crawler" "center_crawler" {
   role          = var.lab_role
   database_name = aws_glue_catalog_database.db_center.name
 
-  dynamodb_target {
-    path = "sensorCenter"
+  s3_target {
+    path = "s3://${aws_s3_bucket.data_storage.bucket}/"
   }
 
   schema_change_policy {
@@ -100,5 +100,5 @@ resource "aws_glue_crawler" "center_crawler" {
     update_behavior = "UPDATE_IN_DATABASE"
   }
 
-  schedule = "cron(*/5 * * * ? *)"
+  schedule = "cron(*/60 * * * ? *)"
 }
