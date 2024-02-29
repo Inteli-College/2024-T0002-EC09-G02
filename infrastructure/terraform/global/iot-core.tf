@@ -240,7 +240,7 @@ resource "aws_iot_policy" "north_thing_policy" {
             "arn:aws:iot:${data.aws_arn.west_thing_arn.region}:${data.aws_arn.west_thing_arn.account}:topicfilter/*",
             "arn:aws:iot:${data.aws_arn.south_thing_arn.region}:${data.aws_arn.south_thing_arn.account}:topicfilter/*",
             "arn:aws:iot:${data.aws_arn.east_thing_arn.region}:${data.aws_arn.east_thing_arn.account}:topicfilter/*"
-            ]
+          ]
         },
         {
           "Effect" : "Allow",
