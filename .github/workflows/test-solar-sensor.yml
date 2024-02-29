@@ -81,7 +81,7 @@ jobs:
           python3 pubsub.py \
           --clientid north \
           --endpoint a32jmg845uczmw-ats.iot.us-east-1.amazonaws.com \
-          --config ./data/config.json \
+          --config ./data/north-config.json \
           --csv ./data/data.csv \
           --cert ./../../../authentication-keys/north_cert.pem \
           --key ./../../../authentication-keys/north_key.pem \
@@ -89,9 +89,9 @@ jobs:
           & python3 pubsub.py \
           --clientid south \
           --endpoint a32jmg845uczmw-ats.iot.us-east-1.amazonaws.com \
-          --config ./data/config.json \
+          --config ./data/south-config.json \
           --csv ./data/data.csv \
-          --cert ./../../../authentication-keys/north_cert.pem \
-          --key ./../../../authentication-keys/north_key.pem \
+          --cert ./../../../authentication-keys/south_cert.pem \
+          --key ./../../../authentication-keys/south_key.pem \
           --ca ./../../../authentication-keys/root-CA.crt \
 
