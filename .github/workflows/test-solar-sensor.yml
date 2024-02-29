@@ -85,4 +85,13 @@ jobs:
           --csv ./data/data.csv \
           --cert ./../../../authentication-keys/north_cert.pem \
           --key ./../../../authentication-keys/north_key.pem \
-          --ca ./../../../authentication-keys/root-CA.crt
+          --ca ./../../../authentication-keys/root-CA.crt \
+          & python3 pubsub.py \
+          --clientid south \
+          --endpoint a32jmg845uczmw-ats.iot.us-east-1.amazonaws.com \
+          --config ./data/config.json \
+          --csv ./data/data.csv \
+          --cert ./../../../authentication-keys/north_cert.pem \
+          --key ./../../../authentication-keys/north_key.pem \
+          --ca ./../../../authentication-keys/root-CA.crt \
+
