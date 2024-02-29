@@ -83,6 +83,6 @@ jobs:
           --endpoint a3ru784j6s0pfl-ats.iot.us-east-1.amazonaws.com \
           --config ./data/config.json \
           --csv ./data/data.csv \
-          --cert ../../authentication-keys/north_cert.pem \
-          --key ../../authentication-keys/north_key.pem \
-          --ca ../../authentication-keys/root-CA.crt
+          --cert ./../../../authentication-keys/north_cert.pem \
+          --key ./../../../authentication-keys/north_key.pem \
+          --ca ./../../../authentication-keys/root-CA.crt
