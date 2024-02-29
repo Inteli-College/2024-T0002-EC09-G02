@@ -77,4 +77,7 @@ jobs:
 
       - name: Run script
         working-directory: src/simulador/solar_sensor/src
-        run: python3 pubsub.py ./data/config.json ./data/data.csv 
+        run: python3 pubsub.py 
+              --clientid north --endpoint a3ru784j6s0pfl-ats.iot.us-east-1.amazonaws.com \
+              --config ./data/config.json --csv ./data/data.csv \
+              --cert north_cert.pem --key north_key.pem --ca root-CA.crt
