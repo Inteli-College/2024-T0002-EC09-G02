@@ -137,7 +137,7 @@ if __name__ == '__main__':
         on_connection_failure=on_connection_failure,
         on_connection_closed=on_connection_closed)
     
-    print(f"Connecting to {endpoint} with client ID '{clientId}'...")
+    print(f"Connecting to {endpoint} with client ID '{client_id}'...")
     print(f'Topic: sensor/{config.region}/{config.sensor}')
 
     connect_future = mqtt_connection.connect()
