@@ -76,7 +76,7 @@ jobs:
         run: python3 -m pip install awsiotsdk
 
       - name: Run script
-        working-directory: src/simulador/solar_sensor/src
+        working-directory: src/simulador/generic_sensor/src
         run: python3 pubsub.py 
               --clientid north --endpoint a3ru784j6s0pfl-ats.iot.us-east-1.amazonaws.com \
               --config ./data/config.json --csv ./data/data.csv \
