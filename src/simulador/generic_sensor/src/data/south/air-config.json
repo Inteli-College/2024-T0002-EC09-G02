@@ -1,0 +1,7 @@
+{
+    "sensor_type": "air",
+    "region": "north",
+    "transmission_rate_hz": 1,
+    "unit": "W/m²",
+    "qos": 1
+}

@@ -1,6 +1,6 @@
 {
     "sensor_type": "air",
-    "region": "south",
+    "region": "west",
     "transmission_rate_hz": 1,
     "unit": "W/m²",
     "qos": 1
