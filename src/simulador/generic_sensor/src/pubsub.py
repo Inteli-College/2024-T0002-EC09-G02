@@ -158,7 +158,7 @@ if __name__ == '__main__':
                 topic=f'sensor/{config.region}/{config.sensor_type}',
                 payload=message,
                 qos=mqtt.QoS.AT_LEAST_ONCE)
-
+        print(f"Published message: {message}")
         time.sleep(interval)
 
     # Disconnect
