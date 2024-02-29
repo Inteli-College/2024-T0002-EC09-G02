@@ -77,4 +77,4 @@ jobs:
 
       - name: Run script
         working-directory: src/simulador/solar_sensor/src
-        run: python3 pubsub.py ./data/config.json ./data/data.csv
+        run: python3 pubsub.py ./data/config.json ./data/data.csv 
