@@ -111,7 +111,7 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
     port = 8883
-    clientid = args.clientid
+    client_id = args.clientid
     endpoint = args.endpoint
     cert_path = args.cert
     key_path = args.key
@@ -125,12 +125,12 @@ if __name__ == '__main__':
     mqtt_connection = mqtt_connection_builder.mtls_from_path(
         endpoint=endpoint,
         port=port,
-        cert_filepath=certificate,
-        pri_key_filepath=private_key,
+        cert_filepath=cert_path,
+        pri_key_filepath=key_path,
         ca_filepath=ca_cert,
         on_connection_interrupted=on_connection_interrupted,
         on_connection_resumed=on_connection_resumed,
-        client_id=clientId,
+        client_id=client_id,
         clean_session=False,
         keep_alive_secs=30,
         on_connection_success=on_connection_success,
