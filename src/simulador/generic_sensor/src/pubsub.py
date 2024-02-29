@@ -11,7 +11,6 @@ import uuid
 import argparse
 
 
-
 class Configuration:
     def __init__(self, unit, transmission_rate_hz,
                  region, sensor_type, qos):
@@ -101,7 +100,6 @@ def on_connection_closed(connection, callback_data):
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
-    
 
     parser.add_argument('--clientid', required=True, help='Client ID')
     parser.add_argument('--endpoint', required=True, help='Endpoint URL')
