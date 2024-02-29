@@ -50,7 +50,7 @@ def read_csv(path):
 def create_json_message(config, rounded_value):
     timestamp = time.time()
     data = Data(rounded_value, config.unit, config.transmission_rate_hz,
-                config.region, config.sensor,
+                config.region, config.sensor_type,
                 timestamp, config.qos)
     return data.__dict__
 
@@ -138,7 +138,7 @@ if __name__ == '__main__':
         on_connection_closed=on_connection_closed)
     
     print(f"Connecting to {endpoint} with client ID '{client_id}'...")
-    print(f'Topic: sensor/{config.region}/{config.sensor}')
+    print(f'Topic: sensor/{config.region}/{config.sensor_type}')
 
     connect_future = mqtt_connection.connect()
 
@@ -155,7 +155,7 @@ if __name__ == '__main__':
         message = create_json_message(config, rounded_value)
         message = json.dumps(message)
         mqtt_connection.publish(
-                topic=f'sensor/{config.region}/{config.sensor}',
+                topic=f'sensor/{config.region}/{config.sensor_type}',
                 payload=message,
                 qos=mqtt.QoS.AT_LEAST_ONCE)
 
