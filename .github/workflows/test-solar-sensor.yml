@@ -80,7 +80,7 @@ jobs:
         run: |
           python3 pubsub.py \
           --clientid north \
-          --endpoint a3ru784j6s0pfl-ats.iot.us-east-1.amazonaws.com \
+          --endpoint a32jmg845uczmw-ats.iot.us-east-1.amazonaws.com \
           --config ./data/config.json \
           --csv ./data/data.csv \
           --cert ./../../../authentication-keys/north_cert.pem \
