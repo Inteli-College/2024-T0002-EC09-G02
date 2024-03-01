@@ -1,4 +1,4 @@
-name: " Test - Sensors Sending Data"
+name: "Mock data - Sensors"
 
 on:
   workflow_dispatch:
