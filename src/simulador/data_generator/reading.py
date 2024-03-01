@@ -40,7 +40,7 @@ no2_sensor_params = {
 # Particulate Matter (PM10) Sensor
 pm10_sensor_params = {
     'sensor_type': 'PM10',
-    'unit': 'µg/m³',
+    'unit': 'ug/m³',
     'min_value': 0,
     'max_value': 100,
     'average_value': 20,
@@ -50,7 +50,7 @@ pm10_sensor_params = {
 # Particulate Matter (PM2.5) Sensor
 pm25_sensor_params = {
     'sensor_type': 'PM2.5',
-    'unit': 'µg/m³',
+    'unit': 'ug/m³',
     'min_value': 0,
     'max_value': 50,
     'average_value': 10,
