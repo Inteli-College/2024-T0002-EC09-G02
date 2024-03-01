@@ -1,7 +1,0 @@
-{
-    "sensor_type": "solar",
-    "region": "west",
-    "transmission_rate_hz": 1,
-    "unit": "W/m²",
-    "qos": 1
-}

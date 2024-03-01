@@ -101,25 +101,24 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
 
-    parser.add_argument('--clientid', required=True, help='Client ID')
-    parser.add_argument('--endpoint', required=True, help='Endpoint URL')
-    parser.add_argument('--cert', help='Path to the certificate file')
-    parser.add_argument('--key', help='Path to the key file')
-    parser.add_argument('--ca', help='Path to the CA file')
-    parser.add_argument('--config', required=True, help='Path to the configuration file')
-    parser.add_argument('--csv', required=True, help='Path to the CSV file')
+    parser.add_argument('--sensor', required=True, help='Sensor type')
+    parser.add_argument('--region', required=True, help='Region')
 
     args = parser.parse_args()
+    sensor_type = args.sensor
+    region = args.region
     port = 8883
-    client_id = args.clientid
-    endpoint = args.endpoint
-    cert_path = args.cert
-    key_path = args.key
-    ca_cert = args.ca
-    config_path = args.config
-    csv_path = args.csv
+    client_id = f'{region}_{sensor_type}'
+    cert_path = f'./../../../authentication-keys/{region}_cert.pem'
+    key_path = f'./../../../authentication-keys/{region}_key.pem'
+    ca_cert = './../../../authentication-keys/root-CA.crt'
     
 
+    endpoint = 'a32jmg845uczmw-ats.iot.us-east-1.amazonaws.com'
+
+    config_path = f'../data/{region}/{sensor_type}.json'
+    csv_path = f'../data/{region}/{sensor_type}.csv'
+    
     config = read_config(config_path)
 
     mqtt_connection = mqtt_connection_builder.mtls_from_path(
