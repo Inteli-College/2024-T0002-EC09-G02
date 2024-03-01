@@ -109,9 +109,9 @@ if __name__ == '__main__':
     region = args.region
     port = 8883
     client_id = f'{region}_{sensor_type}'
-    cert_path = f'./../../../authentication-keys/{region}_cert.pem'
-    key_path = f'./../../../authentication-keys/{region}_key.pem'
-    ca_cert = './../../../authentication-keys/root-CA.crt'
+    cert_path = f'./../../authentication-keys/{region}_cert.pem'
+    key_path = f'./../../authentication-keys/{region}_key.pem'
+    ca_cert = './../../authentication-keys/root-CA.crt'
     
 
     endpoint = 'a32jmg845uczmw-ats.iot.us-east-1.amazonaws.com'
