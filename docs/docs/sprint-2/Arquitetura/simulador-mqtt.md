@@ -1,5 +1,5 @@
 ---
-sidebar_position: 5
+sidebar_position: 3
 slug: '/sprint_2/arquitetura/simulador'
 label: "Simulador MQTT"
 ---
