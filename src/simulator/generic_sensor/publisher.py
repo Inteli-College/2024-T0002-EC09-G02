@@ -76,10 +76,8 @@ def connect_mqtt(endpoint, port, cert_path, key_path, ca_cert, client_id):
     print(f"Connecting to {endpoint} with client ID '{client_id}'...")
 
     connect_future = mqtt_connection.connect()
-
     connect_future.result()
-    print("Connected!")
-    return mqtt_connection
+    return mqtt_connection, connect_future.result()
 
 
 def on_connection_interrupted(connection, error, **kwargs):
@@ -142,11 +140,10 @@ if __name__ == '__main__':
     ca_cert = './../../authentication-keys/root-CA.crt'
     endpoint = 'a32jmg845uczmw-ats.iot.us-east-1.amazonaws.com'
 
-    mqtt_connection = connect_mqtt(endpoint, port, cert_path, key_path, ca_cert, client_id)
+    mqtt_connection, _ = connect_mqtt(endpoint, port, cert_path, key_path, ca_cert, client_id)
 
     config_path = f'./../data/{region}/{sensor_type}.json'
     config = read_config(config_path)
-    print(config)
     csv_path = f'./../data/{region}/{sensor_type}.csv'
     data = read_csv(csv_path)
     print(f'Topic: sensor/{config.region}/{config.sensor_type}')

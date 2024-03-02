@@ -76,7 +76,7 @@ jobs:
         run: python3 -m pip install awsiotsdk
 
       - name: Run script
-        working-directory: src/simulador/generic_sensor
+        working-directory: src/simulator/generic_sensor
         run: |
           python3 publisher.py \
           --sensor CO \
