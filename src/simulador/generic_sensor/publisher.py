@@ -47,7 +47,7 @@ def create_json_message(config, rounded_value):
     data = Data(rounded_value, config.unit, config.transmission_rate_hz,
                 config.region, config.sensor_type,
                 timestamp, config.qos)
-    return data.__dict__
+    return json.dumps(data.__dict__)
 
 def get_args():
     parser = argparse.ArgumentParser()
@@ -79,6 +79,7 @@ def connect_mqtt(endpoint, port, cert_path, key_path, ca_cert, client_id):
 
     connect_future.result()
     print("Connected!")
+    return mqtt_connection
 
 
 def on_connection_interrupted(connection, error, **kwargs):
@@ -123,6 +124,12 @@ def on_connection_failure(connection, callback_data):
 def on_connection_closed(connection, callback_data):
     print("Connection closed")
 
+def publish_message(mqtt_connection, topic, message):
+    mqtt_connection.publish(
+        topic=topic,
+        payload=message,
+        qos=mqtt.QoS.AT_LEAST_ONCE)
+
 if __name__ == '__main__':
     args = get_args()
 
@@ -135,7 +142,7 @@ if __name__ == '__main__':
     ca_cert = './../../authentication-keys/root-CA.crt'
     endpoint = 'a32jmg845uczmw-ats.iot.us-east-1.amazonaws.com'
 
-    connect_mqtt(endpoint, port, cert_path, key_path, ca_cert, client_id)
+    mqtt_connection = connect_mqtt(endpoint, port, cert_path, key_path, ca_cert, client_id)
 
     config_path = f'./../data/{region}/{sensor_type}.json'
     config = read_config(config_path)
@@ -149,11 +156,8 @@ if __name__ == '__main__':
         rounded_value = round(value, 2)
         
         message = create_json_message(config, rounded_value)
-        message = json.dumps(message)
-        mqtt_connection.publish(
-                topic=f'sensor/{config.region}/{config.sensor_type}',
-                payload=message,
-                qos=mqtt.QoS.AT_LEAST_ONCE)
+        topic = f'sensor/{config.region}/{config.sensor_type}'
+        publish_message(mqtt_connection, topic, message)
         print(f"Published message: {message}")
         time.sleep(interval)
 
