@@ -1,0 +1,221 @@
+name: "Add sensor data"
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
+  AWS_REGION: ${{ secrets.AWS_REGION }}
+  BUCKET_TERRAFORM_STATE: ${{ secrets.BUCKET_TERRAFORM_STATE }}
+
+jobs:
+  terraform:
+    name: "Download - Sensors Keys"
+    runs-on: ubuntu-latest
+    environment: production
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+        
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ env.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
+          aws-session-token: ${{ env.AWS_SESSION_TOKEN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Download Certificate North Sensor
+        working-directory: src/authentication-keys
+        run: |
+          aws s3 cp s3://${{env.BUCKET_TERRAFORM_STATE}}/authentication-key/north_key.pem north_key.pem
+          aws s3 cp s3://${{env.BUCKET_TERRAFORM_STATE}}/authentication-key/north_cert.pem north_cert.pem
+
+      - name: Download Certificate South Sensor
+        working-directory: src/authentication-keys
+        run: |
+          aws s3 cp s3://${{env.BUCKET_TERRAFORM_STATE}}/authentication-key/south_key.pem south_key.pem
+          aws s3 cp s3://${{env.BUCKET_TERRAFORM_STATE}}/authentication-key/south_cert.pem south_cert.pem
+
+      - name: Download Certificate East Sensor
+        working-directory: src/authentication-keys
+        run: |
+          aws s3 cp s3://${{env.BUCKET_TERRAFORM_STATE}}/authentication-key/east_key.pem east_key.pem
+          aws s3 cp s3://${{env.BUCKET_TERRAFORM_STATE}}/authentication-key/east_cert.pem east_cert.pem
+
+      - name: Download Certificate West Sensor
+        working-directory: src/authentication-keys
+        run: |
+          aws s3 cp s3://${{env.BUCKET_TERRAFORM_STATE}}/authentication-key/west_key.pem west_key.pem
+          aws s3 cp s3://${{env.BUCKET_TERRAFORM_STATE}}/authentication-key/west_cert.pem west_cert.pem
+
+      - name: Download Certificate Central Sensor
+        working-directory: src/authentication-keys
+        run: |
+          aws s3 cp s3://${{env.BUCKET_TERRAFORM_STATE}}/authentication-key/center_key.pem center_key.pem
+          aws s3 cp s3://${{env.BUCKET_TERRAFORM_STATE}}/authentication-key/center_cert.pem center_cert.pem
+
+
+      - name: Download CA
+        working-directory: src/authentication-keys
+        run: |
+          curl -L -o root-CA.crt https://www.amazontrust.com/repository/AmazonRootCA1.pem
+
+      - name: Install Python dependencies
+        run: python3 -m pip install awsiotsdk
+
+      - name: Run script
+        working-directory: src/simulador/generic_sensor
+        run: |
+          python3 publisher.py \
+          --sensor CO \
+          --region north \
+          # \
+          # & python3 pubsub.py \
+          # --sensor CO \
+          # --region south \
+          # \
+          # & python3 pubsub.py \
+          # --sensor CO \
+          # --region east \
+          # \
+          # & python3 pubsub.py \
+          # --sensor CO \
+          # --region west \
+          # \
+          # & python3 pubsub.py \
+          # --sensor CO \
+          # --region center \
+          # \
+          # & python3 pubsub.py \
+          # --sensor CO2 \
+          # --region north \
+          # \
+          # & python3 pubsub.py \
+          # --sensor CO2 \
+          # --region south \
+          # \
+          # & python3 pubsub.py \
+          # --sensor CO2 \
+          # --region east \
+          # \
+          # & python3 pubsub.py \
+          # --sensor CO2 \
+          # --region west \
+          # \
+          # & python3 pubsub.py \
+          # --sensor CO2 \
+          # --region center \
+          # \
+          # & python3 pubsub.py \
+          # --sensor NO2 \
+          # --region north \
+          # \
+          # & python3 pubsub.py \
+          # --sensor NO2 \
+          # --region south \
+          # \
+          # & python3 pubsub.py \
+          # --sensor NO2 \
+          # --region east \
+          # \
+          # & python3 pubsub.py \
+          # --sensor NO2 \
+          # --region west \
+          # \
+          # & python3 pubsub.py \
+          # --sensor NO2 \
+          # --region center \
+          # \
+          # & python3 pubsub.py \
+          # --sensor PM10 \
+          # --region north \
+          # \
+          # & python3 pubsub.py \
+          # --sensor PM10 \
+          # --region south \
+          # \
+          # & python3 pubsub.py \
+          # --sensor PM10 \
+          # --region east \
+          # \
+          # & python3 pubsub.py \
+          # --sensor PM10 \
+          # --region west \
+          # \
+          # & python3 pubsub.py \
+          # --sensor PM10 \
+          # --region center \
+          # \
+          # & python3 pubsub.py \
+          # --sensor PM2.5 \
+          # --region north \
+          # \
+          # & python3 pubsub.py \
+          # --sensor PM2.5 \
+          # --region south \
+          # \
+          # & python3 pubsub.py \
+          # --sensor PM2.5 \
+          # --region east \
+          # \
+          # & python3 pubsub.py \
+          # --sensor PM2.5 \
+          # --region west \
+          # \
+          # & python3 pubsub.py \
+          # --sensor PM2.5 \
+          # --region center \
+          # \
+          # & python3 pubsub.py \
+          # --sensor solar \
+          # --region north \
+          # \
+          # & python3 pubsub.py \
+          # --sensor solar \
+          # --region south \
+          # \
+          # & python3 pubsub.py \
+          # --sensor solar \
+          # --region east \
+          # \
+          # & python3 pubsub.py \
+          # --sensor solar \
+          # --region west \
+          # \
+          # & python3 pubsub.py \
+          # --sensor solar \
+          # --region center \
+          # \
+          # & python3 pubsub.py \
+          # --sensor noise \
+          # --region north \
+          # \
+          # & python3 pubsub.py \
+          # --sensor noise \
+          # --region south \
+          # \
+          # & python3 pubsub.py \
+          # --sensor noise \
+          # --region east \
+          # \
+          # & python3 pubsub.py \
+          # --sensor noise \
+          # --region west \
+          # \
+          # & python3 pubsub.py \
+          # --sensor noise \
+          # --region center \
+
+          
