@@ -1,21 +1,21 @@
 ---
 sidebar_position: 5
-slug: '/sprint_1/arquitetura/simulador'
-label: "Primeiro simulador MQTT"
+slug: '/sprint_2/arquitetura/simulador'
+label: "Simulador MQTT"
 ---
-# Primeiro simulador MQTT
+# Simulador MQTT
 
 Durante a Sprint 1, o grupo desenvolveu a primeira versão do simulador MQTT, que é um componente essencial para o projeto. O simulador MQTT é um dispositivo que publica mensagens em tópicos MQTT, simulando o comportamento de sensores IoT. O objetivo do simulador é gerar dados de teste para o sistema.
 
 ## Diagrama de Blocos do Simulador MQTT - v1.0
 
-![alt text](<../../../static/img/Diagrama de blocos - MQTT.png>)
+![alt text](../../../static/img/Diagrama de blocos - MQTT.png)
 
 O simulador atua nos primeiros dois blocos, gerando dados randomizados, representando os sensores, e publicando-os em tópicos segundo um padrão de nomenclatura. Nas próximas sprints, objetiva-se progredir na integração com o banco de dados e o dashboard.
 
 ## Funcionamento do simulador
 
-Utilizamos abstrações em arquivos .json e CSV para garantir a reutilização do código. O arquivo .json contém configurações como taxa de transmissão, tipo de sensor, região e unidade, enquanto o CSV armazena valores simulados do sensor. Esses arquivos são especificados como argumentos de linha de comando do publisher. 
+Utilizamos abstrações em arquivos .json e CSV para garantir a reutilização do código. O arquivo .json contém configurações como taxa de transmissão, tipo de sensor, região e unidade, enquanto o CSV armazena valores simulados do sensor. Esses arquivos são especificados como argumentos de linha de comando do publisher.
 
 Para gerar os valores do CSV, empregamos o script "generator.py", que recebe parâmetros como o número de dados a serem criados, valor mínimo, valor máximo e resolução também pela linha de comando.
 
@@ -39,11 +39,12 @@ python3 generator.py <num_de_valores> <resolucao> <valor_minimo> <valor_maximo> 
 
 Isso gerará um CSV com o título escolhido.
 
-A partir daí, podemos simular a leitura desse CSV (ou de qualquer outro). 
+A partir daí, podemos simular a leitura desse CSV (ou de qualquer outro).
 
 ### 2. Criar arquivo de configuração
 
 Crie um arquivo de configuração JSON com informações sobre o sensor. O arquivo deve seguir o seguinte padrão:
+
 ```
 {
     "sensor": <nome_do_sensor>,
@@ -71,6 +72,7 @@ python3 run publisher.py <config_path> <csv_path>
 ## Estrutura dos dados
 
 ### Configuração (arquivo json)
+
 - unit: Unidade do sensor.
 - transmission_rate_hz: Taxa de transmissão em Hertz.
 - region: Região do sensor.
@@ -78,6 +80,7 @@ python3 run publisher.py <config_path> <csv_path>
 - qos: Qualidade de serviço para comunicação MQTT.
 
 ### Dados do Sensor (json publicado no tópico)
+
 - value: Valor lido pelo sensor (proveniente do CSV)
 - unit: Unidade do sensor.
 - transmission_rate_hz: Taxa de transmissão em Hertz.
@@ -85,7 +88,6 @@ python3 run publisher.py <config_path> <csv_path>
 - sensor: Nome do sensor.
 - timestamp: Timestamp da leitura do sensor.
 - qos: Qualidade de serviço para comunicação MQTT.
-  
 
 ## Testes e validações do simulador MQTT
 
@@ -106,7 +108,7 @@ def test_connect_mqtt():
 
 Este teste verifica se as mensagens são recebidas corretamente. Ele configura um ambiente de teste usando a função setupTest, que cria uma subscrição MQTT para o tópico específico e publica dados simulados. Em seguida, o teste aguarda um período de tempo que permitiria a recepção de todas as mensagens esperadas. Se nenhuma mensagem for recebida, o teste falha; caso contrário, é considerado passado. Utilizamos essa condição porque, dependendo do QoS escolhido, pode haver o recebimento de mais mensagens do que enviadas; portanto, o a comparação entre quantas mensagens foram enviadas e recebidas não é um bom critério. Em vez disso, checamos a integridade das mensagens no teste seguinte.
 
-``` python
+```python
 def test_message_reception():
     client = setup_test()
 
@@ -120,6 +122,7 @@ def test_message_reception():
     client.disconnect()
 
 ```
+
 ### 3. Integridade das Mensagens
 
 O teste `test_message_integrity` garante a integridade das mensagens recebidas. Ele decodifica cada mensagem recebida e verifica se cada valor em `mock_data` tem pelo menos uma correspondência em `decoded_messages`. Isso garante que os valores esperados estejam presentes nas mensagens recebidas, embora não necessariamente na mesma ordem.
