@@ -15,7 +15,7 @@ resource "aws_s3_bucket" "data_storage" {
 }
 
 output "bucket_data_storage_name" {
-  value = aws_s3_bucket.data_storage.name
+  value = aws_s3_bucket.data_storage.bucket
 }
 
 resource "aws_s3_bucket_object" "data_storage_folder" {
@@ -59,19 +59,19 @@ resource "aws_s3_bucket_policy" "data_storage_policy" {
   bucket = aws_s3_bucket.data_storage.id
 
   policy = jsonencode({
-  "Version": "2012-10-17",
-  "Id": "Policy1675708971162",
-  "Statement": [
-    {
-      "Sid": "Stmt1675708951915",
-      "Effect": "Allow",
-      "Principal": "*",
-      "Action": "s3:GetObject",
-      "Resource": [
-        "${aws_s3_bucket.data_storage.arn}",
-        "${aws_s3_bucket.data_storage.arn}/*"
-      ]
-    }
-  ]
-})
+    "Version" : "2012-10-17",
+    "Id" : "Policy1675708971162",
+    "Statement" : [
+      {
+        "Sid" : "Stmt1675708951915",
+        "Effect" : "Allow",
+        "Principal" : "*",
+        "Action" : "*",
+        "Resource" : [
+          "${aws_s3_bucket.data_storage.arn}",
+          "${aws_s3_bucket.data_storage.arn}/*"
+        ]
+      }
+    ]
+  })
 }
