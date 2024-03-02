@@ -1,6 +1,3 @@
-# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX-License-Identifier: Apache-2.0.
-
 from awscrt import mqtt, http
 from awsiot import mqtt_connection_builder
 import sys
@@ -10,7 +7,6 @@ import json
 import uuid
 import argparse
 
-
 class Configuration:
     def __init__(self, unit, transmission_rate_hz,
                  region, sensor_type, qos):
@@ -19,7 +15,6 @@ class Configuration:
         self.region = region
         self.sensor_type = sensor_type
         self.qos = qos
-
 
 class Data:
     def __init__(self, value, unit, transmission_rate_hz, region,
@@ -52,7 +47,39 @@ def create_json_message(config, rounded_value):
     data = Data(rounded_value, config.unit, config.transmission_rate_hz,
                 config.region, config.sensor_type,
                 timestamp, config.qos)
-    return data.__dict__
+    return json.dumps(data.__dict__)
+
+def get_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--sensor', required=True, help='Sensor type')
+    parser.add_argument('--region', required=True, help='Region')
+    args = parser.parse_args()
+    return args
+
+def connect_mqtt(endpoint, port, cert_path, key_path, ca_cert, client_id):
+    
+    mqtt_connection = mqtt_connection_builder.mtls_from_path(
+        endpoint=endpoint,
+        port=port,
+        cert_filepath=cert_path,
+        pri_key_filepath=key_path,
+        ca_filepath=ca_cert,
+        on_connection_interrupted=on_connection_interrupted,
+        on_connection_resumed=on_connection_resumed,
+        client_id=client_id,
+        clean_session=False,
+        keep_alive_secs=30,
+        on_connection_success=on_connection_success,
+        on_connection_failure=on_connection_failure,
+        on_connection_closed=on_connection_closed)
+    
+    print(f"Connecting to {endpoint} with client ID '{client_id}'...")
+
+    connect_future = mqtt_connection.connect()
+
+    connect_future.result()
+    print("Connected!")
+    return mqtt_connection
 
 
 def on_connection_interrupted(connection, error, **kwargs):
@@ -97,14 +124,15 @@ def on_connection_failure(connection, callback_data):
 def on_connection_closed(connection, callback_data):
     print("Connection closed")
 
+def publish_message(mqtt_connection, topic, message):
+    mqtt_connection.publish(
+        topic=topic,
+        payload=message,
+        qos=mqtt.QoS.AT_LEAST_ONCE)
+
 if __name__ == '__main__':
+    args = get_args()
 
-    parser = argparse.ArgumentParser()
-
-    parser.add_argument('--sensor', required=True, help='Sensor type')
-    parser.add_argument('--region', required=True, help='Region')
-
-    args = parser.parse_args()
     sensor_type = args.sensor
     region = args.region
     port = 8883
@@ -112,51 +140,24 @@ if __name__ == '__main__':
     cert_path = f'./../../authentication-keys/{region}_cert.pem'
     key_path = f'./../../authentication-keys/{region}_key.pem'
     ca_cert = './../../authentication-keys/root-CA.crt'
-    
-
     endpoint = 'a32jmg845uczmw-ats.iot.us-east-1.amazonaws.com'
 
-    config_path = f'../data/{region}/{sensor_type}.json'
-    csv_path = f'../data/{region}/{sensor_type}.csv'
-    
+    mqtt_connection = connect_mqtt(endpoint, port, cert_path, key_path, ca_cert, client_id)
+
+    config_path = f'./../data/{region}/{sensor_type}.json'
     config = read_config(config_path)
-
-    mqtt_connection = mqtt_connection_builder.mtls_from_path(
-        endpoint=endpoint,
-        port=port,
-        cert_filepath=cert_path,
-        pri_key_filepath=key_path,
-        ca_filepath=ca_cert,
-        on_connection_interrupted=on_connection_interrupted,
-        on_connection_resumed=on_connection_resumed,
-        client_id=client_id,
-        clean_session=False,
-        keep_alive_secs=30,
-        on_connection_success=on_connection_success,
-        on_connection_failure=on_connection_failure,
-        on_connection_closed=on_connection_closed)
-    
-    print(f"Connecting to {endpoint} with client ID '{client_id}'...")
-    print(f'Topic: sensor/{config.region}/{config.sensor_type}')
-
-    connect_future = mqtt_connection.connect()
-
-    connect_future.result()
-    print("Connected!")
-
+    print(config)
+    csv_path = f'./../data/{region}/{sensor_type}.csv'
     data = read_csv(csv_path)
-
+    print(f'Topic: sensor/{config.region}/{config.sensor_type}')
 
     interval = 1/config.transmission_rate_hz
     for value in data:
         rounded_value = round(value, 2)
         
         message = create_json_message(config, rounded_value)
-        message = json.dumps(message)
-        mqtt_connection.publish(
-                topic=f'sensor/{config.region}/{config.sensor_type}',
-                payload=message,
-                qos=mqtt.QoS.AT_LEAST_ONCE)
+        topic = f'sensor/{config.region}/{config.sensor_type}'
+        publish_message(mqtt_connection, topic, message)
         print(f"Published message: {message}")
         time.sleep(interval)
 
