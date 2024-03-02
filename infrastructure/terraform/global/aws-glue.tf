@@ -24,7 +24,7 @@ resource "aws_glue_catalog_table" "north_table" {
   table_type    = "EXTERNAL_TABLE"
 
   parameters = {
-    "classification"  = "csv"
+    "classification"  = "json"
     "compressionType" = "none"
   }
 
@@ -48,7 +48,7 @@ resource "aws_glue_catalog_table" "west_table" {
   table_type    = "EXTERNAL_TABLE"
 
   parameters = {
-    "classification"  = "csv"
+    "classification"  = "json"
     "compressionType" = "none"
   }
 
@@ -72,7 +72,7 @@ resource "aws_glue_catalog_table" "east_table" {
   table_type    = "EXTERNAL_TABLE"
 
   parameters = {
-    "classification"  = "csv"
+    "classification"  = "json"
     "compressionType" = "none"
   }
 
@@ -96,7 +96,7 @@ resource "aws_glue_catalog_table" "south_table" {
   table_type = "EXTERNAL_TABLE"
 
   parameters = {
-    "classification"  = "csv"
+    "classification"  = "json"
     "compressionType" = "none"
   }
 
@@ -120,12 +120,12 @@ resource "aws_glue_catalog_table" "center_table" {
   table_type    = "EXTERNAL_TABLE"
 
   parameters = {
-    "classification"  = "csv"
+    "classification"  = "json"
     "compressionType" = "none"
   }
 
   storage_descriptor {
-    location      = "s3://${aws_s3_bucket.data_storage.bucket}/centerData/"
+    location      = "s3://${aws_s3_bucket.data_storage.bucket}/centerData/AWSDynamoDB/"
     input_format  = "org.apache.hadoop.mapred.TextInputFormat"
     output_format = "org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat"
 
@@ -144,7 +144,7 @@ resource "aws_glue_crawler" "north_crawler" {
   database_name = aws_glue_catalog_database.db_north.name
 
   s3_target {
-    path = "s3://${aws_s3_bucket.data_storage.bucket}/northData/"
+    path = "s3://${aws_s3_bucket.data_storage.bucket}/northData/AWSDynamoDB/"
   }
 
   schema_change_policy {
@@ -161,7 +161,7 @@ resource "aws_glue_crawler" "west_crawler" {
   database_name = aws_glue_catalog_database.db_west.name
 
   s3_target {
-    path = "s3://${aws_s3_bucket.data_storage.bucket}/westData/"
+    path = "s3://${aws_s3_bucket.data_storage.bucket}/westData/AWSDynamoDB/"
   }
 
   schema_change_policy {
@@ -178,7 +178,7 @@ resource "aws_glue_crawler" "east_crawler" {
   database_name = aws_glue_catalog_database.db_east.name
 
   s3_target {
-    path = "s3://${aws_s3_bucket.data_storage.bucket}/eastData/"
+    path = "s3://${aws_s3_bucket.data_storage.bucket}/eastData/AWSDynamoDB/"
   }
 
   schema_change_policy {
@@ -195,7 +195,7 @@ resource "aws_glue_crawler" "south_crawler" {
   database_name = aws_glue_catalog_database.db_south.name
 
   s3_target {
-    path = "s3://${aws_s3_bucket.data_storage.bucket}/southData/"
+    path = "s3://${aws_s3_bucket.data_storage.bucket}/southData/AWSDynamoDB/"
   }
 
   schema_change_policy {
@@ -212,7 +212,7 @@ resource "aws_glue_crawler" "center_crawler" {
   database_name = aws_glue_catalog_database.db_center.name
 
   s3_target {
-    path = "s3://${aws_s3_bucket.data_storage.bucket}/centerData/"
+    path = "s3://${aws_s3_bucket.data_storage.bucket}/centerData/AWSDynamoDB/"
   }
 
   schema_change_policy {
