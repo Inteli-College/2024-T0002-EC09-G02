@@ -137,10 +137,10 @@ if __name__ == '__main__':
 
     connect_mqtt(endpoint, port, cert_path, key_path, ca_cert, client_id)
 
-    config_path = f'./../../data/{region}/{sensor_type}.json'
+    config_path = f'./../data/{region}/{sensor_type}.json'
     config = read_config(config_path)
     print(config)
-    csv_path = f'./../../data/{region}/{sensor_type}.csv'
+    csv_path = f'./../data/{region}/{sensor_type}.csv'
     data = read_csv(csv_path)
     print(f'Topic: sensor/{config.region}/{config.sensor_type}')
 
