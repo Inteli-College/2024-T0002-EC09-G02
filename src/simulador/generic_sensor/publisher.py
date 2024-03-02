@@ -139,6 +139,7 @@ if __name__ == '__main__':
 
     config_path = f'./../../data/{sensor_type}.json'
     config = read_config(config_path)
+    print(config)
     csv_path = f'./../../data/{sensor_type}.csv'
     data = read_csv(csv_path)
     print(f'Topic: sensor/{config.region}/{config.sensor_type}')
