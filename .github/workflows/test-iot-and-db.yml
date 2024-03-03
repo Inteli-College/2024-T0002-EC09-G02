@@ -14,19 +14,19 @@ env:
   BUCKET_TERRAFORM_STATE: ${{ secrets.BUCKET_TERRAFORM_STATE }}
 
 jobs:
-  terraform:
-    name: "Download - Test Keys"
-    runs-on: ubuntu-latest
-    environment: production
 
+  test:
+    name: "Run tests"
+    runs-on: ubuntu-latest
     defaults:
       run:
         shell: bash
+        working-directory: 'src'
 
     steps:
-        
-      - name: Checkout
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -46,26 +46,11 @@ jobs:
         working-directory: src/authentication-keys
         run: |
           curl -L -o root-CA.crt https://www.amazontrust.com/repository/AmazonRootCA1.pem
-  
-  test:
-    runs-on: ubuntu-latest
-    strategy: 
-      matrix:
-        python-version: ['3.9', '3.10', '3.11']
-
-    defaults:
-      run:
-        shell: bash
-        working-directory: 'src'
-
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: Set up Python ${{ matrix.python-version }}
+      - name: Set up Python 3.11
         uses: actions/setup-python@v4
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: 3.11
+          
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
