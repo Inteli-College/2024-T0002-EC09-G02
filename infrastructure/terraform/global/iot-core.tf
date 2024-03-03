@@ -179,11 +179,11 @@ resource "aws_iot_thing_principal_attachment" "south_thing_principal_attachment"
 
 resource "aws_iot_thing_principal_attachment" "east_thing_principal_attachment" {
   principal = aws_iot_certificate.east_cert.arn
-  thing     = aws_iot_thing.sensor_east_particle_thing.name
+  thing     = aws_iot_thing.sensor_east_thing.name
 }
 
 resource "aws_iot_thing_principal_attachment" "test_thing_principal_attachment" {
-  principal = aws_iot_certificate.east_cert.arn
+  principal = aws_iot_certificate.test_cert.arn
   thing     = aws_iot_thing.sensor_test_thing.name
 }
 
@@ -465,14 +465,14 @@ resource "aws_iot_policy" "test_thing_policy" {
             "iot:PublishRetain"
           ],
           "Resource" : [
-            "arn:aws:iot:${data.aws_arn.test_thing_arn.region}:${data.aws_arn.test_thing_arn.account}:topic/*",
+            "arn:aws:iot:${data.aws_arn.test_thing_arn.region}:${data.aws_arn.test_thing_arn.account}:topic/test/*",
           ]
         },
         {
           "Effect" : "Allow",
           "Action" : "iot:Subscribe",
           "Resource" : [
-            "arn:aws:iot:${data.aws_arn.test_thing_arn.region}:${data.aws_arn.test_thing_arn.account}:topicfilter/*",
+            "arn:aws:iot:${data.aws_arn.test_thing_arn.region}:${data.aws_arn.test_thing_arn.account}:topicfilter/test/*",
           ]
         },
         {
@@ -510,6 +510,11 @@ resource "aws_iot_policy_attachment" "south_attachment" {
 resource "aws_iot_policy_attachment" "east_attachment" {
   policy = aws_iot_policy.east_thing_policy.name
   target = aws_iot_certificate.east_cert.arn
+}
+
+resource "aws_iot_policy_attachment" "test_attachment" {
+  policy = aws_iot_policy.test_thing_policy.name
+  target = aws_iot_certificate.test_cert.arn
 }
 
 data "aws_iot_endpoint" "iot_endpoint" {

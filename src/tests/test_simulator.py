@@ -15,6 +15,7 @@ def test_connect():
     ca_cert = './authentication-keys/root-CA.crt'
     client_id = 'test_pub'
     connection, result = publisher.connect_mqtt(endpoint, port, cert_path, key_path, ca_cert, client_id)
+    
     assert result['session_present']
 
 def test_publish():
@@ -26,7 +27,7 @@ def test_publish():
     ca_cert = './authentication-keys/root-CA.crt'
     client_id = 'test_sub'
     mqtt_connection, _ = publisher.connect_mqtt(endpoint, port, cert_path, key_path, ca_cert, client_id)
-    topic = 'test'
+    topic = 'test/test'
     message = {'test': 'this is the test message'}
 
     publisher.publish_message(mqtt_connection, topic, json.dumps(message))
@@ -55,7 +56,7 @@ def test_authenticate():
     client_id = 'test_pub'
     _, result = publisher.connect_mqtt(endpoint, port, cert_path, key_path, ca_cert, client_id)
     assert result['session_present']
-    
+
     with pytest.raises(Exception):
         _, result = publisher.connect_mqtt(endpoint, port, empty_cert_path, key_path, ca_cert, client_id)
         assert not result['session_present']
@@ -68,6 +69,67 @@ def test_authenticate():
         _, result = publisher.connect_mqtt(endpoint, port, cert_path, key_path, empty_ca_cert, client_id)
         assert not result['session_present']
 
+
+def test_publishing_topic_authorization():
+    endpoint = 'a32jmg845uczmw-ats.iot.us-east-1.amazonaws.com'
+    port = 8883
+
+    cert_path = './authentication-keys/test_cert.pem'
+    key_path = './authentication-keys/test_key.pem'
+    ca_cert = './authentication-keys/root-CA.crt'
+    client_id = 'test_sub'
+    mqtt_connection, _ = publisher.connect_mqtt(endpoint, port, cert_path, key_path, ca_cert, client_id)
+    wrong_topic = 'wrong_topic'
+    correct_topic = 'test/*'
+    message = {'test': 'this is the test message'}
+
+    publisher.publish_message(mqtt_connection, wrong_topic, json.dumps(message))
+
+
+    # subscribe_future, _ = mqtt_connection.subscribe(
+    # topic='test/test',
+    # qos=mqtt.QoS.AT_LEAST_ONCE,
+    # callback=on_message_received
+    # )
+
+    # subscribe_result = subscribe_future.result()
+
+    # time.sleep(1)
+    # assert json.loads(received_message) == message
+        
+
+def test_subscribing_topic_authorization():
+    endpoint = 'a32jmg845uczmw-ats.iot.us-east-1.amazonaws.com'
+    port = 8883
+
+    cert_path = './authentication-keys/test_cert.pem'
+    key_path = './authentication-keys/test_key.pem'
+    ca_cert = './authentication-keys/root-CA.crt'
+    client_id = 'test_sub'
+    mqtt_connection, _ = publisher.connect_mqtt(endpoint, port, cert_path, key_path, ca_cert, client_id)
+    correct_topic = 'test/test'
+    wrong_topic = 'wrong_topic'
+    message = {'test': 'this is the test message'}
+
+    subscribe_future, _ = mqtt_connection.subscribe(
+    topic=correct_topic,
+    qos=mqtt.QoS.AT_LEAST_ONCE,
+    callback=on_message_received
+    )
+
+    subscribe_result = subscribe_future.result()
+
+    time.sleep(1)
+    assert json.loads(received_message) == message
+
+    subscribe_future, _ = mqtt_connection.subscribe(
+    topic=wrong_topic,
+    qos=mqtt.QoS.AT_LEAST_ONCE,
+    callback=on_message_received
+    )
+    time.sleep(1)
+    assert not subscribe_future.done()
+    
 
 def on_message_received(topic, payload, **kwargs):
     print("Received message from topic '{}': {}".format(topic, payload))

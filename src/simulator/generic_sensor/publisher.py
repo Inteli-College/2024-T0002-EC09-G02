@@ -118,6 +118,7 @@ def on_connection_failure(connection, callback_data):
     assert isinstance(callback_data, mqtt.OnConnectionFailureData)
     print("Connection failed with error code: {}".format(callback_data.error))
 
+
 # Callback when a connection has been disconnected or shutdown successfully
 def on_connection_closed(connection, callback_data):
     print("Connection closed")

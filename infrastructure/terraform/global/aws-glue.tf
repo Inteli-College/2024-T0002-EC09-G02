@@ -93,7 +93,7 @@ resource "aws_glue_catalog_table" "east_table" {
 resource "aws_glue_catalog_table" "south_table" {
   name          = "south_table"
   database_name = aws_glue_catalog_database.db_south.name
-  table_type = "EXTERNAL_TABLE"
+  table_type    = "EXTERNAL_TABLE"
 
   parameters = {
     "classification"  = "json"

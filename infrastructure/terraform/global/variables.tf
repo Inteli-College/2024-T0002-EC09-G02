@@ -27,7 +27,7 @@ variable "lab_role" {
 variable "dynamodb_arn" {
   type        = string
   description = "DynamoDB ARN"
-  default     = "arn:aws:dynamodb:us-east-1:767397878164:table/*"
+  default     = "arn:aws:dynamodb:us-east-1::767397878164:table/*"
 }
 
 variable "bucket_state" {
