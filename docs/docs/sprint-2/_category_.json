@@ -3,6 +3,6 @@
   "position": 2,
   "link": {
     "type": "generated-index",
-    "description": "Sprint 2"
+    "description": "Na Sprint 2, nos focamos em colocar nosso sistema em MQTT na nuvem, conectando-o com um dashboard de monitoramento em tempo real. Também automatizamos os processos de infraestrutura, simulação de dados e testes, além de estudar o impacto ético da nossa solução na comunidade."
   }
 }
