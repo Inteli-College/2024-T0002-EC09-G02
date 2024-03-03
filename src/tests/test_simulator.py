@@ -65,7 +65,7 @@ AWS_SESSION_TOKEN = os.getenv('AWS_SESSION_TOKEN')
 AWS_DEFAULT_REGION = os.getenv('AWS_DEFAULT_REGION')
 
 my_config = Config(
-    region_name = AWS_REGION,
+    region_name = AWS_DEFAULT_REGION,
     signature_version = 'v4',
     retries = {
         'max_attempts': 10,
@@ -177,7 +177,6 @@ def test_insertion_into_dynamodb():
 
     publisher.publish_message(mqtt_connection, TEST_TOPIC, json.dumps(message))
 
-    print(AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_SESSION_TOKEN)
 
     dynamodb = boto3.resource('dynamodb', region_name='us-east-1',aws_access_key_id=AWS_ACCESS_KEY_ID,
     aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
