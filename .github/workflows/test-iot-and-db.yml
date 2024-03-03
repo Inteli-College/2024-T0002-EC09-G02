@@ -58,7 +58,6 @@ jobs:
           
       - name: Test with tox
         run: |
-          aws configure \
           tox
 
 
