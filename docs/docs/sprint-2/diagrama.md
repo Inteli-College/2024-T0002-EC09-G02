@@ -1,15 +1,16 @@
 ---
-sidebar_position: 2
-slug: '/sprint_2/arquitetura/diagrama'
+sidebar_position: 1
+slug: '/sprint_2/diagrama'
 label: "Diagrama"
 ---
-# Diagrama de Blocos
 
-A arquitetura da solução define como os componentes do sistema se comunicam e interagem. Sua representação por meio de um diagrama de blocos é essencial para compreender o funcionamento do sistema e identificar possíveis problemas e melhorias. Vale ressaltar que o diagrama de blocos simplifica a arquitetura, omitindo detalhes de implementação e comunicação entre componentes. Além disso, ao utilizar o ambiente em nuvem da AWS Academy, a arquitetura está restrita aos serviços e recursos disponíveis na AWS, sendo necessário adaptá-la ao longo das sprints. Fato que ocorreu na sprint 2, onde a arquitetura foi adaptada para atender as necessidades do projeto.
+# Visão geral do sistema
+
+A solução proposta é uma arquitetura IoT robusta que utiliza serviços gerenciados da AWS para coletar, processar e visualizar dados provenientes de dispositivos IoT simulados. Essa solução é composta por vários componentes interconectados, cada um desempenhando um papel fundamental no fluxo de dados. Vamos explorar brevemente cada componente para entender como a solução opera.
 
 ## Diagrama de Blocos da Arquitetura - v2.0
 
-![alt text](<../../../static/img/Diagrama de blocos - Cloud-v2.png>)
+![alt text](<../../static/img/Diagrama de blocos - Cloud-v2.png>)
 
 ### Descrição dos Componentes Anteriores
 
