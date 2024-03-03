@@ -1,3 +1,28 @@
+
+"""
+Overview:
+This script defines a 'Reading' class representing sensor readings with specific parameters
+such as sensor type, unit, minimum and maximum values, average value, and outlier probability.
+Several instances of this class are created, each representing a different type of sensor, and
+added to a list named 'sensors'.
+
+Class Definition:
+- Reading: Represents sensor readings with specified parameters.
+
+Sensor Parameters:
+- 'co2_sensor_params', 'co_sensor_params', 'no2_sensor_params', 'pm10_sensor_params',
+  'pm25_sensor_params', 'solar_intensity_params', 'noise_sensor_params': Dictionaries
+  containing parameters for different sensor types.
+
+Instances:
+- 'co_sensor', 'co2_sensor', 'no2_sensor', 'pm10_sensor', 'pm25_sensor',
+  'solar_intensity_sensor', 'noise_sensor': Instances of 'Reading' class created with
+  respective sensor parameters.
+
+Sensor List:
+- 'sensors': List containing instances of the 'Reading' class for various sensor types.
+"""
+
 class Reading():
     def __init__(self, sensor_type, unit, min_value, max_value, average_value, outlier_probability):
         self.unit = unit
