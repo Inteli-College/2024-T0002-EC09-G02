@@ -177,7 +177,9 @@ def test_insertion_into_dynamodb():
 
     publisher.publish_message(mqtt_connection, TEST_TOPIC, json.dumps(message))
 
-    dynamodb = boto3.resource('dynamodb', region_name='us-east-1', config=my_config)
+    dynamodb = boto3.resource('dynamodb', region_name='us-east-1',aws_access_key_id=AWS_ACCESS_KEY_ID,
+    aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
+    aws_session_token=AWS_SESSION_TOKEN)
     table_name = 'sensorTest'
     table = dynamodb.Table(table_name)
 
