@@ -4,6 +4,8 @@ import time
 import json
 import pytest
 import boto3
+import uuid
+
 
 
 global received_message
@@ -32,7 +34,9 @@ def test_publish():
     client_id = 'test_sub'
     mqtt_connection, _ = publisher.connect_mqtt(endpoint, port, cert_path, key_path, ca_cert, client_id)
     topic = 'test/test'
-    message = {'test': 'this is the test message'}
+    id = str(uuid.uuid4())
+    message = {'test': 'this is the test message',
+                'id': str(uuid.uuid4())}
 
     publisher.publish_message(mqtt_connection, topic, json.dumps(message))
 
@@ -87,7 +91,9 @@ def test_publishing_topic_authorization():
     mqtt_connection, _ = publisher.connect_mqtt(endpoint, port, cert_path, key_path, ca_cert, client_id)
     wrong_topic = 'wrong_topic'
     correct_topic = 'test/publishing_topic_authorization'
-    message = {'test': 'this is the test message'}
+    message_id = str(uuid.uuid4())
+    message = {'test': 'this is the test message',
+                'id': message_id}
 
     subscribe_future, _ = mqtt_connection.subscribe(
     topic=correct_topic,
@@ -117,7 +123,8 @@ def test_subscribing_topic_authorization():
     mqtt_connection, _ = publisher.connect_mqtt(endpoint, port, cert_path, key_path, ca_cert, client_id)
     correct_topic = 'test/test'
     wrong_topic = 'wrong_topic'
-    message = {'test': 'this is the test message'}
+    message = {'test': 'this is the test message',
+                'id': str(uuid.uuid4())}
 
     subscribe_future, _ = mqtt_connection.subscribe(
     topic=correct_topic,
@@ -135,6 +142,39 @@ def test_subscribing_topic_authorization():
     )
     time.sleep(1)
     assert not subscribe_future.done()
+
+def test_insertion_into_dynamodb():
+
+    endpoint = 'a32jmg845uczmw-ats.iot.us-east-1.amazonaws.com'
+    port = 8883
+
+    cert_path = './authentication-keys/test_cert.pem'
+    key_path = './authentication-keys/test_key.pem'
+    ca_cert = './authentication-keys/root-CA.crt'
+    client_id = 'test_sub'
+    mqtt_connection, _ = publisher.connect_mqtt(endpoint, port, cert_path, key_path, ca_cert, client_id)
+    topic = 'test/test'
+    timestamp = time.time()
+    message_id = str(uuid.uuid4())
+    message = {'test': 'this is the test message',
+                'id': message_id}
+
+    publisher.publish_message(mqtt_connection, topic, json.dumps(message))
+
+    dynamodb = boto3.resource('dynamodb')
+
+    # Specify the table name
+    table_name = 'sensorTest'
+
+    # Access the DynamoDB table
+    table = dynamodb.Table(table_name)
+
+    response = table.scan(
+    FilterExpression=boto3.dynamodb.conditions.Attr('id').eq(message_id))
+    assert len(response['Items']) >= 1
+
+    
+
     
 
 def on_message_received(topic, payload, **kwargs):

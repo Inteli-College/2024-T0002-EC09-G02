@@ -16,10 +16,10 @@ resource "aws_dynamodb_table" "sensor_north" {
 resource "aws_dynamodb_table" "sensor_test" {
   name         = "sensorTest"
   billing_mode = "PAY_PER_REQUEST"
-  hash_key     = "test"
+  hash_key     = "id"
 
   attribute {
-    name = "test"
+    name = "id"
     type = "S"
   }
 
@@ -106,7 +106,8 @@ resource "aws_iam_policy" "iot_dynamodb_policy" {
         "${aws_dynamodb_table.sensor_south.arn}",
         "${aws_dynamodb_table.sensor_east.arn}",
         "${aws_dynamodb_table.sensor_west.arn}",
-        "${aws_dynamodb_table.sensor_center.arn}"]
+        "${aws_dynamodb_table.sensor_center.arn}",
+        "${aws_dynamodb_table.sensor_test.arn}"]
     }
   ]
 }
@@ -190,6 +191,22 @@ resource "aws_iot_topic_rule" "sensor_center_topic_rule" {
     role_arn = var.lab_role
     put_item {
       table_name = aws_dynamodb_table.sensor_center.name
+    }
+  }
+}
+
+resource "aws_iot_topic_rule" "sensor_test_topic_rule" {
+  name        = "SensorTestRule"
+  description = "Sensor Test rule to send data to DynamoDB"
+  enabled     = true
+
+  sql         = "SELECT * FROM 'test/+'"
+  sql_version = "2016-03-23"
+
+  dynamodbv2 {
+    role_arn = var.lab_role
+    put_item {
+      table_name = aws_dynamodb_table.sensor_test.name
     }
   }
 }
