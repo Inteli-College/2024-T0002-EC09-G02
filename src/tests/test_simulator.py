@@ -161,7 +161,7 @@ def test_insertion_into_dynamodb():
     publisher.publish_message(mqtt_connection, TEST_TOPIC, json.dumps(message))
 
 
-    dynamodb = boto3.resource('dynamodb')
+    dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
     table_name = 'sensorTest'
     table = dynamodb.Table(table_name)
 

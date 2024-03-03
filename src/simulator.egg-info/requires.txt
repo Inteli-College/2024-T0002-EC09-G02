@@ -3,7 +3,6 @@ importlib-metadata
 pydantic
 boto3
 awsiotsdk
-python-dotenv
 
 [test]
 pytest
