@@ -13,6 +13,22 @@ resource "aws_dynamodb_table" "sensor_north" {
   }
 }
 
+resource "aws_dynamodb_table" "sensor_test" {
+  name         = "sensorTest"
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "test"
+
+  attribute {
+    name = "test"
+    type = "S"
+  }
+
+  tags = {
+    Name = "Test Table"
+  }
+}
+
+
 resource "aws_dynamodb_table" "sensor_south" {
   name         = "sensorSouth"
   billing_mode = "PAY_PER_REQUEST"
