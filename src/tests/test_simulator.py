@@ -43,6 +43,7 @@ from awscrt import mqtt, http
 import os
 from botocore.config import Config
 
+
 # Constants
 IOT_ENDPOINT = 'a32jmg845uczmw-ats.iot.us-east-1.amazonaws.com'
 PORT = 8883
@@ -56,6 +57,10 @@ CLIENT_ID_DYNAMO = 'test_dyanmo'
 TEST_TOPIC = 'test/test'
 AUTH_TOPIC = 'test/publishing_topic_authorization'
 WRONG_TOPIC = 'wrong_topic'
+
+
+AWS_SESSION_TOKEN = args
+
 
 # Global variables
 received_message = {'message': 'no message received'}
