@@ -40,6 +40,9 @@ import boto3
 import uuid
 from simulator.generic_sensor import publisher
 from awscrt import mqtt, http
+import dotenv
+
+dotenv.load_dotenv()
 
 # Constants
 IOT_ENDPOINT = 'a32jmg845uczmw-ats.iot.us-east-1.amazonaws.com'
@@ -54,6 +57,9 @@ CLIENT_ID_DYNAMO = 'test_sub'
 TEST_TOPIC = 'test/test'
 AUTH_TOPIC = 'test/publishing_topic_authorization'
 WRONG_TOPIC = 'wrong_topic'
+REGION_NAME = dotenv.get('REGION_NAME')
+ACCESS_KEY = dotenv.get('ACCESS_KEY')
+SESSION_TOKEN = dotenv.get('SESSION_TOKEN')
 
 
 # Global variables
@@ -159,7 +165,8 @@ def test_insertion_into_dynamodb():
 
     publisher.publish_message(mqtt_connection, TEST_TOPIC, json.dumps(message))
 
-    dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
+    dynamodb = boto3.resource('dynamodb', aws_access_key_id=ACCESS_KEY aws_secret_access_key=SECRET_KEY,
+    aws_session_token=SESSION_TOKEN, region_name=REGION_NAME)
     table_name = 'sensorTest'
     table = dynamodb.Table(table_name)
 
