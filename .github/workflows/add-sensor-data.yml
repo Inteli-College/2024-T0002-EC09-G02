@@ -1,4 +1,4 @@
-name: "Add sensor data"
+name: "MQTT - publish simulated data"
 
 on:
   workflow_dispatch:

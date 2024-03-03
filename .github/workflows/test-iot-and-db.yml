@@ -1,4 +1,4 @@
-name: "Test IotCore and DB"
+name: "[TESTS] MQTT"
 
 on:
   workflow_dispatch:
