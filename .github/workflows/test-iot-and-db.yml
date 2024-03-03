@@ -48,7 +48,7 @@ jobs:
           curl -L -o root-CA.crt https://www.amazontrust.com/repository/AmazonRootCA1.pem
 
       - name: Install Python dependencies
-        run: python3 -m pip install awsiotsdk & pip install pytest
+        run: python3 -m pip install awsiotsdk pytest boto3
         
 
       - name: Run script
