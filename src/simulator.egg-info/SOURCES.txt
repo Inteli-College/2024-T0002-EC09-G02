@@ -1,6 +1,7 @@
 pyproject.toml
 setup.cfg
 setup.py
+authentication-keys/__init__.py
 simulator/__init__.py
 simulator.egg-info/PKG-INFO
 simulator.egg-info/SOURCES.txt

@@ -1,6 +1,8 @@
 requests
 importlib-metadata
 pydantic
+boto3
+awsiotsdk
 
 [test]
 pytest
