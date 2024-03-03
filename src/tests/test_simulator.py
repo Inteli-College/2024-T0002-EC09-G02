@@ -57,9 +57,10 @@ CLIENT_ID_DYNAMO = 'test_sub'
 TEST_TOPIC = 'test/test'
 AUTH_TOPIC = 'test/publishing_topic_authorization'
 WRONG_TOPIC = 'wrong_topic'
-REGION_NAME = dotenv.get('REGION_NAME')
-ACCESS_KEY = dotenv.get('ACCESS_KEY')
-SESSION_TOKEN = dotenv.get('SESSION_TOKEN')
+AWS_ACCESS_KEY_ID = dotenv.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = dotenv.get('AWS_SECRET_ACCESS_KEY')
+AWS_SESSION_TOKEN = dotenv.get('AWS_SESSION_TOKEN')
+AWS_REGION = dotenv.get('AWS_REGION')
 
 
 # Global variables
@@ -165,8 +166,8 @@ def test_insertion_into_dynamodb():
 
     publisher.publish_message(mqtt_connection, TEST_TOPIC, json.dumps(message))
 
-    dynamodb = boto3.resource('dynamodb', aws_access_key_id=ACCESS_KEY aws_secret_access_key=SECRET_KEY,
-    aws_session_token=SESSION_TOKEN, region_name=REGION_NAME)
+    dynamodb = boto3.resource('dynamodb', aws_access_key_id=AWS_ACCESS_KEY_ID aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
+    aws_session_token=AWS_SESSION_TOKEN, region_name=AWS_REGION)
     table_name = 'sensorTest'
     table = dynamodb.Table(table_name)
 
