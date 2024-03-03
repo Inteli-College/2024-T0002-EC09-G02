@@ -53,8 +53,22 @@ O MQTT oferece diferentes níveis de garantia de entrega das mensagens, garantin
 No nosso projeto, os dispositivos sensores enviarão dados como qualidade do ar, umidade do solo e ruído urbano por meio de mensagens MQTT para o AWS IoT Core. Esses dados serão processados e armazenados na nuvem para análise e visualização, contribuindo para a tomada de decisões informadas sobre questões ambientais e urbanas.
 ## Tópicos
 
-## Monitoramento
+No nosso projeto, vamos dividir a área em quatro regiões distintas: norte, sul, leste e oeste. Em cada uma dessas regiões, teremos sensores específicos para medir três aspectos ambientais principais: radiação solar, qualidade do ar e ruído.
+
+Para organizar essa coleta de dados de forma eficiente, vamos utilizar os "tópicos" no protocolo MQTT. Cada sensor enviará suas leituras para um tópico específico, identificado pela sua localização e pelo tipo de dado que está sendo medido.
+
+Por exemplo, para a região Norte da cidade, teremos tópicos como "norte/radiacao_solar", "norte/qualidade_ar" e "norte/ruido". Da mesma forma, para as regiões Sul, Leste e Oeste, teremos tópicos correspondentes, refletindo a localização geográfica dos sensores e os tipos de dados que estão sendo coletados.
+
+Essa estrutura de tópicos nos permite organizar e segmentar as leituras dos sensores de acordo com a localização e o tipo de dados, facilitando a análise e a tomada de decisões.
 
 # Segurança
-## Autenticação
-## Políticas
+No âmbito do nosso projeto, a segurança é uma prioridade fundamental para preservar a integridade e a confidencialidade dos dados provenientes dos sensores e enviados para a nuvem. Nesse contexto, implementamos algumas estratégias de mitigação para garantir a proteção dessas informações.
+
+## Autenticação de Dispositivos: 
+Cada dispositivo sensor será autenticado ao se conectar ao AWS IoT Core. Isso é feito por meio de certificados, garantindo que apenas dispositivos autorizados tenham permissão para enviar dados para a nuvem.
+
+## Políticas de Acesso: 
+As políticas de acesso são usadas para controlar as permissões dos dispositivos e dos clientes na nuvem para acessar os recursos do AWS IoT Core. Elas definem quais ações são permitidas ou negadas para cada entidade, como publicar ou assinar tópicos, receber mensagens, registrar novos dispositivos, entre outras.
+
+## Regras de Segurança: 
+Além das autenticações e políticas, também podemos definir regras de segurança adicionais para proteger os dados e garantir a conformidade com os requisitos de segurança específicos do projeto. Isso pode incluir a criptografia dos dados em trânsito e em repouso, a aplicação de firewalls e a implementação de medidas de monitoramento e detecção de ameaças.
