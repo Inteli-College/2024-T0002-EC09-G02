@@ -62,7 +62,7 @@ WRONG_TOPIC = 'wrong_topic'
 AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
 AWS_SESSION_TOKEN = os.getenv('AWS_SESSION_TOKEN')
-AWS_REGION = os.getenv('AWS_REGION')
+AWS_REGION = os.getenv('AWS_DEFAULT_REGION')
 
 my_config = Config(
     region_name = AWS_REGION,
@@ -177,8 +177,7 @@ def test_insertion_into_dynamodb():
 
     publisher.publish_message(mqtt_connection, TEST_TOPIC, json.dumps(message))
 
-    dynamodb = boto3.resource('dynamodb', aws_access_key_id=AWS_ACCESS_KEY_ID, aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
-    aws_session_token=AWS_SESSION_TOKEN, region_name=AWS_REGION, config=my_config)
+    dynamodb = boto3.resource('dynamodb', config=my_config)
     table_name = 'sensorTest'
     table = dynamodb.Table(table_name)
 
