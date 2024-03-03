@@ -11,5 +11,4 @@ venv/*
 
 __pycache__/
 setup.cfg
-__init__.py
 include
