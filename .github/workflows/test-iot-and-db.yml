@@ -58,8 +58,7 @@ jobs:
           
       - name: Test with tox
         run: |
-          echo ${{env.AWS_ACCESS_KEY_ID}} \
-          tox
+          echo ${{env.AWS_ACCESS_KEY_ID}} & tox
 
 
 
