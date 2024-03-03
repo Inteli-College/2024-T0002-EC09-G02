@@ -41,6 +41,8 @@ import uuid
 from simulator.generic_sensor import publisher
 from awscrt import mqtt, http
 import dotenv
+import os
+
 
 dotenv.load_dotenv()
 
@@ -57,10 +59,10 @@ CLIENT_ID_DYNAMO = 'test_sub'
 TEST_TOPIC = 'test/test'
 AUTH_TOPIC = 'test/publishing_topic_authorization'
 WRONG_TOPIC = 'wrong_topic'
-AWS_ACCESS_KEY_ID = dotenv.get('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = dotenv.get('AWS_SECRET_ACCESS_KEY')
-AWS_SESSION_TOKEN = dotenv.get('AWS_SESSION_TOKEN')
-AWS_REGION = dotenv.get('AWS_REGION')
+AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
+AWS_SESSION_TOKEN = os.getenv('AWS_SESSION_TOKEN')
+AWS_REGION = os.getenv('AWS_REGION')
 
 
 # Global variables
