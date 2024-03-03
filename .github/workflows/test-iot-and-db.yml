@@ -41,7 +41,7 @@ jobs:
         run: |
           aws s3 cp s3://${{env.BUCKET_TERRAFORM_STATE}}/authentication-key/test_key.pem test_key.pem
           aws s3 cp s3://${{env.BUCKET_TERRAFORM_STATE}}/authentication-key/test_cert.pem test_cert.pem
-          echo ${{AWS_ACCESS_KEY_ID}}
+          echo ${{env.AWS_ACCESS_KEY_ID}}
 
       - name: Download CA
         working-directory: src/authentication-keys
