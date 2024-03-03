@@ -59,9 +59,6 @@ AUTH_TOPIC = 'test/publishing_topic_authorization'
 WRONG_TOPIC = 'wrong_topic'
 
 
-AWS_SESSION_TOKEN = args
-
-
 # Global variables
 received_message = {'message': 'no message received'}
 
