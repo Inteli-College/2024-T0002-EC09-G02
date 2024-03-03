@@ -46,12 +46,6 @@ jobs:
         working-directory: src/authentication-keys
         run: |
           curl -L -o root-CA.crt https://www.amazontrust.com/repository/AmazonRootCA1.pem
-
-      - name: Install Python dependencies
-        working-directory: src
-        run: | 
-          python3 -m pip install awsiotsdk pytest boto3 \
-          pip install -e ".[test]"
   
   test:
     runs-on: ubuntu-latest
