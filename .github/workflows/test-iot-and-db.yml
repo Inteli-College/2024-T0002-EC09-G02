@@ -21,12 +21,10 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: 'src'
 
     steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+      - name: Checkout 
+        uses: actions/checkout@v4
 
       - name: Setup AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -57,14 +55,12 @@ jobs:
           python -m pip install tox tox-gh-actions
           
       - name: Test with tox
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
-          AWS_DEFAULT_REGION: "us-east-1"
-          AWS_REGION: "us-east-1"
         run: |
-          echo ${{env.AWS_ACCESS_KEY_ID}} & tox
+          export aws_access_key_id=${{ secrets.AWS_ACCESS_KEY_ID }}
+          export aws_secret_access_key=${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          export aws_session_token=${{ secrets.AWS_SESSION_TOKEN }}
+          export region=${{ secrets.AWS_REGION }}
+          tox
 
 
 
