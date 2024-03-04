@@ -133,11 +133,9 @@ Publicação de Dados:
 - Intervalo de Publicação (interval): O tempo entre as publicações é calculado com base na taxa de transmissão configurada para o sensor.
 = Tópico MQTT (topic): Construído com base na região e no tipo de sensor, este é o canal onde os dados são publicados no AWS IoT Core.
 
-
-
 ## Diagrama de Blocos do Simulador MQTT - v1.0
 
-![alt text](../../../static/img/Diagrama de blocos - MQTT.png)
+![alt text](<../../../static/img/Diagrama de blocos - MQTT.png>)
 
 O simulador atua nos primeiros dois blocos, gerando dados randomizados, representando os sensores, e publicando-os em tópicos segundo um padrão de nomenclatura. Nas próximas sprints, objetiva-se progredir na integração com o banco de dados e o dashboard.
 
