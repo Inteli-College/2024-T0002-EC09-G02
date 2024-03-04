@@ -1,11 +1,6 @@
 name: "Terraform - Up Infrastructure"
 
 on:
-  push:
-    branches: ["main"]
-    paths:
-      - "infrastructure/terraform/global/**"
-
   workflow_dispatch:
 
 permissions:
@@ -47,18 +42,6 @@ jobs:
           aws s3 cp s3://${{env.BUCKET_TERRAFORM_STATE}}/state-files/terraform.tfstate terraform.tfstate
           aws s3 cp s3://${{env.BUCKET_TERRAFORM_STATE}}/state-files/terraform.tfstate.backup terraform.tfstate.backup
         continue-on-error: true
-
-      - name: Download Certificate North Sensor
-        working-directory: infrastructure/terraform/global/authentication-keys
-        run: |
-          aws s3 cp s3://${{env.BUCKET_TERRAFORM_STATE}}/authentication-key/north.pem.crt north.pem.crt
-          aws s3 cp s3://${{env.BUCKET_TERRAFORM_STATE}}/authentication-key/private-north.pem.key north.pem.key
-
-      - name: Download Certificate West Sensor
-        working-directory: infrastructure/terraform/global/authentication-keys
-        run: |
-          aws s3 cp s3://${{env.BUCKET_TERRAFORM_STATE}}/authentication-key/west.pem.crt west.pem.crt
-          aws s3 cp s3://${{env.BUCKET_TERRAFORM_STATE}}/authentication-key/private-west.pem.key west.pem.key
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1

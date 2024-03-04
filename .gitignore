@@ -10,5 +10,13 @@ venv
 venv/*
 
 __pycache__/
-setup.cfg
-__init__.py
+include
+*.egg-info
+/.tox
+src/.tox
+.tox
+.pytest_cache
+.mypy_cache
+pyvenv.cfg
+src/simulator.egg-info
+./simulator.egg-info

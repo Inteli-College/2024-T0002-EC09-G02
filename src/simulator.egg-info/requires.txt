@@ -1,0 +1,12 @@
+requests
+importlib-metadata
+pydantic
+boto3
+awsiotsdk
+
+[test]
+pytest
+pytest-cov
+mypy
+flake8
+tox
