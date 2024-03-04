@@ -72,3 +72,5 @@ As políticas de acesso são usadas para controlar as permissões dos dispositiv
 
 ## Regras de Segurança: 
 Além das autenticações e políticas, também podemos definir regras de segurança adicionais para proteger os dados e garantir a conformidade com os requisitos de segurança específicos do projeto. Isso pode incluir a criptografia dos dados em trânsito e em repouso, a aplicação de firewalls e a implementação de medidas de monitoramento e detecção de ameaças.
+
+# Diagrama UML da comunicação
