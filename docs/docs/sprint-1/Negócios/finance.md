@@ -29,7 +29,7 @@ Para a implementação do projeto, será necessário uma equipe composta por uma
 
 ### Gastos com serviços Cloud
 
-Este quadro apresenta um resumo dos custos anuais e mensais associados ao uso de diversos serviços da AWS para o projeto, incluindo IOT Core para dispositivos, Amazon EKS, Amazon Elastic Container Registry, Amazon EC2 e Amazon VPC. O total anual em dólares é convertido para reais utilizando a taxa de câmbio de R$4.97, resultando em um custo anual de R$101,959.95 e um custo mensal de R$8,496.66. Essa análise de custos é fundamental para o planejamento financeiro do projeto, permitindo uma avaliação precisa dos gastos com infraestrutura de nuvem e garantindo a alocação eficiente de recursos para operações críticas.
+Este quadro apresenta um resumo dos custos anuais e mensais associados ao uso de diversos serviços da AWS para o projeto, incluindo IOT Core para dispositivos, Amazon EKS, Amazon Elastic Container Registry, Amazon EC2 ,Amazon VPC e AWS Glue. O total anual em dólares é convertido para reais utilizando a taxa de câmbio de R$4.97, resultando em um custo anual de R$101,959.95 e um custo mensal de R$8,496.66. Essa análise de custos é fundamental para o planejamento financeiro do projeto, permitindo uma avaliação precisa dos gastos com infraestrutura de nuvem e garantindo a alocação eficiente de recursos para operações críticas.
 
 | Serviço                             | Preço p/ Ano   | Preço p/ Mês |
 |-------------------------------------|----------------|--------------|
@@ -38,8 +38,9 @@ Este quadro apresenta um resumo dos custos anuais e mensais associados ao uso de
 | Amazon Elastic Container Registry   | $24.00         | $2.00        |
 | Amazon EC2                          | $659.52        | $54.96       |
 | Amazon VPC                          | $8,556.00      | $713.00      |
+| AWS Glue                            | $3,613.44      | $301.12      |
 | **Total em dólares**                | **$20.515,08** | **$1.709,59** |
-| **Total em reais**                  | **R$101.959,95** | **R$8.496,66** |
+| **Total em reais**                  | **R$119.918,74** | **R$9.993,23** |
 | **Taxa de câmbio (Dólar para Real)**| **R$4,97**     |              |
 
 ### Terceirização de serviços
