@@ -1,0 +1,15 @@
+"Dispositivo" --> "Chave Privada" : Geração
+"Dispositivo" --> "Certificado do Dispositivo" : Geração
+
+"Certificado do Dispositivo" --> "Root CA" : Assinatura
+
+"Root CA" --> "Certificado" : Geração
+
+"Certificado do Dispositivo" --> "AWS IoT Core" : Registro
+"Policy" --> "AWS IoT Core" : Configuração
+
+"Certificado" --> "TLS" : Autenticação
+
+"Dispositivo" --> "TLS" : Conexão Segura
+"AWS IoT Core" --> "TLS" : Conexão Segura
+
