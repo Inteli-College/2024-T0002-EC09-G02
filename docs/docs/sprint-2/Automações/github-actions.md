@@ -53,6 +53,8 @@ Atualmente, o projeto possui os seguintes fluxos de trabalho no GitHub Actions:
 - **Terraform - Up S3 Infrascruture**: Fluxo de trabalho que realiza o deploy da infraestrutura do projeto.
 - **Terraform - Up Infrastruture**: Fluxo de trabalho que realiza o deploy da infraestrutura do projeto.
 - **Terraform - Down Infrastruture**: Fluxo de trabalho que realiza o down da infraestrutura do projeto.
+- **MQTT - publish simulated data**: Fluxo de trabalho que publica dados mockados para todos os sensores e regiões.
+- **[TESTS] MQTT**: Fluxo de trabalho que roda suite de testes do MQTT.
 
 ### Deploy Docussaurus
 
@@ -404,4 +406,334 @@ jobs:
         run: |
           aws s3 cp terraform.tfstate s3://${{env.BUCKET_TERRAFORM_STATE}}/state-files/terraform.tfstate
           aws s3 cp terraform.tfstate.backup s3://${{env.BUCKET_TERRAFORM_STATE}}/state-files/terraform.tfstate.backup
+```
+
+### MQTT - publish simulated data
+
+Este fluxo de trabalho automatizado é responsável por publicar dados simulados de sensores MQTT em diferentes regiões. Ele configura o ambiente, baixa chaves de autenticação e certificados necessários, instala dependências Python e inicia a publicação dos dados simulados usando um script Python.
+
+Ele foi projetado para simular o funcionamento de sensores MQTT em diversas regiões. Ele utiliza o protocolo MQTT para enviar dados simulados de sensores, como CO, CO2, NO2, PM10, PM2.5, entre outros, para uma infraestrutura de nuvem AWS.
+Para isso, são executados estes passos:
+
+1. **Checkout:** Clona o repositório de código para o ambiente de execução do GitHub Actions.
+2. **Configuração de Credenciais da AWS:** Configura as credenciais da AWS para acesso aos recursos na nuvem.
+3. **Download de Chaves de Autenticação e Certificados:** Baixa as chaves de autenticação e certificados necessários do bucket S3.
+4. **Download do CA (Certificado de Autoridade):** Baixa o certificado raiz da Amazon Trust necessário para autenticação SSL/TLS.
+6. **Instalação de Dependências Python:** Instala a biblioteca awsiotsdk para permitir a comunicação com o serviço AWS IoT.
+7. **Execução do Script:** Inicia a execução do script Python publisher.py, que simula a publicação de dados de sensores em várias regiões. Os dados são publicados para os tópicos MQTT correspondentes.
+
+#### Resultado
+Ao final da execução deste fluxo de trabalho, dados simulados de sensores MQTT serão publicados na infraestrutura de nuvem AWS em diversas regiões. Isso permite testar a integração e o funcionamento do sistema de comunicação MQTT em um ambiente controlado. Os resultados da publicação dos dados podem ser monitorados nos logs de saída do GitHub Actions.
+
+#### Código do Fluxo de Trabalho
+
+```yaml
+name: "MQTT - publish simulated data"
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
+  AWS_REGION: ${{ secrets.AWS_REGION }}
+  BUCKET_TERRAFORM_STATE: ${{ secrets.BUCKET_TERRAFORM_STATE }}
+
+jobs:
+  terraform:
+    name: "Download - Sensors Keys"
+    runs-on: ubuntu-latest
+    environment: production
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+        
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ env.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
+          aws-session-token: ${{ env.AWS_SESSION_TOKEN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Download Certificate North Sensor
+        working-directory: src/authentication-keys
+        run: |
+          aws s3 cp s3://${{env.BUCKET_TERRAFORM_STATE}}/authentication-key/north_key.pem north_key.pem
+          aws s3 cp s3://${{env.BUCKET_TERRAFORM_STATE}}/authentication-key/north_cert.pem north_cert.pem
+
+      - name: Download Certificate South Sensor
+        working-directory: src/authentication-keys
+        run: |
+          aws s3 cp s3://${{env.BUCKET_TERRAFORM_STATE}}/authentication-key/south_key.pem south_key.pem
+          aws s3 cp s3://${{env.BUCKET_TERRAFORM_STATE}}/authentication-key/south_cert.pem south_cert.pem
+
+      - name: Download Certificate East Sensor
+        working-directory: src/authentication-keys
+        run: |
+          aws s3 cp s3://${{env.BUCKET_TERRAFORM_STATE}}/authentication-key/east_key.pem east_key.pem
+          aws s3 cp s3://${{env.BUCKET_TERRAFORM_STATE}}/authentication-key/east_cert.pem east_cert.pem
+
+      - name: Download Certificate West Sensor
+        working-directory: src/authentication-keys
+        run: |
+          aws s3 cp s3://${{env.BUCKET_TERRAFORM_STATE}}/authentication-key/west_key.pem west_key.pem
+          aws s3 cp s3://${{env.BUCKET_TERRAFORM_STATE}}/authentication-key/west_cert.pem west_cert.pem
+
+      - name: Download Certificate Central Sensor
+        working-directory: src/authentication-keys
+        run: |
+          aws s3 cp s3://${{env.BUCKET_TERRAFORM_STATE}}/authentication-key/center_key.pem center_key.pem
+          aws s3 cp s3://${{env.BUCKET_TERRAFORM_STATE}}/authentication-key/center_cert.pem center_cert.pem
+
+
+      - name: Download CA
+        working-directory: src/authentication-keys
+        run: |
+          curl -L -o root-CA.crt https://www.amazontrust.com/repository/AmazonRootCA1.pem
+
+      - name: Install Python dependencies
+        run: python3 -m pip install awsiotsdk
+
+      - name: Run script
+        working-directory: src/simulator/generic_sensor
+        run: |
+          python3 publisher.py \
+          --sensor CO \
+          --region north \
+          \
+          & python3 pubsub.py \
+          --sensor CO \
+          --region south \
+          \
+          & python3 pubsub.py \
+          --sensor CO \
+          --region east \
+          \
+          & python3 pubsub.py \
+          --sensor CO \
+          --region west \
+          \
+          & python3 pubsub.py \
+          --sensor CO \
+          --region center \
+          \
+          & python3 pubsub.py \
+          --sensor CO2 \
+          --region north \
+          \
+          & python3 pubsub.py \
+          --sensor CO2 \
+          --region south \
+          \
+          & python3 pubsub.py \
+          --sensor CO2 \
+          --region east \
+          \
+          & python3 pubsub.py \
+          --sensor CO2 \
+          --region west \
+          \
+          & python3 pubsub.py \
+          --sensor CO2 \
+          --region center \
+          \
+          & python3 pubsub.py \
+          --sensor NO2 \
+          --region north \
+          \
+          & python3 pubsub.py \
+          --sensor NO2 \
+          --region south \
+          \
+          & python3 pubsub.py \
+          --sensor NO2 \
+          --region east \
+          \
+          & python3 pubsub.py \
+          --sensor NO2 \
+          --region west \
+          \
+          & python3 pubsub.py \
+          --sensor NO2 \
+          --region center \
+          \
+          & python3 pubsub.py \
+          --sensor PM10 \
+          --region north \
+          \
+          & python3 pubsub.py \
+          --sensor PM10 \
+          --region south \
+          \
+          & python3 pubsub.py \
+          --sensor PM10 \
+          --region east \
+          \
+          & python3 pubsub.py \
+          --sensor PM10 \
+          --region west \
+          \
+          & python3 pubsub.py \
+          --sensor PM10 \
+          --region center \
+          \
+          & python3 pubsub.py \
+          --sensor PM2.5 \
+          --region north \
+          \
+          & python3 pubsub.py \
+          --sensor PM2.5 \
+          --region south \
+          \
+          & python3 pubsub.py \
+          --sensor PM2.5 \
+          --region east \
+          \
+          & python3 pubsub.py \
+          --sensor PM2.5 \
+          --region west \
+          \
+          & python3 pubsub.py \
+          --sensor PM2.5 \
+          --region center \
+          \
+          & python3 pubsub.py \
+          --sensor solar \
+          --region north \
+          \
+          & python3 pubsub.py \
+          --sensor solar \
+          --region south \
+          \
+          & python3 pubsub.py \
+          --sensor solar \
+          --region east \
+          \
+          & python3 pubsub.py \
+          --sensor solar \
+          --region west \
+          \
+          & python3 pubsub.py \
+          --sensor solar \
+          --region center \
+          \
+          & python3 pubsub.py \
+          --sensor noise \
+          --region north \
+          \
+          & python3 pubsub.py \
+          --sensor noise \
+          --region south \
+          \
+          & python3 pubsub.py \
+          --sensor noise \
+          --region east \
+          \
+          & python3 pubsub.py \
+          --sensor noise \
+          --region west \
+          \
+          & python3 pubsub.py \
+          --sensor noise \
+          --region center \
+```
+
+### [TESTS] MQTT
+
+Este fluxo de trabalho automatizado foi desenvolvido para executar testes relacionados ao protocolo MQTT (Message Queuing Telemetry Transport) em um ambiente de integração contínua. Ele configura o ambiente, realiza o download de chaves de autenticação e certificados necessários, instala dependências Python e executa os testes usando a ferramenta tox. Ele segue estes passos
+
+1. **Checkout:** Clona o repositório de código para o ambiente de execução do GitHub Actions.
+2. **Configuração de Credenciais da AWS:** Configura as credenciais da AWS para acesso aos recursos na nuvem.
+3. **Download de Chaves de Autenticação e Certificados:** Baixa as chaves de autenticação e certificados necessários do bucket S3.
+4. **Download do CA (Certificado de Autoridade):** Baixa o certificado raiz da Amazon Trust necessário para autenticação SSL/TLS.
+5. **Configuração do Python 3.11:** Configura o ambiente Python para a versão 3.11.
+6. **Instalação de Dependências:** Atualiza o pip e instala as dependências necessárias para os testes usando o tox.
+7. **Configuração de Credenciais da AWS (Novamente):** Adiciona as credenciais da AWS ao arquivo de credenciais ~/.aws/credentials, para que o boto3 as encontre.
+8. **Teste com tox:** Executa os testes utilizando a ferramenta tox.
+   
+#### Resultado
+O fluxo de trabalho é executado na infraestrutura do GitHub Actions. Ao final da execução, é fornecido um resultado indicando se os testes foram bem-sucedidos ou se houve falhas. Os detalhes dos resultados dos testes podem ser encontrados na página do GitHub Actions, permitindo que os desenvolvedores monitorem e corrijam quaisquer problemas que surgirem durante a execução dos testes.
+
+#### Código do Fluxo de Trabalho
+
+```yaml
+name: "[TESTS] MQTT"
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
+  AWS_DEFAULT_REGION: ${{ secrets.AWS_REGION }}
+  BUCKET_TERRAFORM_STATE: ${{ secrets.BUCKET_TERRAFORM_STATE }}
+
+jobs:
+  test:
+    name: "Run tests"
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ env.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
+          aws-session-token: ${{ env.AWS_SESSION_TOKEN }}
+          aws-region: ${{ env.AWS_DEFAULT_REGION }}
+
+      - name: Download Certificate North Sensor
+        working-directory: src/authentication-keys
+        run: |
+          aws s3 cp s3://${{env.BUCKET_TERRAFORM_STATE}}/authentication-key/test_key.pem test_key.pem
+          aws s3 cp s3://${{env.BUCKET_TERRAFORM_STATE}}/authentication-key/test_cert.pem test_cert.pem
+
+      - name: Download CA
+        working-directory: src/authentication-keys
+        run: |
+          curl -L -o root-CA.crt https://www.amazontrust.com/repository/AmazonRootCA1.pem
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install tox tox-gh-actions
+
+      - name: Configure AWS Credentials
+        run: |
+          mkdir -p ~/.aws
+          touch ~/.aws/credentials
+          echo "[default]" >> ~/.aws/credentials
+          echo "aws_access_key_id=${{ secrets.AWS_ACCESS_KEY_ID }}" >> ~/.aws/credentials
+          echo "aws_secret_access_key=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> ~/.aws/credentials
+          echo "aws_session_token=${{ secrets.AWS_SESSION_TOKEN }}" >> ~/.aws/credentials
+          echo "region=${{ secrets.AWS_REGION }}" >> ~/.aws/credentials
+
+      - name: Test with tox
+        run: |
+          tox
 ```

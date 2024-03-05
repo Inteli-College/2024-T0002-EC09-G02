@@ -1,7 +1,7 @@
 ---
-sidebar_position: 1
-slug: '/sprint_2/dashboard/grafana'
-label: "Grafana e Prometheus"
+sidebar_position: 3
+slug: '/sprint_2/granafa.md'
+label: "Dashboard"
 ---
 # Grafana e Prometheus
 
@@ -149,7 +149,7 @@ O grupo decidiu adotar o Grafana e o Prometheus para visualização e análise d
 
 O dashboard a seguir é um exemplo de como as métricas coletadas pelo Prometheus podem ser visualizadas e analisadas por meio do Grafana. O dashboard inclui gráficos de séries temporais, tabelas, e outros tipos de visualizações, que permitem monitorar o desempenho e a disponibilidade dos pods e serviços do cluster do Amazon EKS.
 
-![alt text](../../../static/img/monitoramento-eks.png)
+![alt text](../../static/img/monitoramento-eks.png)
 
 
 ## Demo do Grafana e Prometheus

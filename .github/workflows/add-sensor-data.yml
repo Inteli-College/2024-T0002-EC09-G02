@@ -81,141 +81,141 @@ jobs:
           python3 publisher.py \
           --sensor CO \
           --region north \
-          # \
-          # & python3 pubsub.py \
-          # --sensor CO \
-          # --region south \
-          # \
-          # & python3 pubsub.py \
-          # --sensor CO \
-          # --region east \
-          # \
-          # & python3 pubsub.py \
-          # --sensor CO \
-          # --region west \
-          # \
-          # & python3 pubsub.py \
-          # --sensor CO \
-          # --region center \
-          # \
-          # & python3 pubsub.py \
-          # --sensor CO2 \
-          # --region north \
-          # \
-          # & python3 pubsub.py \
-          # --sensor CO2 \
-          # --region south \
-          # \
-          # & python3 pubsub.py \
-          # --sensor CO2 \
-          # --region east \
-          # \
-          # & python3 pubsub.py \
-          # --sensor CO2 \
-          # --region west \
-          # \
-          # & python3 pubsub.py \
-          # --sensor CO2 \
-          # --region center \
-          # \
-          # & python3 pubsub.py \
-          # --sensor NO2 \
-          # --region north \
-          # \
-          # & python3 pubsub.py \
-          # --sensor NO2 \
-          # --region south \
-          # \
-          # & python3 pubsub.py \
-          # --sensor NO2 \
-          # --region east \
-          # \
-          # & python3 pubsub.py \
-          # --sensor NO2 \
-          # --region west \
-          # \
-          # & python3 pubsub.py \
-          # --sensor NO2 \
-          # --region center \
-          # \
-          # & python3 pubsub.py \
-          # --sensor PM10 \
-          # --region north \
-          # \
-          # & python3 pubsub.py \
-          # --sensor PM10 \
-          # --region south \
-          # \
-          # & python3 pubsub.py \
-          # --sensor PM10 \
-          # --region east \
-          # \
-          # & python3 pubsub.py \
-          # --sensor PM10 \
-          # --region west \
-          # \
-          # & python3 pubsub.py \
-          # --sensor PM10 \
-          # --region center \
-          # \
-          # & python3 pubsub.py \
-          # --sensor PM2.5 \
-          # --region north \
-          # \
-          # & python3 pubsub.py \
-          # --sensor PM2.5 \
-          # --region south \
-          # \
-          # & python3 pubsub.py \
-          # --sensor PM2.5 \
-          # --region east \
-          # \
-          # & python3 pubsub.py \
-          # --sensor PM2.5 \
-          # --region west \
-          # \
-          # & python3 pubsub.py \
-          # --sensor PM2.5 \
-          # --region center \
-          # \
-          # & python3 pubsub.py \
-          # --sensor solar \
-          # --region north \
-          # \
-          # & python3 pubsub.py \
-          # --sensor solar \
-          # --region south \
-          # \
-          # & python3 pubsub.py \
-          # --sensor solar \
-          # --region east \
-          # \
-          # & python3 pubsub.py \
-          # --sensor solar \
-          # --region west \
-          # \
-          # & python3 pubsub.py \
-          # --sensor solar \
-          # --region center \
-          # \
-          # & python3 pubsub.py \
-          # --sensor noise \
-          # --region north \
-          # \
-          # & python3 pubsub.py \
-          # --sensor noise \
-          # --region south \
-          # \
-          # & python3 pubsub.py \
-          # --sensor noise \
-          # --region east \
-          # \
-          # & python3 pubsub.py \
-          # --sensor noise \
-          # --region west \
-          # \
-          # & python3 pubsub.py \
-          # --sensor noise \
-          # --region center \
+          \
+          & python3 pubsub.py \
+          --sensor CO \
+          --region south \
+          \
+          & python3 pubsub.py \
+          --sensor CO \
+          --region east \
+          \
+          & python3 pubsub.py \
+          --sensor CO \
+          --region west \
+          \
+          & python3 pubsub.py \
+          --sensor CO \
+          --region center \
+          \
+          & python3 pubsub.py \
+          --sensor CO2 \
+          --region north \
+          \
+          & python3 pubsub.py \
+          --sensor CO2 \
+          --region south \
+          \
+          & python3 pubsub.py \
+          --sensor CO2 \
+          --region east \
+          \
+          & python3 pubsub.py \
+          --sensor CO2 \
+          --region west \
+          \
+          & python3 pubsub.py \
+          --sensor CO2 \
+          --region center \
+          \
+          & python3 pubsub.py \
+          --sensor NO2 \
+          --region north \
+          \
+          & python3 pubsub.py \
+          --sensor NO2 \
+          --region south \
+          \
+          & python3 pubsub.py \
+          --sensor NO2 \
+          --region east \
+          \
+          & python3 pubsub.py \
+          --sensor NO2 \
+          --region west \
+          \
+          & python3 pubsub.py \
+          --sensor NO2 \
+          --region center \
+          \
+          & python3 pubsub.py \
+          --sensor PM10 \
+          --region north \
+          \
+          & python3 pubsub.py \
+          --sensor PM10 \
+          --region south \
+          \
+          & python3 pubsub.py \
+          --sensor PM10 \
+          --region east \
+          \
+          & python3 pubsub.py \
+          --sensor PM10 \
+          --region west \
+          \
+          & python3 pubsub.py \
+          --sensor PM10 \
+          --region center \
+          \
+          & python3 pubsub.py \
+          --sensor PM2.5 \
+          --region north \
+          \
+          & python3 pubsub.py \
+          --sensor PM2.5 \
+          --region south \
+          \
+          & python3 pubsub.py \
+          --sensor PM2.5 \
+          --region east \
+          \
+          & python3 pubsub.py \
+          --sensor PM2.5 \
+          --region west \
+          \
+          & python3 pubsub.py \
+          --sensor PM2.5 \
+          --region center \
+          \
+          & python3 pubsub.py \
+          --sensor solar \
+          --region north \
+          \
+          & python3 pubsub.py \
+          --sensor solar \
+          --region south \
+          \
+          & python3 pubsub.py \
+          --sensor solar \
+          --region east \
+          \
+          & python3 pubsub.py \
+          --sensor solar \
+          --region west \
+          \
+          & python3 pubsub.py \
+          --sensor solar \
+          --region center \
+          \
+          & python3 pubsub.py \
+          --sensor noise \
+          --region north \
+          \
+          & python3 pubsub.py \
+          --sensor noise \
+          --region south \
+          \
+          & python3 pubsub.py \
+          --sensor noise \
+          --region east \
+          \
+          & python3 pubsub.py \
+          --sensor noise \
+          --region west \
+          \
+          & python3 pubsub.py \
+          --sensor noise \
+          --region center \
 
           
