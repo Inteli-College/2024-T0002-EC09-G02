@@ -4,7 +4,9 @@ slug: 'Análise de impacto ético'
 
 ---
 
-# Introdução
+# Análise de impacto ético
+
+## Introdução
 
 Na era digital, onde a coleta e análise de dados se tornaram práticas comuns em projetos de diversas naturezas, a análise de impacto ético emerge como uma ferramenta crucial para garantir que tais iniciativas sejam conduzidas de maneira responsável e justa. A necessidade de incorporar a análise de impacto ético nos projetos não é apenas uma questão de conformidade legal, como no caso da LGPD no Brasil, mas também uma questão de responsabilidade social e moral. Ao considerarmos os potenciais impactos éticos de um projeto, como questões de privacidade, equidade, transparência e responsabilidade social, podemos antecipar e mitigar riscos que poderiam afetar negativamente indivíduos ou comunidades. Essa abordagem proativa não apenas protege as partes interessadas de possíveis danos, mas também fortalece a confiança pública no projeto, assegurando que os benefícios da inovação sejam compartilhados de maneira justa e equitativa.
 
