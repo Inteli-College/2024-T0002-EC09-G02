@@ -21,6 +21,9 @@ Consideramos inicialmente a opção de utilizar um broker local para gerenciar a
 Logo, as adaptações necessárias para garantir a segurança de um broker local nos levou a conclusão de que seria mais rápido e confiável simplesmente utilizar uma solução que já apresentasse essas features, isto é, a AWS IoT Core.
 
 ## Segurança na AWS
+
+![alt text](../../../static/img/auth.mmd.png)
+
 A segurança no AWS IoT Core é abordada por meio de uma série de componentes que trabalham em conjunto para garantir a integridade, autenticidade e confidencialidade dos dados. Vamos explorar detalhadamente cada componente:
 
 **1. Certificados TLS (Transport Layer Security):** O Certificado TLS é essencial para garantir uma comunicação segura entre o dispositivo sensor e o AWS IoT Core. Este certificado é emitido por uma Autoridade Certificadora (CA) confiável, como a AWS Certificate Manager (ACM), e é utilizado para estabelecer a autenticidade do dispositivo.
@@ -43,7 +46,7 @@ A segurança no AWS IoT Core é abordada por meio de uma série de componentes q
 
 **Replay Attacks:** A inclusão de timestamps nos certificados ajuda a prevenir replay attacks, garantindo que os certificados expirados não sejam aceitos.
 
-## Políticas de Acesso: 
+## Processo de autorização
 As políticas de acesso desempenham um papel crucial na AWS IoT Core, controlando as permissões de dispositivos e clientes para acessar os recursos na nuvem. Essas políticas são elaboradas para definir quais ações são permitidas ou negadas, garantindo uma operação segura e eficiente do sistema. Vamos aprofundar nos principais aspectos das políticas de acesso:
 
 ### Controle do Nome do Client ID
