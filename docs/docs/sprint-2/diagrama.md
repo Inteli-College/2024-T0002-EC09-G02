@@ -26,4 +26,30 @@ A solução proposta é uma arquitetura IoT robusta que utiliza serviços gerenc
 - **AWS Glue**: Serviço da AWS que oferece recursos para preparar e carregar dados para análise. O AWS Glue executa a rotina de tratamento e catalogação dos dados do DynamoDB por meio do AWS Glue ETL para o AWS Glue Data Catalog.
   - **AWS Glue ETL**: Serviço da AWS que oferece recursos para extrair, transformar e carregar dados para análise. O AWS Glue ETL foi escolhido para extrair, transformar e carregar os dados do DynamoDB para o AWS Glue Data Catalog.
   - **AWS Glue Data Catalog**: Serviço da AWS que oferece recursos para catalogar e armazenar metadados de dados. O AWS Glue Data Catalog foi escolhido para armazenar os metadados dos dados extraídos, transformados e carregados do DynamoDB.
+  
+### Diagrama de implantação
 
+Um Diagrama UML (Unified Modeling Language ou Linguagem Unificada de Modelagem) é uma forma padronizada de visualizar o design de um sistema. UML é uma linguagem de modelagem de sistemas que permite a representação gráfica de um sistema por meio de diferentes tipos de diagramas. Com a UML, os desenvolvedores e stakeholders podem entender, alterar, construir e documentar aspectos de um sistema de software.
+
+![alt text](../../static/img/implantacao.png)
+
+### Dispositivo (Publisher)
+
+- O dispositivo contém sensores para coletar dados ambientais como qualidade do ar e temperatura.
+- A autenticação é garantida por meio de certificados SHA-256 e chaves (pública e privada) SHA-256 para comunicação segura.
+- Os dados coletados são enviados para a AWS através do protocolo MQTT.
+  
+### Nuvem (AWS)
+- No serviço AWS IoT Core, uma regra é definida para processar dados recebidos do tópico 'topic/region/+'.
+- O AWS IoT Core atua como um ponto central para receber e encaminhar dados.
+  
+### Banco de Dados
+- Os dados são armazenados no DynamoDB, um banco de dados NoSQL da AWS, para armazenamento e recuperação eficiente.
+- O serviço AWS Glue é usado para realizar a catalogação dos dados armazenados, executando funções de um Crawler para identificar os dados e organizar as tabelas para consulta.
+
+### Visualização (Dashboard)
+
+- O serviço EKS (Elastic Kubernetes Service) gerencia os aplicativos de visualização de dados.
+- Grafana e Prometheus são integrados para a monitorização e visualização em tempo real dos dados.
+- O Amazon Athena é usado para consultas SQL diretamente no DynamoDB.
+- O serviço EC2, com uma instância T3.Medium, é utilizado para hospedar e executar as aplicações necessárias para o funcionamento do dashboard.
