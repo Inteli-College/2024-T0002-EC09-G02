@@ -50,16 +50,10 @@ jobs:
         continue-on-error: true
 
       - name: Get Last Bucket Name
-        run: |
-            LAST_BUCKET_NAME=$(aws s3api list-buckets --query 'Buckets[?CreationDate==`max(CreationDate)`].[Name]' --output text)
-            echo "Last bucket name: $LAST_BUCKET_NAME"
-            echo "LAST_BUCKET_NAME=$LAST_BUCKET_NAME" >> $GITHUB_ENV
+        run: echo "::set-env name=LAST_BUCKET_NAME::$(terraform output -json bucket_name | jq -r .)"
 
-      - name: Upload Terraform State files to S3
+      - name: Upload State
         working-directory: infrastructure/terraform/s3-state
         run: |
-          LAST_BUCKET_NAME=$(aws s3api list-buckets --query 'Buckets[?CreationDate==`max(CreationDate)`].[Name]' --output text)
-          echo "Last bucket name: $LAST_BUCKET_NAME"
-          aws s3 cp terraform.tfstate s3://$LAST_BUCKET_NAME/state-files/terraform.tfstate
-          aws s3 cp terraform.tfstate.backup s3://$LAST_BUCKET_NAME/state-files/terraform.tfstate.backup
-        
+          aws s3 cp terraform.tfstate s3://${{ env.LAST_BUCKET_NAME }}/state-files/terraform.tfstate
+          aws s3 cp terraform.tfstate.backup s3://${{ env.LAST_BUCKET_NAME }}/state-files/terraform.tfstate.backup
