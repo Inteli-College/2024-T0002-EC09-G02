@@ -60,5 +60,6 @@ jobs:
         run: |
           LAST_BUCKET_NAME=$(aws s3api list-buckets --query 'Buckets[?CreationDate==`max(CreationDate)`].[Name]' --output text)
           echo "Last bucket name: $LAST_BUCKET_NAME"
-          aws s3 cp terraform.tfstate s3://${{env.LAST_BUCKET_NAME}}/state-files/terraform.tfstate
-          aws s3 cp terraform.tfstate.backup s3://${{env.LAST_BUCKET_NAME}}/state-files/terraform.tfstate.backup
+          aws s3 cp terraform.tfstate s3://$LAST_BUCKET_NAME/state-files/terraform.tfstate
+          aws s3 cp terraform.tfstate.backup s3://$LAST_BUCKET_NAME/state-files/terraform.tfstate.backup
+        
