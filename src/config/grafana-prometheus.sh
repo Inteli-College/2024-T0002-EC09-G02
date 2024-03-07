@@ -1,12 +1,12 @@
 #!/bin/bash
 
-# curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 
-# unzip awscliv2.zip
+unzip awscliv2.zip
 
-# sudo ./aws/install --bin-dir /usr/local/bin --install-dir /usr/local/aws-cli --update
+sudo ./aws/install --bin-dir /usr/local/bin --install-dir /usr/local/aws-cli --update
 
-# aws --version
+aws --version
 
 aws eks update-kubeconfig --name eks-prod
 
@@ -17,9 +17,9 @@ kubectl get namespaces
 kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
   
 ## Install EKS ctl
-# curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
+curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
   
-# sudo mv /tmp/eksctl /usr/local/bin
+sudo mv /tmp/eksctl /usr/local/bin
   
 eksctl create addon --name aws-ebs-csi-driver --cluster eks-prod --service-account-role-arn arn:aws:iam::767397878164:role/LabRole_EBS_CSI_DriverRole --force
   
