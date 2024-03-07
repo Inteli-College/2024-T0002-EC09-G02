@@ -47,13 +47,4 @@ jobs:
       - name: Terraform Plan e Terraform Apply        
         working-directory: infrastructure/terraform/s3-state
         run: terraform plan -input=false -out=tfplan && terraform apply -auto-approve -input=false tfplan
-        continue-on-error: true
 
-      - name: Get Last Bucket Name
-        run: echo "::set-env name=LAST_BUCKET_NAME::$(terraform output -json bucket_name | jq -r .)"
-
-      - name: Upload State
-        working-directory: infrastructure/terraform/s3-state
-        run: |
-          aws s3 cp terraform.tfstate s3://${{ env.LAST_BUCKET_NAME }}/state-files/terraform.tfstate
-          aws s3 cp terraform.tfstate.backup s3://${{ env.LAST_BUCKET_NAME }}/state-files/terraform.tfstate.backup
