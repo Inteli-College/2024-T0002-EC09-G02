@@ -19,6 +19,8 @@ import time
 import json
 import uuid
 import argparse
+from dataclasses import dataclass
+import numpy as np
 
 class Configuration:
     def __init__(self, unit, transmission_rate_hz, region, sensor_type, qos):
@@ -28,14 +30,15 @@ class Configuration:
         self.sensor_type = sensor_type
         self.qos = qos
 
+@dataclass
 class Data:
-    def __init__(self, value, unit, transmission_rate_hz, region, sensor_type, qos):
+    def __init__(self, value, unit, transmission_rate_hz, region, sensor_type, timestamp,qos):
         self.value = value
         self.unit = unit
         self.transmission_rate_hz = transmission_rate_hz
         self.region = region
         self.sensor_type = sensor_type
-        self.timestamp = str(time.time())
+        self.timestamp = timestamp
         self.qos = qos
         self.sensor_id = uuid.uuid4()
 
@@ -51,7 +54,7 @@ def read_csv(path):
     return data
 
 def create_json_message(config, rounded_value):
-    timestamp = time.time()
+    timestamp = generate_timestamp()
     data = Data(rounded_value, config.unit, config.transmission_rate_hz,
                 config.region, config.sensor_type, timestamp, config.qos)
     return json.dumps(data.__dict__)
@@ -120,6 +123,15 @@ def publish_message(mqtt_connection, topic, message):
         topic=topic,
         payload=message,
         qos=mqtt.QoS.AT_LEAST_ONCE)
+    
+def generate_timestamp(InitialYear=2021, InitialMonth=1, FinalYear=2024, FinalMonth=12):
+    year = np.random.randint(InitialYear, FinalYear)
+    month = np.random.randint(InitialMonth, FinalMonth)
+    day = np.random.randint(1, 28)
+    hour = np.random.randint(0, 23)
+    minute = np.random.randint(0, 59)
+    second = np.random.randint(0, 59)
+    return f"{year}-{month}-{day} {hour}:{minute}:{second}"
 
 if __name__ == '__main__':
     args = get_args()
