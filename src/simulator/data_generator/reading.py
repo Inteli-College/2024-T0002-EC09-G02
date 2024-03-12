@@ -37,7 +37,7 @@ co2_sensor_params = {
     'sensor_type': 'CO2',
     'unit': 'ppm',
     'min_value': 300,
-    'max_value': 1000,
+    'max_value': 664,
     'average_value': 400,
     'outlier_probability': 0.05
 }
@@ -46,8 +46,8 @@ co2_sensor_params = {
 co_sensor_params = {
     'sensor_type': 'CO',
     'unit': 'ppm',
-    'min_value': 0,
-    'max_value': 10,
+    'min_value': 3,
+    'max_value': 6,
     'average_value': 1,
     'outlier_probability': 0.05
 }
@@ -56,8 +56,8 @@ co_sensor_params = {
 no2_sensor_params = {
     'sensor_type': 'NO2',
     'unit': 'ppb',
-    'min_value': 0,
-    'max_value': 200,
+    'min_value': 3,
+    'max_value': 56,
     'average_value': 20,
     'outlier_probability': 0.05
 }
@@ -66,8 +66,8 @@ no2_sensor_params = {
 pm10_sensor_params = {
     'sensor_type': 'PM10',
     'unit': 'ug/m³',
-    'min_value': 0,
-    'max_value': 100,
+    'min_value': 10,
+    'max_value': 96,
     'average_value': 20,
     'outlier_probability': 0.05
 }
@@ -76,7 +76,7 @@ pm10_sensor_params = {
 pm25_sensor_params = {
     'sensor_type': 'PM2.5',
     'unit': 'ug/m³',
-    'min_value': 0,
+    'min_value': 3,
     'max_value': 50,
     'average_value': 10,
     'outlier_probability': 0.05
