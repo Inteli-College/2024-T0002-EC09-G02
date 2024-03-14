@@ -20,3 +20,7 @@ src/.tox
 pyvenv.cfg
 src/simulator.egg-info
 ./simulator.egg-info
+
+*.pem
+*.crt
+*.key
