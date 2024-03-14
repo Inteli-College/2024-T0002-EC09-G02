@@ -30,16 +30,6 @@ class Data:
         self.timestamp = timestamp
         self.qos = qos
 
-# This sample uses the Message Broker for AWS IoT to send and receive messages
-# through an MQTT connection. On startup, the device connects to the server,
-# subscribes to a topic, and begins publishing messages to that topic.
-# The device should receive those same messages back from the message broker,
-# since it is subscribed to that same topic.
-
-# cmdData is the arguments/input from the command line placed into a single struct for
-# use in this sample. This handles all of the command line parsing, validating, etc.
-# See the Utils/CommandLineUtils for more information.
-cmdData = CommandLineUtils.parse_sample_input_pubsub()
 
 def read_config(filename):
     with open(filename, 'r') as file:
@@ -53,12 +43,25 @@ def read_csv(path):
         data = [float(line.strip()) for line in csv]
     return data
 
+
 def create_json_message(config, rounded_value):
     timestamp = time.time()
     data = Data(rounded_value, config.unit, config.transmission_rate_hz,
                 config.region, config.sensor,
                 timestamp, config.qos)
     return data.__dict__
+
+# This sample uses the Message Broker for AWS IoT to send and receive messages
+# through an MQTT connection. On startup, the device connects to the server,
+# subscribes to a topic, and begins publishing messages to that topic.
+# The device should receive those same messages back from the message broker,
+# since it is subscribed to that same topic.
+
+# cmdData is the arguments/input from the command line placed into a single struct for
+# use in this sample. This handles all of the command line parsing, validating, etc.
+# See the Utils/CommandLineUtils for more information.
+
+cmdData = CommandLineUtils.parse_sample_input_pubsub()
 
 received_count = 0
 received_all_event = threading.Event()
@@ -145,15 +148,13 @@ if __name__ == '__main__':
 
     # Future.result() waits until a result is available
     connect_future.result()
-    print("Connected!")
-
-    config = read_config(cmdData.config_path)
-
-    data = read_csv(cmdData.csv_path)
 
     message_count = cmdData.input_count
-    message_topic = "sdk/test/python"
+    message_topic = cmdData.input_topic
     message_string = cmdData.input_message
+
+    config = read_config(cmdData.config_path)
+    data = read_csv(cmdData.csv_path)
 
     # Subscribe
     print("Subscribing to topic '{}'...".format(message_topic))
@@ -166,18 +167,16 @@ if __name__ == '__main__':
     print("Subscribed with {}".format(str(subscribe_result['qos'])))
 
     interval = 1/config.transmission_rate_hz
-    
     for value in data:
         rounded_value = round(value, 2)
+        
         message = create_json_message(config, rounded_value)
-        # mqtt_connection.publish(f'sensor/{config.region}/{config.sensor}',
-        #                payload=json.dumps(message),
-        #                qos=config.qos)
+        message = json.dumps(message)
         mqtt_connection.publish(
                 topic=message_topic,
-                payload=json.dumps(message),
-                qos=config.qos)
-        print(f"Published message: {message}")
+                payload=message,
+                qos=mqtt.QoS.AT_LEAST_ONCE)
+
         time.sleep(interval)
 
     # Disconnect
