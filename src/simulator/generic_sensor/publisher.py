@@ -29,13 +29,13 @@ class Configuration:
         self.qos = qos
 
 class Data:
-    def __init__(self, value, unit, transmission_rate_hz, region, sensor_type, qos):
+    def __init__(self, value, unit, transmission_rate_hz, region, sensor_type, timestamp, qos):
         self.value = value
         self.unit = unit
         self.transmission_rate_hz = transmission_rate_hz
         self.region = region
         self.sensor_type = sensor_type
-        self.timestamp = str(time.time())
+        self.timestamp = timestamp
         self.qos = qos
         self.sensor_id = uuid.uuid4()
 
