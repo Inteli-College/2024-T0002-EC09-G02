@@ -2,7 +2,7 @@ resource "aws_eks_cluster" "eks_prod" {
   name     = "eks-prod"
   role_arn = var.lab_role
 
-  version = "1.28"
+  version = "1.29"
 
   vpc_config {
     subnet_ids = [

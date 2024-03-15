@@ -1,5 +1,3 @@
-
-
 variable "public_subnet_cidrs" {
   type        = list(string)
   description = "Public Subnet CIDR values"
@@ -21,17 +19,17 @@ variable "default_availability_zone" {
 variable "lab_role" {
   type        = string
   description = "Lab role"
-  default     = "arn:aws:iam::975050195533:role/LabRole"
+  default     = "arn:aws:iam::058264141216:role/LabRole"
 }
 
 variable "dynamodb_arn" {
   type        = string
   description = "DynamoDB ARN"
-  default     = "arn:aws:dynamodb:us-east-1::975050195533:table/*"
+  default     = "arn:aws:dynamodb:us-east-1::058264141216:table/*"
 }
 
 variable "bucket_state" {
   type        = string
   description = "S3 bucket for state"
-  default     = "infrastructure-state-terraform20240226125236498200000002"
+  default     = "infrastructure-state-terraform20240314172805182000000002"
 }

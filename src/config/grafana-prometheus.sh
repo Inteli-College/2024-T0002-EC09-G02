@@ -8,6 +8,17 @@ sudo ./aws/install --bin-dir /usr/local/bin --install-dir /usr/local/aws-cli --u
 
 aws --version
 
+## Install EKS ctl
+curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
+  
+sudo mv /tmp/eksctl /usr/local/bin
+
+## install helm 3 cli
+curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+chmod 700 get_helm.sh
+./get_helm.sh
+
+
 aws eks update-kubeconfig --name eks-prod
 
 kubectl get pods
@@ -16,17 +27,10 @@ kubectl get namespaces
   
 kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
   
-## Install EKS ctl
-curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
+
   
-sudo mv /tmp/eksctl /usr/local/bin
+eksctl create addon --name aws-ebs-csi-driver --cluster eks-prod --service-account-role-arn arn:aws:iam::058264141216:role/LabRole_EBS_CSI_DriverRole --force
   
-eksctl create addon --name aws-ebs-csi-driver --cluster eks-prod --service-account-role-arn arn:aws:iam::975050195533:role/LabRole_EBS_CSI_DriverRole --force
-  
-## install helm 3 cli
-curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
-chmod 700 get_helm.sh
-./get_helm.sh
   
 ## runnig helm 
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
@@ -36,8 +40,6 @@ helm repo update
 helm repo list
   
 kubectl create namespace prometheus
-  
-cd ../../infrastructure/charts
   
 helm install prometheus prometheus-community/prometheus \
     --namespace prometheus \
