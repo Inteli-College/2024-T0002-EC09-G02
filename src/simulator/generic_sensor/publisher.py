@@ -37,7 +37,7 @@ class Data:
         self.sensor_type = sensor_type
         self.timestamp = timestamp
         self.qos = qos
-        self.sensor_id = uuid.uuid4()
+        self.sensor_id = str(uuid.uuid4())
 
 def read_config(filename):
     with open(filename, 'r') as file:
