@@ -1,3 +1,9 @@
+---
+sidebar_position: 1
+slug: '/sprint_3/dashboard/alarmes'
+label: "Configuração de Alarmes"
+---
+
 # Configuração de Alarmes
 
 Os alarmes no Grafana são uma forma de monitorar o comportamento de uma métrica e ser notificado quando ela atinge um valor crítico. Isso é muito útil para monitorar o comportamento de um sistema e ser notificado quando algo não está funcionando como esperado.
