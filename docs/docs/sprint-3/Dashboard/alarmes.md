@@ -22,9 +22,29 @@ O Grafana oferece uma ampla gama de opções de configuração para alarmes, per
 
 Durante a Sprint 3, o grupo se concentrou no desenvolvimento de um dashboard específico para a região `Norte`, com o objetivo de visualizar os dados pertinentes a essa área geográfica. De maneira similar, a configuração de `alertas` foi direcionada para os gráficos de séries temporais criados, com o intuito de notificar os usuários sobre informações críticas. Além de estabelecer alertas para o Dashboard da região `Norte`, o grupo também se dedicou ao desenvolvimento de mecanismos de alerta para o monitoramento dos pods no `EKS`, aproveitando o fato de que tanto o Grafana quanto o Prometheus estão instalados e operando neste serviço da AWS.
 
-### Dashboard North
+![alt text](../../../static/img/alertas.png)
+
+Na imagem acima é possível visualizar o painel de alertas do Grafana, onde é possível configurar os alertas para os gráficos de séries temporais. A seguir, são apresentados os dashboards desenvolvidos e os alarmes implementados.
 
 ### Dashboard de Monitoramento do EKS
+
+Como mencionado anteriormente, o grupo também dedicou-se ao desenvolvimento de mecanismos de alerta para monitorar os pods no `EKS`. A seguir, apresentamos o dashboard desenvolvido para este propósito.
+
+![alt text](../../../static/img/dashboard-eks.png)
+
+O desenvolvimento do dashboard de monitoramento do `EKS` teve como objetivo possibilitar a visualização dos dados relevantes a esse serviço da AWS. Contudo, apenas a criação de um dashboard não é suficiente para assegurar que os usuários sejam notificados sobre informações críticas. Por essa razão, o grupo empenhou-se na configuração de alertas para este dashboard, garantindo que os usuários sejam informados sobre questões críticas, conforme ilustrado na imagem abaixo:
+
+![alt text](../../../static/img/alertas-eks.png)
+
+Na imagem acima, é possível observar uma regra de alerta que monitora o status dos nós alocados no EKS, o estado de cada pod e, finalmente, as informações dos pods em execução no EKS, gerando uma notificação quando algo não está funcionando conforme o esperado. Além de marcar o gráfico com um ponto vermelho ou um aviso, o alerta também envia uma notificação.
+
+### Dashboard North
+
+Já para o dashboard da região `Norte`, o grupo também se dedicou à configuração de alertas para os gráficos de séries temporais criados. A seguir, apresentamos o dashboard desenvolvido para este propósito.
+
+![alt text](../../../static/img/alertar-north.png)
+
+Na primeira versão do dashboard, o foco foi a visualização de dados específicos da região `North`, visando monitorar uma métrica específica e emitir notificações quando valores críticos fossem alcançados. A configuração de alertas neste dashboard concentrou-se nos gráficos de séries temporais, objetivando informar os usuários sobre situações críticas, como ilustrado na imagem anterior. Apesar de a configuração de alertas ainda estar em aprimoramento, o grupo está dedicado a assegurar a comunicação efetiva de informações críticas, utilizando também consultas personalizadas para criar alertas mais precisos e diversificados.
 
 ## Criação de Alarmes
 
@@ -72,3 +92,5 @@ Criar alarmes em gráficos de séries temporais no Grafana é um processo direto
 
 
 ## Conclusão
+
+A configuração de alertas no Grafana é uma funcionalidade crucial que possibilita o monitoramento de métricas específicas, emitindo notificações quando valores críticos são atingidos. Embora seja possível configurar diversos tipos de alertas, é essencial que a equipe de operações fique vigilante quanto à frequência de verificação dos alertas e ao intervalo de tempo estabelecido para as condições de disparo. Isso assegura que as equipes adequadas sejam prontamente informadas sobre quaisquer problemas potenciais. Ademais, monitorar a eficácia dos alertas e ajustar as condições conforme necessário é vital para minimizar alarmes falsos e garantir que problemas reais sejam detectados e tratados de maneira eficiente.
