@@ -3,6 +3,6 @@
   "position": 3,
   "link": {
     "type": "generated-index",
-    "description": "Sprint 3"
+    "description": "Durante a Sprint 3, concentramo-nos em reforçar a segurança da nossa arquitetura, o que envolveu a avaliação e implementação de novas regras de segurança. Além disso, aprimoramos a camada de persistência de dados e reavaliámos os custos de infraestrutura para garantir uma gestão eficiente de recursos. Implementamos também a integração entre o DynamoDB e o Grafana, facilitando a estruturação de dashboards interativos. Por fim, dedicamo-nos ao planejamento de hiperconectividade, à elaboração de diagramas UML para o banco de dados e dashboards, e à avaliação da acessibilidade dos dashboards, assegurando que são facilmente utilizáveis por todos."
   }
 }
