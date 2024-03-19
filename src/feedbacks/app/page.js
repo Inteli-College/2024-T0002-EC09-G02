@@ -12,6 +12,15 @@ const Comment = ({ message, region, likes }) => {
   );
 };
 
+const AddComment = () => {
+  return (
+    <div>
+      <input type="textarea" placeholder="Enter message" />
+      <button>Postar</button>
+    </div>
+  );
+};
+
 
 // ListOfComments component
 const ListOfComments = () => {
@@ -58,7 +67,7 @@ const ListOfComments = () => {
 
   return (
     <div className="flex flex-col w-full bg-transparent">
-      <h1 className="font-semibold text-3xl text-center">O QUE A CIDADE PENSA</h1>
+      <h1 className="font-semibold text-3xl">O que a cidade pensa...</h1>
       <button
         className="bg-white text-black font-semibold py-2 px-4 rounded-full mb-4 absolute right-4 top-4"
         onClick={() => setShowForm(!showForm)}
