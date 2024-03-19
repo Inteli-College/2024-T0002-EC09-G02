@@ -41,11 +41,22 @@ A organização operacional do projeto deu-se a partir dos pilares postulados pe
 [Clique aqui!](<../static/pdf/Grupo 2 Megamente - Sprint 1.pdf>)
 
 
-### Sprint 2: 
-<img src="https://i.redd.it/q0dd3k02unqb1.gif" alt="Boot process" style={{ display: 'block', marginLeft: 'auto', maxHeight: '30vh', marginRight: 'auto' }} />
+### Sprint 2: Integração na AWS
 
-### Sprint 3: 
-<img src="https://i.redd.it/q0dd3k02unqb1.gif" alt="Boot process" style={{ display: 'block', marginLeft: 'auto', maxHeight: '30vh', marginRight: 'auto' }} />
+- Implementação dos sistemas e serviços da AWS no projeto
+- Prototipação do dashboard
+
+**Apresentação de sprint review**
+
+[Clique aqui!](<../static/pdf/Grupo 2 Megamente - Sprint 2.pdf>)
+
+### Sprint 3: Implementação e integração dos dashboards
+
+- Implementação dos dashboards
+
+**Apresentação de sprint review**
+
+[Clique aqui!](<../static/pdf/Grupo 2 Megamente - Sprint 3.pdf>)
 
 ### Sprint 4: 
 <img src="https://i.redd.it/q0dd3k02unqb1.gif" alt="Boot process" style={{ display: 'block', marginLeft: 'auto', maxHeight: '30vh', marginRight: 'auto' }} />
