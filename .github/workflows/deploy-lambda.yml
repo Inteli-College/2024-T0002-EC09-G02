@@ -1,0 +1,222 @@
+name: Deploy to ECR
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
+  AWS_REGION: ${{ secrets.AWS_REGION }}
+  ECR_REPOSITORY_NAME: image-repo
+
+jobs:
+  build-lambda:
+    name: Build Image
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ env.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
+          aws-session-token: ${{ env.AWS_SESSION_TOKEN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build Betyl Monolith
+        working-directory: ./codigo_mvp_basico/backend/betyl
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: image-repo
+          IMAGE_TAG: betyl-release-${{ github.sha }}
+        run: |
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
+      - name: Build Betyl Product service
+        working-directory: ./codigo_mvp_basico/backend/betyl-product-service
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: image-repo
+          IMAGE_TAG: betyl-product-service-release-${{ github.sha }}
+        run: |
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
+      - name: Build Betyl Soul service
+        working-directory: ./codigo_mvp_basico/backend/betyl-soul-service
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: image-repo
+          IMAGE_TAG: betyl-soul-service-release-${{ github.sha }}
+        run: |
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
+      - name: Build Stone wall service
+        working-directory: ./codigo_mvp_basico/backend/stone-wall-service
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: image-repo
+          IMAGE_TAG: stone-wall-service-release-${{ github.sha }}
+        run: |
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
+      - name: Build Stone bridge service
+        working-directory: ./codigo_mvp_basico/backend/stone-bridge-service
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: image-repo
+          IMAGE_TAG: stone-bridge-service-release-${{ github.sha }}
+        run: |
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
+  deploy-betyl:
+    name: Deploy to EKS
+    runs-on: ubuntu-latest
+    needs: build-betyl
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ env.AWS_KEY }}
+          aws-secret-access-key: ${{ env.AWS_SECRET }}
+          aws-session-token: ${{ env.AWS_TOKEN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Update kube config
+        run: aws eks update-kubeconfig --name eks-prod
+
+      - name: Update betyl helm chart
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: image-repo
+        working-directory: ./infrastructure/charts
+        run: |
+          sed -i "s#repository:.*#repository: ${ECR_REGISTRY}/${ECR_REPOSITORY}#" betyl/values.yaml
+          sed -i "s/tag:.*/tag: \"betyl-release-${{ github.sha }}\"/" betyl/values.yaml
+          helm upgrade --install betyl-chart betyl/ --values betyl/values.yaml
+
+      - name: Update betyl-product-service helm chart
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: image-repo
+        working-directory: ./infrastructure/charts
+        run: |
+          sed -i "s#repository:.*#repository: ${ECR_REGISTRY}/${ECR_REPOSITORY}#" betyl-product-service/values.yaml
+          sed -i "s/tag:.*/tag: \"betyl-product-service-release-${{ github.sha }}\"/" betyl-product-service/values.yaml
+          helm upgrade --install betyl-product-service betyl-product-service/ --values betyl-product-service/values.yaml
+
+      - name: Update betyl-soul-service helm chart
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: image-repo
+        working-directory: ./infrastructure/charts
+        run: |
+          sed -i "s#repository:.*#repository: ${ECR_REGISTRY}/${ECR_REPOSITORY}#" betyl-soul-service/values.yaml
+          sed -i "s/tag:.*/tag: \"betyl-soul-service-release-${{ github.sha }}\"/" betyl-soul-service/values.yaml
+          helm upgrade --install betyl-soul-service betyl-soul-service/ --values betyl-soul-service/values.yaml
+
+      - name: Update stone-wall-service helm chart
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: image-repo
+        working-directory: ./infrastructure/charts
+        run: |
+          sed -i "s#repository:.*#repository: ${ECR_REGISTRY}/${ECR_REPOSITORY}#" stone-wall-service/values.yaml
+          sed -i "s/tag:.*/tag: \"stone-wall-service-release-${{ github.sha }}\"/" stone-wall-service/values.yaml
+          helm upgrade --install stone-wall-service stone-wall-service/ --values stone-wall-service/values.yaml
+
+      - name: Update stone-bridge-service helm chart
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: image-repo
+        working-directory: ./infrastructure/charts
+        run: |
+          sed -i "s#repository:.*#repository: ${ECR_REGISTRY}/${ECR_REPOSITORY}#" stone-bridge-service/values.yaml
+          sed -i "s/tag:.*/tag: \"stone-bridge-service-release-${{ github.sha }}\"/" stone-bridge-service/values.yaml
+          helm upgrade --install stone-bridge-service stone-bridge-service/ --values stone-bridge-service/values.yaml
+
+  build-frontend:
+    name: Build Image
+    runs-on: ubuntu-latest
+    needs: deploy-betyl
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ env.AWS_KEY }}
+          aws-secret-access-key: ${{ env.AWS_SECRET }}
+          aws-session-token: ${{ env.AWS_TOKEN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Update kube config
+        run: aws eks update-kubeconfig --name eks-prod
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Build, tag, and push image to Amazon ECR
+        working-directory: ./codigo_mvp_basico/frontend/stones-store
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: image-repo
+          IMAGE_TAG: stones-store-frontend-release-${{ github.sha }}
+        run: |
+          kubectl get service stone-bridge-service -o jsonpath='{.status.loadBalancer.ingress[0].hostname}' | xargs -I {} sed -i 's/NEXT_PUBLIC_BASE_API=.*/NEXT_PUBLIC_BASE_API="http:\/\/{}:5000"/' .env.local
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
+  deploy-frontend:
+    name: Deploy to EKS
+    runs-on: ubuntu-latest
+    needs: build-frontend
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ env.AWS_KEY }}
+          aws-secret-access-key: ${{ env.AWS_SECRET }}
+          aws-session-token: ${{ env.AWS_TOKEN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Update kube config
+        run: aws eks update-kubeconfig --name eks-prod
+
+      - name: Update stones-store helm chart
+        working-directory: ./infrastructure/charts
+        run: |
+          ECR_REPOSITORY_URI=$(aws ecr describe-repositories --repository-names "$ECR_REPOSITORY_NAME" --region "$AWS_REGION" --query "repositories[0].repositoryUri" --output text)
+          sed -i "s#repository:.*#repository: ${ECR_REPOSITORY_URI}#" stones-store-frontend/values.yaml
+          sed -i "s/tag:.*/tag: \"stones-store-frontend-release-${{ github.sha }}\"/" stones-store-frontend/values.yaml
+          helm upgrade --install stones-store-frontend stones-store-frontend/ --values stones-store-frontend/values.yaml
