@@ -62,7 +62,24 @@ helm install grafana grafana/grafana \
     --set persistence.enabled=true \
     --set adminPassword='grafana' \
     --values grafana/values.yaml \
-    --set service.type=LoadBalancer
+    --set service.type=LoadBalancer \
+    --set env.GF_SECURITY_ALLOW_EMBEDDING="true" \
+    --set env.GF_PANELS_DISABLE_SANITIZE_HTML="true" \
+    --set env.GF_PANELS_ENABLE_ALPHA="true" \
+    --set env.GL_SECURITY_COOKIE_SAMESITE="none"\ 
+
+# helm upgrade grafana grafana/grafana \
+#     --namespace grafana \
+#     --set persistence.storageClassName="gp2" \
+#     --set persistence.enabled=true \
+#     --set adminPassword='grafana' \
+#     --values grafana/values.yaml \
+#     --set service.type=LoadBalancer \
+#     --set env.GF_SECURITY_ALLOW_EMBEDDING="true" \
+#     --set env.GF_PANELS_DISABLE_SANITIZE_HTML="true" \
+#     --set env.GF_PANELS_ENABLE_ALPHA="true" \
+#     --set env.GL_SECURITY_COOKIE_SAMESITE="none"\ 
+
 	
 kubectl get all -n grafana
 
