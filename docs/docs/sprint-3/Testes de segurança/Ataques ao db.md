@@ -48,3 +48,16 @@ Para lançar um ataque de sobrecarga eficaz contra o AWS DynamoDB, o atacante pr
 
 ### Pós-condição:
 Um ataque de sobrecarga bem-sucedido ao DynamoDB pode ter várias consequências negativas para a organização alvo. Primeiramente, a performance do banco de dados pode ser severamente degradada, resultando em tempos de resposta lentos ou na indisponibilidade completa do serviço para aplicações críticas que dependem do DynamoDB para operar. Isso pode afetar diretamente a experiência do usuário final e a operacionalidade de serviços dependentes do banco de dados. Adicionalmente, o custo associado ao throughput excedente pode ser significativo, gerando despesas inesperadas para a organização. Em casos extremos, a persistência do ataque pode levar à necessidade de escalar infraestrutura de forma emergencial ou realizar mudanças de arquitetura para contornar a sobrecarga, implicando em mais custos e esforços operacionais.
+
+## Mitigações
+
+Para abordar e mitigar os riscos associados aos ataques ao banco de dados, especialmente visando serviços como o AWS DynamoDB, é essencial adotar uma série de estratégias de prevenção e resposta. Essas estratégias incluem medidas técnicas, operacionais e de conscientização:
+
+- Fortalecimento da Configuração de Segurança: Assegurar que todas as instâncias do DynamoDB e buckets do S3 estejam configurados seguindo as melhores práticas de segurança da AWS. Isso envolve a aplicação de políticas de permissão restritivas, uso de ACLs e políticas de bucket para limitar o acesso apenas a entidades confiáveis e a implementação de mecanismos de autenticação e autorização fortes.
+- Criptografia de Dados: Utilizar criptografia em trânsito e em repouso para proteger os dados sensíveis armazenados no DynamoDB e nos buckets do S3, garantindo que os dados sejam inacessíveis mesmo se ocorrer um vazamento.
+- Auditorias Regulares e Avaliações de Vulnerabilidade: Realizar auditorias de segurança periódicas e varreduras de vulnerabilidade para identificar e corrigir configurações inadequadas ou vulnerabilidades de segurança que possam ser exploradas em um ataque.
+- Monitoramento e Detecção de Anomalias: Implementar soluções de monitoramento em tempo real e sistemas de detecção de anomalias para identificar atividades suspeitas ou padrões de tráfego incomuns que possam indicar uma tentativa de ataque.
+- Limites de Uso e Alertas: Configurar limites de uso e alertas automáticos para monitorar e controlar o throughput do DynamoDB, ajudando a identificar e responder rapidamente a ataques de sobrecarga ou padrões de acesso anormais.
+- Resposta a Incidentes e Planos de Recuperação: Desenvolver e testar planos de resposta a incidentes e recuperação de desastres específicos para ataques ao banco de dados, garantindo que a equipe esteja preparada para responder eficazmente em caso de um ataque bem-sucedido.
+
+Adotando essas medidas, organizações podem significativamente melhorar a segurança de seus bancos de dados no AWS DynamoDB contra ataques que visam comprometer a confidencialidade, integridade e disponibilidade dos dados. Essas estratégias ajudam a garantir que os sistemas de banco de dados permaneçam resilientes, confiáveis e seguros, minimizando o risco de impactos negativos nas operações e na reputação da organização.
