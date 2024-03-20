@@ -20,12 +20,11 @@ A solução proposta é uma arquitetura IoT robusta que utiliza serviços gerenc
 - **DynamoDB**: Banco de dados NoSQL da AWS que armazena as mensagens recebidas do broker MQTT. O DynamoDB foi escolhido por sua escalabilidade, desempenho e integração com outros serviços da AWS.
 - **Amazon EKS**: Serviço da AWS que gerencia clusters de contêineres. O EKS foi escolhido para hospedar a aplicação web por sua escalabilidade, segurança e integração com outros serviços da AWS.
 - **EC2**: Serviço da AWS que fornece capacidade de computação na nuvem. O EC2 foi escolhido para estar acoplado ao EKS e hospedar os nós do Kubernetes e seus respectivos pods.
-
-### Descrição dos Componentes Adicionados
-
 - **AWS Glue**: Serviço da AWS que oferece recursos para preparar e carregar dados para análise. O AWS Glue executa a rotina de tratamento e catalogação dos dados do DynamoDB por meio do AWS Glue ETL para o AWS Glue Data Catalog.
   - **AWS Glue ETL**: Serviço da AWS que oferece recursos para extrair, transformar e carregar dados para análise. O AWS Glue ETL foi escolhido para extrair, transformar e carregar os dados do DynamoDB para o AWS Glue Data Catalog.
   - **AWS Glue Data Catalog**: Serviço da AWS que oferece recursos para catalogar e armazenar metadados de dados. O AWS Glue Data Catalog foi escolhido para armazenar os metadados dos dados extraídos, transformados e carregados do DynamoDB.
+
+**Observação:** nenhum componente novo foi adicionado nesta sprint.
   
 ## Diagrama de implantação
 
@@ -44,6 +43,9 @@ Um Diagrama UML (Unified Modeling Language ou Linguagem Unificada de Modelagem) 
 - O AWS IoT Core atua como um ponto central para receber e encaminhar dados.
   
 ### Banco de Dados
+
+![alt text](../../static/img/db.png)
+
 - Os dados são armazenados no DynamoDB, um banco de dados NoSQL da AWS, para armazenamento e recuperação eficiente.
 - O serviço AWS Glue é usado para realizar a catalogação dos dados armazenados, executando funções de um Crawler para identificar os dados e organizar as tabelas para consulta.
 
@@ -54,7 +56,33 @@ Um Diagrama UML (Unified Modeling Language ou Linguagem Unificada de Modelagem) 
 - O Amazon Athena é usado para consultas SQL diretamente no DynamoDB.
 - O serviço EC2, com uma instância T3.Medium, é utilizado para hospedar e executar as aplicações necessárias para o funcionamento do dashboard.
 
-## Diagrama de banco de dados
+## Segurança no banco de dados e dashboard
+Para garantir a segurança nas conexões entre o banco de dados, o dashboard e o resto do sistema em nossa solução de arquitetura IoT baseada na AWS, implementamos diversas medidas de segurança. Abaixo estão os detalhes de como cada segmento da arquitetura contribui para a integridade, confidencialidade e disponibilidade dos dados e serviços.
 
-![alt text](../../static/img/db.png)
 ![alt text](../../static/img/security.png)
+
+### Segurança do Dispositivo ao AWS IoT Core
+A segurança da comunicação entre dispositivos IoT e o AWS IoT Core é assegurada pelo uso do protocolo TLS (Transport Layer Security), o que garante uma conexão autenticada e segura. Cada dispositivo utiliza um certificado X.509 para estabelecer sua identidade, o qual é verificado pelo AWS IoT Core antes de qualquer comunicação. Além disso, políticas de autorização específicas são aplicadas para restringir o que cada dispositivo pode fazer (como publicar ou assinar tópicos MQTT específicos).
+
+### Autorização e Controle de Acesso
+Utilizamos o AWS Identity and Access Management (IAM) para gerenciar as permissões de acesso aos recursos da AWS. O IAM Role, ou papel do IAM, começa com a definição de políticas que especificam quais serviços e ações o usuário ou serviço tem permissão para usar. No caso do AWS Glue e outras integrações, isso significa acesso controlado para executar operações de ETL (Extrair, Transformar e Carregar) e consultar dados.
+
+### Segurança no Banco de Dados
+O AWS DynamoDB é protegido por padrão com criptografia em repouso. Isso garante que os dados estão seguros enquanto armazenados. Além disso, controles de acesso baseados em políticas do DynamoDB permitem que apenas usuários e serviços autorizados possam acessar ou modificar os dados.
+
+### Segurança na Camada de Processamento e Análise de Dados
+O AWS Glue como serviço de ETL utiliza o IAM Role para autorizar operações de transformação de dados. Com isso, somente processos de ETL com as credenciais adequadas podem acessar os dados do DynamoDB. O mesmo se aplica ao Athena, que é usado para realizar consultas SQL diretamente nos dados armazenados.
+
+### Segurança no Dashboard e Visualização de Dados
+Para o dashboard hospedado no Amazon EKS, o acesso é protegido através do controle de acesso ao Kubernetes, integrado ao IAM da AWS. Isso significa que apenas usuários com as credenciais corretas podem acessar o Grafana. Além disso, o login do Grafana é protegido por autenticação, que pode ser configurada para usar autenticação de múltiplos fatores (MFA) para uma camada adicional de segurança.
+
+Adicionalmente, a comunicação entre serviços, como entre o Grafana e o Prometheus ou o Athena, é protegida por meio de políticas de segurança que asseguram que apenas tráfego autorizado possa fluir entre esses serviços, minimizando assim o risco de interceptação ou manipulação de dados.
+
+### Conclusão
+Essas medidas de segurança são projetadas para trabalhar em conjunto, formando uma cadeia de segurança ininterrupta desde a coleta de dados até a visualização. Com cada componente desempenhando seu papel específico, estamos comprometidos em fornecer uma arquitetura segura e confiável para o processamento e análise de dados IoT.
+
+
+
+
+
+

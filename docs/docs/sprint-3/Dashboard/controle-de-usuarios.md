@@ -30,11 +30,7 @@ O usuário `viewer` é um usuário com permissões ainda mais limitadas no Grafa
 
 ![alt text](../../../static/img/user-estag.png)
 
-## Vantagens do Controle de Usuários
-
-O controle de usuários oferece várias vantagens para o sistema, incluindo:
-
-# Vantagens do Controle de Acesso a Usuário no Grafana
+## Vantagens do Controle de Acesso a Usuário no Grafana
 
 O Grafana é uma plataforma de análise e visualização de dados amplamente utilizada, conhecida por sua flexibilidade e capacidade de integrar diversas fontes de dados. Um dos recursos críticos que aprimoram sua funcionalidade é o controle de acesso a usuários. Este recurso oferece várias vantagens que facilitam a gestão de equipes e a segurança dos dados. Algumas das principais vantagens incluem:
 
