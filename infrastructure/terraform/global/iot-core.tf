@@ -608,3 +608,106 @@ resource "aws_s3_bucket_object" "test_cert_object" {
   content                = tls_self_signed_cert.test_signed_cert.cert_pem
   server_side_encryption = "AES256"
 }
+
+# Rule to send data from IoT Core to DynamoDB
+resource "aws_iot_topic_rule" "sensor_north_topic_rule" {
+  name        = "SensorNorthRule"
+  description = "Sensor North rule to send data to Kafka"
+  enabled     = true
+
+  sql         = "SELECT * FROM 'sensor/north/+'"
+  sql_version = "2016-03-23"
+
+  kafka {
+    topic = aws_msk_cluster.kafka_cluster.kafka_version
+    client_properties = {
+      "bootstrap.servers" = aws_msk_cluster.kafka_cluster.bootstrap_brokers
+    }
+    destination_arn = aws_msk_cluster.kafka_cluster.arn
+  }
+}
+
+resource "aws_iot_topic_rule" "sensor_south_topic_rule" {
+  name        = "SensorSouthRule"
+  description = "Sensor South rule to send data to Kafka"
+  enabled     = true
+
+  sql         = "SELECT * FROM 'sensor/south/+'"
+  sql_version = "2016-03-23"
+
+  kafka {
+    topic = aws_msk_cluster.kafka_cluster.kafka_version
+    client_properties = {
+      "bootstrap.servers" = aws_msk_cluster.kafka_cluster.bootstrap_brokers
+    }
+    destination_arn = aws_msk_cluster.kafka_cluster.arn
+  }
+}
+
+resource "aws_iot_topic_rule" "sensor_east_topic_rule" {
+  name        = "SensorEastRule"
+  description = "Sensor East rule to send data to Kafka"
+  enabled     = true
+
+  sql         = "SELECT * FROM 'sensor/east/+'"
+  sql_version = "2016-03-23"
+
+  kafka {
+    topic = aws_msk_cluster.kafka_cluster.kafka_version
+    client_properties = {
+      "bootstrap.servers" = aws_msk_cluster.kafka_cluster.bootstrap_brokers
+    }
+    destination_arn = aws_msk_cluster.kafka_cluster.arn
+  }
+}
+
+resource "aws_iot_topic_rule" "sensor_west_topic_rule" {
+  name        = "SensorWestRule"
+  description = "Sensor West rule to send data to Kafka"
+  enabled     = true
+
+  sql         = "SELECT * FROM 'sensor/west/+'"
+  sql_version = "2016-03-23"
+
+  kafka {
+    topic = aws_msk_cluster.kafka_cluster.kafka_version
+    client_properties = {
+      "bootstrap.servers" = aws_msk_cluster.kafka_cluster.bootstrap_brokers
+    }
+    destination_arn = aws_msk_cluster.kafka_cluster.arn
+  }
+}
+
+resource "aws_iot_topic_rule" "sensor_center_topic_rule" {
+  name        = "SensorCenterRule"
+  description = "Sensor Center rule to send data to Kafka"
+  enabled     = true
+
+  sql         = "SELECT * FROM 'sensor/center/+'"
+  sql_version = "2016-03-23"
+
+  kafka {
+    topic = aws_msk_cluster.kafka_cluster.kafka_version
+    client_properties = {
+      "bootstrap.servers" = aws_msk_cluster.kafka_cluster.bootstrap_brokers
+    }
+    destination_arn = aws_msk_cluster.kafka_cluster.arn
+  }
+}
+
+resource "aws_iot_topic_rule" "sensor_test_topic_rule" {
+  name        = "SensorTestRule"
+  description = "Sensor Test rule to send data to DynamoDB"
+  enabled     = true
+
+  sql         = "SELECT * FROM 'test/+'"
+  sql_version = "2016-03-23"
+
+  kafka {
+    topic = aws_msk_cluster.kafka_cluster.kafka_version
+    client_properties = {
+      "bootstrap.servers" = aws_msk_cluster.kafka_cluster.bootstrap_brokers
+    }
+    destination_arn = aws_msk_cluster.kafka_cluster.arn
+  }
+}
