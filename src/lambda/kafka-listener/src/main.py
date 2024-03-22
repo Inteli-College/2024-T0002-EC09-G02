@@ -30,7 +30,7 @@ def lambda_handler(event, context):
 
     # Loop through the IoT messages
     for record in event['Records']:
-        print(f'Received message: {record['body']}')
+        print(f'Received message: {record["body"]}')
         message = json.loads(record['body'])
         producer.produce(topic, message.encode('utf-8'), callback=delivery_report)
     
