@@ -34,7 +34,7 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
 
-      - name: Build Betyl Monolith
+      - name: Build Lambda Image
         working-directory: ./src/lambda/kafka-listener/src
         run: |
           docker build -t lambda_kafka_listener .
@@ -60,6 +60,14 @@ jobs:
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Set up .env file
+        run: |
+          echo "BOOTSTRAP_SERVERS"=${{secrets.BOOTSTRAP_SERVERS }}>> .env
+          echo "KAFKA_TOPIC"=${{secrets.KAFKA_TOPIC }}>> .env
+          echo "BOOTSTRAP_SERVERS"=${{secrets.BOOTSTRAP_SERVERS }}>> .env
+          echo "SASL_USERNAME"=${{secrets.SASL_USERNAME }}>> .env
+          echo "SASL_PASSWORD"=${{secrets.SASL_PASSWORD }}>> .env
 
       - name: Deploy Kafka Listener to ECR
         working-directory: ./src/lambda/kafka-listener/src
