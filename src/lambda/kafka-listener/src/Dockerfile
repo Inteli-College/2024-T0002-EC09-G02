@@ -38,4 +38,4 @@ COPY --from=build-image ${FUNCTION_DIR} ${FUNCTION_DIR}
 ENTRYPOINT [ "/usr/local/bin/python", "-m", "awslambdaric"]
 
 # Pass the name of the function handler as an argument to the runtime
-CMD [ "main.lambda_handler" ]
+CMD [ "main.handler" ]

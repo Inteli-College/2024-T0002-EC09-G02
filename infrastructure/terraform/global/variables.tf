@@ -33,5 +33,29 @@ variable "dynamodb_arn" {
 variable "bucket_state" {
   type        = string
   description = "S3 bucket for state"
-  default     = "infrastructure-state-terraform20240314172805182000000002"
+  default     = "infrastructure-state-terraform20240322115712961400000002"
+}
+
+variable "kafka_bootstrap_servers" {
+  type        = string
+  description = "Kafka bootstrap servers"
+  default     = "pkc-p11xm.us-east-1.aws.confluent.cloud:9092"
+}
+
+variable "kafka_username" {
+  type        = string
+  description = "Kafka username"
+  default     = "R23TSC2632N5DZ6U"
+}
+
+variable "kafka_password" {
+  type        = string
+  description = "Kafka password"
+  default     = "Vq7xv/7Hay9K64Jzq56ak7VsuP5WMpawYUm5GxV69O4YCKTx5s314LCf9Bd3QJP0"
+}
+
+variable "kafka_topic" {
+  type        = string
+  description = "Kafka topic"
+  default     = "regions"
 }

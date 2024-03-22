@@ -618,12 +618,8 @@ resource "aws_iot_topic_rule" "sensor_north_topic_rule" {
   sql         = "SELECT * FROM 'sensor/north/+'"
   sql_version = "2016-03-23"
 
-  kafka {
-    topic = aws_msk_cluster.kafka_cluster.kafka_version
-    client_properties = {
-      "bootstrap.servers" = aws_msk_cluster.kafka_cluster.bootstrap_brokers
-    }
-    destination_arn = aws_msk_cluster.kafka_cluster.arn
+  lambda {
+    function_arn = aws_lambda_function.lambda_function_kafka_listener.arn
   }
 }
 
@@ -635,12 +631,8 @@ resource "aws_iot_topic_rule" "sensor_south_topic_rule" {
   sql         = "SELECT * FROM 'sensor/south/+'"
   sql_version = "2016-03-23"
 
-  kafka {
-    topic = aws_msk_cluster.kafka_cluster.kafka_version
-    client_properties = {
-      "bootstrap.servers" = aws_msk_cluster.kafka_cluster.bootstrap_brokers
-    }
-    destination_arn = aws_msk_cluster.kafka_cluster.arn
+  lambda {
+    function_arn = aws_lambda_function.lambda_function_kafka_listener.arn
   }
 }
 
@@ -652,12 +644,8 @@ resource "aws_iot_topic_rule" "sensor_east_topic_rule" {
   sql         = "SELECT * FROM 'sensor/east/+'"
   sql_version = "2016-03-23"
 
-  kafka {
-    topic = aws_msk_cluster.kafka_cluster.kafka_version
-    client_properties = {
-      "bootstrap.servers" = aws_msk_cluster.kafka_cluster.bootstrap_brokers
-    }
-    destination_arn = aws_msk_cluster.kafka_cluster.arn
+  lambda {
+    function_arn = aws_lambda_function.lambda_function_kafka_listener.arn
   }
 }
 
@@ -669,12 +657,8 @@ resource "aws_iot_topic_rule" "sensor_west_topic_rule" {
   sql         = "SELECT * FROM 'sensor/west/+'"
   sql_version = "2016-03-23"
 
-  kafka {
-    topic = aws_msk_cluster.kafka_cluster.kafka_version
-    client_properties = {
-      "bootstrap.servers" = aws_msk_cluster.kafka_cluster.bootstrap_brokers
-    }
-    destination_arn = aws_msk_cluster.kafka_cluster.arn
+  lambda {
+    function_arn = aws_lambda_function.lambda_function_kafka_listener.arn
   }
 }
 
@@ -686,12 +670,8 @@ resource "aws_iot_topic_rule" "sensor_center_topic_rule" {
   sql         = "SELECT * FROM 'sensor/center/+'"
   sql_version = "2016-03-23"
 
-  kafka {
-    topic = aws_msk_cluster.kafka_cluster.kafka_version
-    client_properties = {
-      "bootstrap.servers" = aws_msk_cluster.kafka_cluster.bootstrap_brokers
-    }
-    destination_arn = aws_msk_cluster.kafka_cluster.arn
+  lambda {
+    function_arn = aws_lambda_function.lambda_function_kafka_listener.arn
   }
 }
 
@@ -703,11 +683,7 @@ resource "aws_iot_topic_rule" "sensor_test_topic_rule" {
   sql         = "SELECT * FROM 'test/+'"
   sql_version = "2016-03-23"
 
-  kafka {
-    topic = aws_msk_cluster.kafka_cluster.kafka_version
-    client_properties = {
-      "bootstrap.servers" = aws_msk_cluster.kafka_cluster.bootstrap_brokers
-    }
-    destination_arn = aws_msk_cluster.kafka_cluster.arn
+  lambda {
+    function_arn = aws_lambda_function.lambda_function_kafka_listener.arn
   }
 }
