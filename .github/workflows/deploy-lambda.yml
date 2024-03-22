@@ -79,13 +79,8 @@ jobs:
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:latest .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
-
-      - name: Update Lambda
-        working-directory: ./src/lambda/kafka-listener/src
-        run: |
-            aws lambda update-function-code --function-name KafkaListenerLambdaFunction --image-uri $ECR_REGISTRY/$ECR_REPOSITORY:latest
   
-
+  update-lambda:
     name: Update Lambda
     runs-on: ubuntu-latest
     needs: deploy-lambda
