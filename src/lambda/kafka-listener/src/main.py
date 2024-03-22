@@ -15,7 +15,8 @@ def lambda_handler(event, context):
         'sasl.password': os.getenv('SASL_PASSWORD')
     }
 
-    producer = Producer(**kafka_conf)
+    print(kafka_conf)
+    producer = Producer(kafka_conf)
     topic = os.getenv('KAFKA_TOPIC')
 
     def delivery_report(err, msg):
