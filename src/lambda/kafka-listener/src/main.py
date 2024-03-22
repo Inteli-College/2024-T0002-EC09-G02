@@ -7,6 +7,7 @@ import os
 load_dotenv()
 
 def lambda_handler(event, context):
+    print(f'Lendo variáveis de ambiente...')
     kafka_conf = {
         'bootstrap.servers': os.getenv('BOOTSTRAP_SERVERS'),
         'security.protocol': 'SASL_SSL',
@@ -15,11 +16,11 @@ def lambda_handler(event, context):
         'sasl.password': os.getenv('SASL_PASSWORD')
     }
 
-    print(kafka_conf)
     producer = Producer(kafka_conf)
     topic = os.getenv('KAFKA_TOPIC')
+    print(f'Conectado ao tópico {topic}...')
 
-    print(f'Topic: {event}')
+    print(f'Received event!')
 
     def delivery_report(err, msg):
         if err is not None:
@@ -29,6 +30,7 @@ def lambda_handler(event, context):
 
     # Loop through the IoT messages
     for record in event['Records']:
+        print(f'Received message: {record['body']}')
         message = json.loads(record['body'])
         producer.produce(topic, message.encode('utf-8'), callback=delivery_report)
     
