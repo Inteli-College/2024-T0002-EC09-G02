@@ -19,6 +19,8 @@ def lambda_handler(event, context):
     producer = Producer(kafka_conf)
     topic = os.getenv('KAFKA_TOPIC')
 
+    print(f'Topic: {event}')
+    
     def delivery_report(err, msg):
         if err is not None:
             print(f'Message delivery failed: {err}')
