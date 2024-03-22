@@ -14,7 +14,6 @@ Run the script with command-line arguments '--sensor' and '--region'.
 from awscrt import mqtt
 from awsiot import mqtt_connection_builder
 import sys
-import threading
 import time
 import json
 import uuid
