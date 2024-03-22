@@ -20,7 +20,7 @@ def lambda_handler(event, context):
     topic = os.getenv('KAFKA_TOPIC')
 
     print(f'Topic: {event}')
-    
+
     def delivery_report(err, msg):
         if err is not None:
             print(f'Message delivery failed: {err}')
@@ -28,8 +28,8 @@ def lambda_handler(event, context):
             print(f'Message delivered to {msg.topic()} [{msg.partition()}]')
 
     # Loop through the IoT messages
-    for record in event['records']:
-        message = json.dumps(record)
+    for record in event['Records']:
+        message = json.loads(record['body'])
         producer.produce(topic, message.encode('utf-8'), callback=delivery_report)
     
     producer.flush()
