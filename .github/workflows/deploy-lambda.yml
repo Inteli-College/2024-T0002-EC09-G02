@@ -104,4 +104,4 @@ jobs:
           ECR_REPOSITORY: ${{ env.ECR_REPOSITORY_NAME }}
 
         run: |
-          aws lambda update-function-code --function-name kafka-listener --image-uri $ECR_REGISTRY/$ECR_REPOSITORY:latest
+          aws lambda update-function-code --function-name KafkaListenerLambdaFunction --image-uri $ECR_REGISTRY/$ECR_REPOSITORY:latest
