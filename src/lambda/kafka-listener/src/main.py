@@ -20,7 +20,7 @@ def lambda_handler(event, context):
     topic = os.getenv('KAFKA_TOPIC')
     print(f'Conectado ao tópico {topic}...')
 
-    print(f'Received event!')
+    print(f'Received event: ${event}')
 
     def delivery_report(err, msg):
         if err is not None:
@@ -32,6 +32,7 @@ def lambda_handler(event, context):
     for record in event['Records']:
         print(f'Received message: {record["body"]}')
         message = json.loads(record['body'])
+        print(f'Parsed message: {message}')
         producer.produce(topic, message.encode('utf-8'), callback=delivery_report)
     
     producer.flush()

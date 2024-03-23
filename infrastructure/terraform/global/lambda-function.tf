@@ -5,7 +5,7 @@ resource "aws_lambda_function" "lambda_function_kafka_listener" {
   image_uri    = "${aws_ecr_repository.kafka-listener-repo.repository_url}:latest"
   role         = var.lab_role
   timeout      = 15
-  memory_size  = 1024
+  memory_size  = 512
 }
 
 resource "aws_lambda_event_source_mapping" "sqs_to_lambda" {
