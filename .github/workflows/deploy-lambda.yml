@@ -1,4 +1,4 @@
-name: Deploy to ECR
+name: Lambda - Kafka Producer
 
 on:
   workflow_dispatch:
