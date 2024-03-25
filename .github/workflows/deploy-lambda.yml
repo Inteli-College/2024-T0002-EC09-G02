@@ -70,6 +70,7 @@ jobs:
           echo "SASL_USERNAME"=${{secrets.SASL_USERNAME }}>> .env
           echo "SASL_PASSWORD"=${{secrets.SASL_PASSWORD }}>> .env
 
+
       - name: Deploy Kafka Listener to ECR
         working-directory: ./src/lambda/kafka-listener/src
         env:
@@ -79,7 +80,7 @@ jobs:
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:latest .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
-
+  
   update-lambda:
     name: Update Lambda
     runs-on: ubuntu-latest
@@ -96,7 +97,7 @@ jobs:
           aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
           aws-session-token: ${{ env.AWS_SESSION_TOKEN }}
           aws-region: ${{ env.AWS_REGION }}
-
+      
       - name: Fetch AWS Account ID and set as env variable
         run: echo "AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query 'Account' --output text)" >> $GITHUB_ENV
 
@@ -106,4 +107,4 @@ jobs:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: ${{ env.ECR_REPOSITORY_NAME }}
         run: |
-          aws lambda update-function-code --function-name KafkaListenerLambdaFunction --image-uri $AWS_ACCOUNT_ID.dkr.ecr.YOUR_REGION.amazonaws.com/kafka-listener-repo:latest --region ${{ env.AWS_REGION }}
+          aws lambda update-function-code --function-name KafkaListenerLambdaFunction --image-uri $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/kafka-listener-repo:latest 
