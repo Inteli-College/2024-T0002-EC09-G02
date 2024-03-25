@@ -28,8 +28,10 @@ chmod 700 get_helm.sh
   
 
 ## Start Install Grafana and Prometheus
-eksctl create addon --name aws-ebs-csi-driver --cluster eks-prod --service-account-role-arn arn:aws:iam::058264141216:role/LabRole_EBS_CSI_DriverRole --force
-  
+eksctl create addon --name aws-ebs-csi-driver --cluster eks-prod --service-account-role-arn arn:aws:iam::730335212171:role/LabRole_EBS_CSI_DriverRole --force
+
+ aws eks --region us-east-1 update-kubeconfig --name eks-prod
+
 ## runnig helm 
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
   
@@ -65,8 +67,14 @@ helm install grafana grafana/grafana \
     --set service.type=LoadBalancer \
     --set env.GF_SECURITY_ALLOW_EMBEDDING="true" \
     --set env.GF_PANELS_DISABLE_SANITIZE_HTML="true" \
-    --set env.GF_PANELS_ENABLE_ALPHA="true" \
-    --set env.GL_SECURITY_COOKIE_SAMESITE="none"\ 
+    --set env.ALLOW_LOADING_UNSIGNED_PLUGINS="mongodb-datasource" \
+    --set env.GF_PANELS_ENABLE_ALPHA="true" 
+	
+kubectl get all -n grafana
+
+kubectl get svc grafana -n grafana -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
+
+kubectl get svc -n grafana
 
 # helm upgrade grafana grafana/grafana \
 #     --namespace grafana \
@@ -79,10 +87,3 @@ helm install grafana grafana/grafana \
 #     --set env.GF_PANELS_DISABLE_SANITIZE_HTML="true" \
 #     --set env.GF_PANELS_ENABLE_ALPHA="true" \
 #     --set env.GL_SECURITY_COOKIE_SAMESITE="none"\ 
-
-	
-kubectl get all -n grafana
-
-kubectl get svc grafana -n grafana -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
-
-kubectl get svc -n grafana
