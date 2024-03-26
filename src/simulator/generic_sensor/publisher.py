@@ -142,7 +142,7 @@ if __name__ == '__main__':
     cert_path = f'./../../authentication-keys/{region}_cert.pem'
     key_path = f'./../../authentication-keys/{region}_key.pem'
     ca_cert = './../../authentication-keys/root-CA.crt'
-    endpoint = 'a3ijfxkxzct5si-ats.iot.us-east-1.amazonaws.com'
+    endpoint = 'a35kx1bsojzt37-ats.iot.us-east-1.amazonaws.com'
 
     mqtt_connection, _ = connect_mqtt(endpoint, port, cert_path, key_path, ca_cert, client_id)
 
