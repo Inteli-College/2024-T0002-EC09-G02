@@ -152,7 +152,6 @@ if __name__ == '__main__':
     data = read_csv(csv_path)
     print(f'Topic: sensor/{config.region}/{config.sensor_type}')
 
-    interval = 1 / config.transmission_rate_hz
     for value in data:
         rounded_value = round(value, 2)
         
@@ -160,7 +159,7 @@ if __name__ == '__main__':
         topic = f'sensor/{config.region}/{config.sensor_type}'
         publish_message(mqtt_connection, topic, message)
         print(f"Published message: {message}")
-        time.sleep(interval)
+        time.sleep(2)
 
     # Disconnect
     print("Disconnecting...")
