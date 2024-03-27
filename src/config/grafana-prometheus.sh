@@ -28,9 +28,9 @@ chmod 700 get_helm.sh
   
 
 ## Start Install Grafana and Prometheus
-eksctl create addon --name aws-ebs-csi-driver --cluster eks-prod --service-account-role-arn arn:aws:iam::730335212171:role/LabRole_EBS_CSI_DriverRole --force
+eksctl create addon --name aws-ebs-csi-driver --cluster eks-prod --service-account-role-arn arn:aws:iam::590183850546:role/LabRole_EBS_CSI_DriverRole --force
 
- aws eks --region us-east-1 update-kubeconfig --name eks-prod
+aws eks --region us-east-1 update-kubeconfig --name eks-prod
 
 ## runnig helm 
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
