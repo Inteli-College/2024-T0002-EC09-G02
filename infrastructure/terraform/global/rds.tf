@@ -18,7 +18,7 @@ resource "aws_db_instance" "main_postgresql_db" {
   allocated_storage      = 20
   multi_az               = false
   password               = "postgres123"
-  publicly_accessible = true
-  skip_final_snapshot = true
-  db_subnet_group_name      = aws_db_subnet_group.db_subnet_group.name
+  publicly_accessible    = true
+  skip_final_snapshot    = true
+  db_subnet_group_name   = aws_db_subnet_group.db_subnet_group.name
 }
