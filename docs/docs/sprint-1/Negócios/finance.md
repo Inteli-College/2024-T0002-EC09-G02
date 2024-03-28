@@ -29,20 +29,21 @@ Para a implementação do projeto, será necessário uma equipe composta por uma
 
 ### Gastos com serviços Cloud
 
-Este quadro apresenta um resumo dos custos anuais e mensais associados ao uso de diversos serviços da AWS para o projeto, incluindo IOT Core para dispositivos, Amazon EKS, Amazon Elastic Container Registry, Amazon EC2 ,Amazon VPC e AWS Glue. O total anual em dólares é convertido para reais utilizando a taxa de câmbio de R$4.97, resultando em um custo anual de R$101,959.95 e um custo mensal de R$8,496.66. Essa análise de custos é fundamental para o planejamento financeiro do projeto, permitindo uma avaliação precisa dos gastos com infraestrutura de nuvem e garantindo a alocação eficiente de recursos para operações críticas.
+Este quadro apresenta um resumo dos custos anuais e mensais associados ao uso de diversos serviços da AWS para o projeto, incluindo AWS Lambda, AWS Elastic Load Balancing, Amazon Elastic Container Registry, Amazon EC2, Amazon VPC, AWS RDS, AWS S3 e Amazon Simple Queue Service (SQS). O total anual em dólares é convertido para reais utilizando a taxa de câmbio de R$4.99, resultando em um custo anual de R$210,259.64 e um custo mensal de R$17,521.64. Essa análise de custos é fundamental para o planejamento financeiro do projeto, permitindo uma avaliação precisa dos gastos com infraestrutura de nuvem e garantindo a alocação eficiente de recursos para operações críticas.
 
-| Serviço                             | Preço p/ Ano   | Preço p/ Mês |
-|-------------------------------------|----------------|--------------|
-| IOT Core (120 devices)              | $10,399.56     | $866.63      |
-| Amazon EKS (1 Kluster)              | $876.00        | $73.00       |
-| Amazon Elastic Container Registry   | $24.00         | $2.00        |
-| Amazon EC2                          | $659.52        | $54.96       |
-| Amazon VPC                          | $8,556.00      | $713.00      |
-| AWS Glue                            | $3,613.44      | $301.12      |
-| **Total em dólares**                | **$20.515,08** | **$1.709,59** |
-| **Total em reais**                  | **R$119.918,74** | **R$9.993,23** |
-| **Taxa de câmbio (Dólar para Real)**| **R$4,97**     |              |
-
+| Serviço                             | Preço p/ Ano   | Preço p/ Mês  |
+|-------------------------------------|----------------|----------------|
+| AWS Lambda                          | $13,768.28     | $1,147.44      |
+| AWS Elastic Load Balancing          | $3,206.88      | $267.24        |
+| Amazon Elastic Container Registry   | $24.00         | $2.00          |
+| Amazon EC2                          | $659.52        | $54.96         |
+| Amazon VPC                          | $8,556.00      | $713.00        |
+| AWS RDS                             | $5,556.00      | $448.08        |
+| AWS S3                              | $14.40         | $1.20          |
+| Amazon Simple Queue Service (SQS)   | $129.60        | $10.80         |
+| **Total em dólares**                | **$42,136.20** | **$3,511.35**  |
+| **Total em reais**                  | **R$210.259,64**|**R$17.521.64**|
+| **Taxa de câmbio (Dólar para Real)**| **R$4.99**     |                |
 ### Terceirização de serviços
 
 Este quadro detalha os custos envolvidos em uma possível terceirização de serviços e na utilização da infraestrutura AWS para um determinado projeto, totalizando R$701,959.95 por ano, com um custo mensal de R$58,496.66. O lucro estimado após esses gastos é de R$498,040.05 ao ano, equivalendo a um retorno mensal de R$41,503.34. Além disso, o cálculo do imposto, presumivelmente sobre o faturamento total, é indicado como R$607,365.92. Esse resumo financeiro é essencial para entender a viabilidade econômica do projeto, permitindo uma análise precisa dos benefícios versus os custos de terceirização e uso de serviços de computação em nuvem.
