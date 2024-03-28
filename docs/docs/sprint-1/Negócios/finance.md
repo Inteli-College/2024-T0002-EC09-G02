@@ -44,6 +44,7 @@ Este quadro apresenta um resumo dos custos anuais e mensais associados ao uso de
 | **Total em dólares**                | **$42,136.20** | **$3,511.35**  |
 | **Total em reais**                  | **R$210.259,64**|**R$17.521.64**|
 | **Taxa de câmbio (Dólar para Real)**| **R$4.99**     |                |
+
 ### Terceirização de serviços
 
 Este quadro detalha os custos envolvidos em uma possível terceirização de serviços e na utilização da infraestrutura AWS para um determinado projeto, totalizando R$701,959.95 por ano, com um custo mensal de R$58,496.66. O lucro estimado após esses gastos é de R$498,040.05 ao ano, equivalendo a um retorno mensal de R$41,503.34. Além disso, o cálculo do imposto, presumivelmente sobre o faturamento total, é indicado como R$607,365.92. Esse resumo financeiro é essencial para entender a viabilidade econômica do projeto, permitindo uma análise precisa dos benefícios versus os custos de terceirização e uso de serviços de computação em nuvem.
@@ -51,10 +52,10 @@ Este quadro detalha os custos envolvidos em uma possível terceirização de ser
 | Descrição                | Preço por Ano   | Preço por Mês |
 |--------------------------|-----------------|---------------|
 | Serviço                  | R$600.000,00    | R$50.000,00   |
-| AWS                      | R$101.959,95    | R$8.496,66    |
-| **Total em reais**       | **R$701.959,95**| **R$58.496,66**|
-| **Lucro estimado**       | **R$498.040,05**| **R$41.503,34**|
-| **Imposto (20%)**        | **R$607.365,92**| Não aplicável |
+| AWS                      | R$210.259,64    | R$17.521.64    |
+| **Total em reais**       | **R$810,259.64**| **R$267,510.29**|
+| **Lucro estimado**       | **R$398.740,36**| **R$50.000,00**|
+| **Imposto (10%)**        | **R$475,293.12**| Não aplicável |
 
 ## Custo total do MVP
 
@@ -63,8 +64,8 @@ Para representar todos os gastos de forma resumida, este quadro apresenta uma vi
 | Item                   | Preço por Ano    | Preço por Mês  |
 |------------------------|------------------|----------------|
 | Equipe de Engenheiro   | R$1.056.000,00   | R$88.000,00    |
-| AWS                    | R$101.959,95     | R$8.496,66     |
-| Implementação          | R$1.157.959,95   | R$96.496,66    |
+| AWS                    | R$210.259,64     | R$17,521.64     |
+| Implementação          | R$1.266,259.64   | R$105,521.64    |
 | Manutenção do modelo   | R$355.000,00     | R$29.583,33    |
-| **Total em reais**     | **R$2.670.919,90** | **R$222.576,66**|
-| **Imposto (20%)**      | **R$3.205.103,88**| Não aplicável  |
+| **Total em reais**     | **R$2.887,519.28** | **R$240,626.61**|
+| **Imposto (20%)**      | **R$3,465,023.13**| Não aplicável  |
