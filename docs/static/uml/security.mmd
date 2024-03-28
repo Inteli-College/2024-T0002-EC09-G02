@@ -1,29 +1,25 @@
 sequenceDiagram
     participant Device as Dispositivo
     participant IotCore as IoT Core
-    participant Kafka as Apache Kafka
-    participant Mongo as MongoDB
+    participant DynamoDB as DynamoDB
+    participant ColaGlue as AWS Glue
+    participant Athena as Athena
     participant Grafana as Grafana em EKS
     participant Admin as Admin
 
 Device ->> Device: Gera/Coleta dados
 Device ->> IotCore: Envia certificados X.509
 IotCore ->> IotCore: Verifica certificados
-
 Note over Device, IotCore: Conexão autenticada e segura via TLS
-
 Device ->> IotCore: Publica dados no tópico associado
 IotCore ->> IotCore: Checa permissões nas políticas
-
 Note over Device, IotCore: Autorização via políticas
-Note over IotCore, Kafka: Autorizações via IAM Role (Lab Role)
-
-IotCore ->> Kafka: Envia dados recebidos a fila em Kafka
-
-Note over Kafka, Admin: Autorizações via credenciais (usuário, senha, IP)
-
-Kafka ->> Mongo: Salva dados no banco NoSQL
-Grafana ->> Mongo: Consulta dados para visualização via credenciais AWS no container
+Note over IotCore, Athena: Início de autorizações via IAM Role (Lab Role)
+IotCore ->> DynamoDB: Salva dados via IoT Rule
+DynamoDB ->> ColaGlue: Dados disponíveis para ETL
+ColaGlue ->> Athena: Dados disponíveis para consulta
+Note over IotCore, Athena: Fim de autorizações via IAM Role (Lab Role)
+Grafana ->> Athena: Consulta dados para visualização via credenciais AWS no container
 Admin ->> Grafana: Utiliza login e senha para acessar Grafana
 
 
