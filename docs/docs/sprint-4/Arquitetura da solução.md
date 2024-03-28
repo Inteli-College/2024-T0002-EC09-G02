@@ -6,29 +6,29 @@ slug: 'Arquitetura da solução'
 
 A solução proposta é uma arquitetura IoT robusta que utiliza serviços gerenciados da AWS para coletar, processar e visualizar dados provenientes de dispositivos IoT simulados. Essa solução é composta por vários componentes interconectados, cada um desempenhando um papel fundamental no fluxo de dados. Vamos explorar brevemente cada componente para entender como a solução opera.
 
-## Diagrama de Blocos da Arquitetura - v4.0
+## Diagrama de Blocos da Arquitetura - v5.0
 
-![alt text](<../../static/img/Diagrama de blocos - Cloud-v4.png>)
+![alt text](<../../static/img/Diagrama de blocos - Cloud-v5.png>)
 
 ### Descrição dos Componentes Anteriores
 
 - **Cliente MQTT**: Dispositivo que publica mensagens em tópicos MQTT. No contexto do projeto, o cliente MQTT é um simulador de um dispositivo IoT.
 - **Broker MQTT**: Servidor que gerencia a comunicação entre os clientes MQTT. No contexto do projeto, o broker MQTT é o serviço AWS IoT Core. A escolha do Iot Core se deu pela sua escalabilidade, segurança e integração com outros serviços da AWS, ao qual no próprio processo de configuração de um dispositivo, é possível criar regras para processar mensagens e armazená-las em outros serviços.
 - **AWS IoT Core**: Serviço da AWS que gerencia a comunicação entre dispositivos IoT e a nuvem. O AWS IoT Core permite a conexão segura de dispositivos com a nuvem, além de oferecer recursos para processar e armazenar mensagens.
-- **Amazon EKS**: Serviço da AWS que gerencia clusters de contêineres. O EKS foi escolhido para hospedar a aplicação web por sua escalabilidade, segurança e integração com outros serviços da AWS.
-- **EC2**: Serviço da AWS que fornece capacidade de computação na nuvem. O EC2 foi escolhido para estar acoplado ao EKS e hospedar os nós do Kubernetes e seus respectivos pods.
+- **Amazon EC2**: Serviço da AWS que fornece capacidade de computação na nuvem. O EC2 foi escolhido para hospedar o nosso novo dashboard através de um contâiner Docker juntamente com um Load Balance.
 
 ### Novos Componentes
 - **Amazon Simple Queue Service (SQS)**: Serviço de mensagens gerenciado da AWS que permite a comunicação entre diferentes partes de um sistema. O SQS foi escolhido para criar uma fila de mensagens entre o AWS IoT Core e o AWS Lambda para garantir a entrega de mensagens.
-- **Lambda**: Serviço da AWS que permite a execução de código sem a necessidade de provisionar ou gerenciar servidores. O Lambda foi escolhido para processar as mensagens recebidas pelo AWS IoT Core e enviá-las para o Confluent Cloud.
+- **AWS Lambda**: Serviço da AWS que permite a execução de código sem a necessidade de provisionar ou gerenciar servidores. O Lambda foi escolhido para processar as mensagens recebidas pelo AWS IoT Core e enviá-las para o Confluent Cloud.
 - **Confluent Cloud**: Serviço de streaming de dados gerenciado que permite a ingestão, transformação e armazenamento de dados em tempo real. O Confluent Cloud foi escolhido para processar e armazenar os dados coletados dos dispositivos IoT.
 - **MongoDB Atlas**: Serviço de banco de dados gerenciado que permite o armazenamento de dados em nuvem. O MongoDB Atlas foi escolhido para armazenar os dados processados pelo Confluent Cloud.
+- **Amazon Elastic Load Balancer(ELB)**: Serviço de distribuição de tráfego de rede para aprimorar a escalabilidade da aplicação(nosso dashboard). O Load Balancer foi escolhido para melhorar a escalabilidade e estabilidade do nosso dashboard com uma grande quantidade de acessos simultâneos.
 
-## Diagrama de Implantação - v2.0
+## Diagrama de Implantação - v3.0
 
 Um Diagrama UML (Unified Modeling Language ou Linguagem Unificada de Modelagem) é uma forma padronizada de visualizar o design de um sistema. UML é uma linguagem de modelagem de sistemas que permite a representação gráfica de um sistema por meio de diferentes tipos de diagramas. Com a UML, os desenvolvedores e stakeholders podem entender, alterar, construir e documentar aspectos de um sistema de software.
 
-![alt text](<../../static/img/Diagrama UML - Implatação-v2.png>)
+![alt text](<../../static/img/Diagrama UML - Implatação-v3.jpeg>)
 
 ### Dispositivo (Publisher)
 
@@ -56,16 +56,15 @@ Um Diagrama UML (Unified Modeling Language ou Linguagem Unificada de Modelagem) 
 
 ### Visualização (Dashboard)
 
-- O serviço EKS (Elastic Kubernetes Service) gerencia os aplicativos de visualização de dados.
-- Grafana e Prometheus são integrados para a monitorização e visualização em tempo real dos dados.
+- Metabase é integrado para a monitorização, visualização e importação em tempo real dos dados.
 - O MongoDB Atlas é consultado para obter dados para exibição no dashboard.
-- O serviço EC2, com uma instância T3.Medium, é utilizado para hospedar e executar as aplicações necessárias para o funcionamento do dashboard.
+- O serviço Amazon EC2, com uma instância T3.Medium, é utilizado para hospedar e executar as aplicações necessárias para o funcionamento do dashboard.
 
 ## Segurança no banco de dados e dashboard
 
 Para garantir a segurança nas conexões entre o banco de dados, o dashboard e o resto do sistema em nossa solução de arquitetura IoT baseada na AWS, implementamos diversas medidas de segurança. Abaixo estão os detalhes de como cada segmento da arquitetura contribui para a integridade, confidencialidade e disponibilidade dos dados e serviços.
 
-![alt text](../../static/img/security.png)
+![alt text](../../static/img/security-v2.png)
 
 ### Segurança do Dispositivo ao AWS IoT Core
 
@@ -73,7 +72,7 @@ A segurança da comunicação entre dispositivos IoT e o AWS IoT Core é assegur
 
 ### Autorização e Controle de Acesso
 
-Utilizamos o AWS Identity and Access Management (IAM) para gerenciar as permissões de acesso aos recursos da AWS. O IAM Role, ou papel do IAM, começa com a definição de políticas que especificam quais serviços e ações o usuário ou serviço tem permissão para usar. No caso do AWS Glue e outras integrações, isso significa acesso controlado para executar operações de ETL (Extrair, Transformar e Carregar) e consultar dados.
+Utilizamos o AWS Identity and Access Management (IAM) para gerenciar as permissões de acesso aos recursos da AWS. O IAM Role, ou papel do IAM, começa com a definição de políticas que especificam quais serviços e ações o usuário ou serviço tem permissão para usar.
 
 ### Segurança no Banco de Dados
 
@@ -85,9 +84,9 @@ Para o projeto, a configuração de listas de permissões de IP no MongoDB Atlas
 
 ### Segurança no Dashboard e Visualização de Dados
 
-Para o dashboard hospedado no Amazon EKS, o acesso é protegido através do controle de acesso ao Kubernetes, integrado ao IAM da AWS. Isso significa que apenas usuários com as credenciais corretas podem acessar o Grafana. Além disso, o login do Grafana é protegido por autenticação, que pode ser configurada para usar autenticação de múltiplos fatores (MFA) para uma camada adicional de segurança.
+Para o novo dashboard hospedado em uma Amazon EC2, o acesso é protegido através do sistema de login, onde toda sua persistência e dados são mantidos dentro da Amazon EC2 em seu contâiner Docker. Isso significa que apenas usuários com as credenciais corretas de login registradas anteriormente por outro administrador, podem acessar o Metabase como administradores. 
 
-Adicionalmente, a comunicação entre serviços, como entre o Grafana e o Prometheus ou o MongoDB, é protegida por meio de políticas de segurança que asseguram que apenas tráfego autorizado possa fluir entre esses serviços, minimizando assim o risco de interceptação ou manipulação de dados.
+Adicionalmente, a comunicação entre serviços, como entre o Metabase e o MongoDB, é protegida por meio de políticas de segurança que asseguram que apenas tráfego autorizado possa fluir entre esses serviços, minimizando assim o risco de interceptação ou manipulação de dados.
 
 ### Conclusão
 
