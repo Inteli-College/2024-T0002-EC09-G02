@@ -56,6 +56,8 @@ O Confluent Cloud pode ser integrado com o AWS Lambda, um serviço de computaç�
 5. Os dados são consumidos por um conector do Confluent Cloud e enviados para um banco de dados MongoDB.
 6. Os dados são armazenados no banco de dados MongoDB.
 
+_**NOTA:** O diagrama de blocos e UML de fluxo de dados estão disponíveis na documentação sobre a arquitetura do projeto._
+
 ## Vantagens da Integração
 
 O uso do Confluent Cloud em conjunto com o AWS Lambda oferece uma série de vantagens em relação a outras abordagens de processamento de dados. Algumas das principais vantagens da integração do Confluent Cloud com o AWS Lambda incluem:
