@@ -34,7 +34,7 @@ services:
       MB_DB_PORT: '5432'
       MB_DB_USER: postgres
       MB_DB_PASS: postgres123
-      MB_DB_HOST: ${}
+      MB_DB_HOST: prod-db.ctmyle8jaaqs.us-east-1.rds.amazonaws.com
     ports:
       - '80:3000'" > /var/docker-compose.yml
 (sudo systemctl enable docker)
