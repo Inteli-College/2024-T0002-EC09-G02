@@ -4,7 +4,7 @@ import os
 
 regions = ["north", "south", "east", "west", "center"]
 
-# sensors = ["solar","gas","PM","nosie",]
+sensors = ["solar","gas","PM","nosie"]
 
 for region in regions:
     for sensor in sensors:

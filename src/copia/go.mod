@@ -1,17 +1,15 @@
-module ponderada5
+module megamentes
 
 go 1.22.0
 
 require (
-	github.com/confluentinc/confluent-kafka-go v1.9.2
 	github.com/eclipse/paho.mqtt.golang v1.4.3
 	github.com/joho/godotenv v1.5.1
-	github.com/mattn/go-sqlite3 v1.14.22
 	go.mongodb.org/mongo-driver v1.14.0
 )
 
 require (
-	github.com/golang/snappy v0.0.4 // indirect
+	github.com/golang/snappy v0.0.1 // indirect
 	github.com/gorilla/websocket v1.5.0 // indirect
 	github.com/klauspost/compress v1.13.6 // indirect
 	github.com/montanaflynn/stats v0.0.0-20171201202039-1bf9dbcd8cbe // indirect
