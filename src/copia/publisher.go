@@ -21,14 +21,15 @@ func Publisher() mqtt.Client {
 	if err != nil {
 		fmt.Printf("Error loading .env file: %s", err)
 	}
-
+	port := 8883
 	var broker = os.Getenv("BROKER_ADDR")
-	var port = 8883
+	var user = os.Getenv("HIVE_USER")
+	var pswd = os.Getenv("HIVE_PSWD")
 	opts := mqtt.NewClientOptions()
 	opts.AddBroker(fmt.Sprintf("tls://%s%d/mqtt", broker, port))
 	opts.SetClientID("Publisher")
-	opts.SetUsername(os.Getenv("HIVE_USER"))
-	opts.SetPassword(os.Getenv("HIVE_PSWD"))
+	opts.SetUsername(user)
+	opts.SetPassword(pswd)
 	opts.OnConnect = connectHandler
 	opts.OnConnectionLost = connectLostHandler
 
