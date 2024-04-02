@@ -14,7 +14,7 @@ Diante desses desafios e da crescente complexidade, tomamos a decisão conscient
 
 Essa decisão de simplificar não foi tomada levianamente, mas sim como resultado de uma avaliação cuidadosa dos trade-offs envolvidos. Acreditamos firmemente que, ao reduzir a complexidade do nosso sistema, poderemos não apenas melhorar a confiabilidade e a eficiência operacional, mas também facilitar a interação com os usuários finais e os gestores públicos, mantendo o foco na nossa missão de promover um impacto positivo no enfrentamento da degradação ambiental urbana.
 
-## A nova arquitetura
+## Diagrama de Blocos da Arquitetura - v5.0
 
 
 Em resposta aos desafios enfrentados e às necessidades identificadas nas fases anteriores do nosso projeto colaborativo entre o Instituto de Tecnologia e Liderança (INTELI) e a PRODAM, implementamos uma nova arquitetura que visa simplificar o desenvolvimento e operação, ao mesmo tempo em que reduz os custos. Esta reformulação da nossa estrutura tecnológica reflete um compromisso com a eficiência, a escalabilidade e a acessibilidade, fundamentos essenciais para o sucesso de nossa iniciativa de monitoramento ambiental urbano.
@@ -27,7 +27,11 @@ Em resposta aos desafios enfrentados e às necessidades identificadas nas fases 
 
 **Metabase em uma EC2 com Autoscaler:** A implementação do Metabase para visualização e análise de dados em uma instância EC2 da AWS com capacidade de autoscaling representa uma solução inovadora e custo-efetiva para a análise de dados. O Metabase, uma ferramenta open-source de business intelligence, combinado com a flexibilidade e a escalabilidade da infraestrutura AWS EC2, permite uma análise de dados poderosa e acessível. A funcionalidade de autoscaling garante que a plataforma possa se ajustar automaticamente à demanda, otimizando os custos e assegurando que o desempenho não seja comprometido durante picos de uso.
 
-### Vantagens da Nova Arquitetura
+## Diagrama de Implantação - v4.0
+
+![Diagrama de Implantação 4](<../../static/img/DiagramaImplantacao4.png>)
+
+## Vantagens da Nova Arquitetura
 Esta nova configuração arquitetônica oferece várias vantagens em termos de facilidade de uso, custo e eficiência. A escolha de tecnologias e plataformas líderes de mercado, conhecidas por sua robustez e escalabilidade, juntamente com uma estratégia de custo otimizado, permite-nos enfrentar os desafios de monitoramento ambiental de forma mais eficaz. A simplificação do stack tecnológico não apenas facilita a gestão e a operação do sistema como um todo, mas também assegura uma maior confiabilidade e disponibilidade dos serviços, essenciais para o sucesso de iniciativas de cidades inteligentes e sustentáveis. Através desta abordagem, estamos confiantes em nossa capacidade de fornecer uma solução de monitoramento ambiental que é não apenas tecnologicamente avançada, mas também acessível e sustentável a longo prazo.
 
 
