@@ -21,3 +21,4 @@ pyvenv.cfg
 src/simulator.egg-info
 ./simulator.egg-info
 .env
+
