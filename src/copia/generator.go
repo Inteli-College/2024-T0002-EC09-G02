@@ -22,10 +22,9 @@ type SensorStruct struct {
 } 
 
 func Generator(sensors []SensorStruct,amount string, client mqtt.Client, sensorType string,region string)  {
-	size := len(sensors)
-	valueList := make([][]float64, size)
+	pointerlist := make(map[int]*csv.Reader)
 	fmt.Printf("sensors %v\n",sensors)
-	for j, sensor := range sensors {
+	for i, sensor := range sensors {
 		cmd := exec.Command("python3", "DataGenerator.py", sensor.sensorType, amount, fmt.Sprintf("%f",sensor.mean), fmt.Sprintf("%f",sensor.volatility) ,fmt.Sprintf("%f",sensor.mean_reversion_rate))
 		err := cmd.Run()
 		if err != nil {
@@ -36,37 +35,26 @@ func Generator(sensors []SensorStruct,amount string, client mqtt.Client, sensorT
 		if err != nil {
 			panic(err)
 		}
-		defer f.Close()
-		// Read File into a Variable
-		lines, err := csv.NewReader(f).ReadAll()
-		if err != nil {
-			panic(err)
-		}
 		
-		sensorValueList := make([]float64, len(lines))
-		for i, line:= range lines {
-			value,_ := strconv.ParseFloat(line[0],64)
-			
-			sensorValueList[i] = value
+		pointer := csv.NewReader(f)
+		if pointer == nil {
+			panic("Error opening file")
 		}
-		valueList[j] = sensorValueList
-		
+		pointerlist[i] = pointer
 	}
-	fmt.Printf("valueList %v\n",valueList)
-	for i := 0; i < int(size); i++ {
-			if valueList[i] == nil {
-				continue
-			}
-			values := make(map[string]float64)
-			for j:= range sensors {
-				values[sensors[i].sensorType] = valueList[i][j]
-			}
-			datajson,_ :=  json.Marshal(map[string]interface{}{ "sensorType": sensorType, "values": values, "date": Date})
-			fmt.Printf("datajson %v\n",datajson)
-			token := Client.Publish(region+"/"+sensorType, 0, false, datajson)
-			token.Wait()
-			
-			Date = Date.Add(time.Minute)
-			time.Sleep(2 * time.Second)
+	numberValues,_ := strconv.ParseInt(amount,10,64)
+	for j := 0; j < int(numberValues); j++ {
+		values := make(map[string]float64)
+	for i := 0; i < len(sensors); i++ {
+
+		line, _ := pointerlist[i].Read()
+
+		value, _ := strconv.ParseFloat(line[0], 64)
+		values[sensors[i].sensorType] = value				
 		}
+	
+	datajson,_ :=  json.Marshal(map[string]interface{}{ "sensorType": sensorType, "values": values, "date": Date,"region": region})
+	client.Publish("north"+"/"+sensorType, 0, false, datajson)
+	time.Sleep(time.Second/100)
+	}
 }
