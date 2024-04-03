@@ -8,7 +8,7 @@ A solução proposta é uma arquitetura IoT robusta que utiliza serviços gerenc
 
 ## Diagrama de Blocos da Arquitetura - v5.0
 
-![alt text](<../../static/img/Diagrama de blocos - Cloud-v5.png>)
+![alt text](<../../static/img/Diagrama de blocos v4.0 - MQTT.png>)
 
 ### Descrição dos Componentes Anteriores
 
