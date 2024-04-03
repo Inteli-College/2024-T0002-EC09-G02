@@ -29,13 +29,13 @@ Para a implementação do projeto, será necessário uma equipe composta por uma
 
 ### Gastos com serviços Cloud
 
-Este quadro apresenta um resumo dos custos anuais e mensais associados ao uso de diversos serviços da arquitetura em clound para o projeto, incluindo HiveMQ, AWS Elastic Load Balancing, Kafca, Amazon EC2, Amazon VPC e AWS RDS . O total anual em dólares é convertido para reais utilizando a taxa de câmbio de R$5.05, resultando em um custo anual de R$178,665.77 e um custo mensal de R$14,888.81. Essa análise de custos é fundamental para o planejamento financeiro do projeto, permitindo uma avaliação precisa dos gastos com infraestrutura de nuvem e garantindo a alocação eficiente de recursos para operações críticas.
+Este quadro apresenta um resumo dos custos anuais e mensais associados ao uso de diversos serviços da arquitetura em clound para o projeto, incluindo HiveMQ, AWS Elastic Load Balancing, Kafka, Amazon EC2, Amazon VPC e AWS RDS . O total anual em dólares é convertido para reais utilizando a taxa de câmbio de R$5.05, resultando em um custo anual de R$178,665.77 e um custo mensal de R$14,888.81. Essa análise de custos é fundamental para o planejamento financeiro do projeto, permitindo uma avaliação precisa dos gastos com infraestrutura de nuvem e garantindo a alocação eficiente de recursos para operações críticas.
 
 | Arquitetura                             | Preço p/ Ano   | Preço p/ Mês  |
 |-------------------------------------|----------------|----------------|
 | HiveMQ                              | $3,696,00      | $308.00        |
 | AWS Elastic Load Balancing          | $3,206.88      | $267.24        |
-| Kafica                              | $13,200.00     | $448.08        |
+| Kafka                              | $13,200.00     | $448.08        |
 | Amazon EC2                          | $659.52        | $54.96         |
 | Amazon VPC                          | $8,556.00      | $713.00        |
 | AWS RDS                             | $5,556.00      | $448.08        |
@@ -43,6 +43,12 @@ Este quadro apresenta um resumo dos custos anuais e mensais associados ao uso de
 | **Total em dólares**                | **$35,379.36** | **$2,948.28**  |
 | **Total em reais**                  | **R$178,665.77**|**R$14,888.81**|
 | **Taxa de câmbio (Dólar para Real)**| **R$5.05**                      |
+
+**Escolha dos serviços do HiveMQ e MOngoDB**
+
+Para o HiveMQ, foi escolhido o plano `Starter`. A escolha do plano foi baseada em uma conta media de 1600 sensores e 71.424.000 mensagens em um periodo de 31 dias. Este plano contempla a quantidade estimada. 
+O MongoDB utiliza o plano `Dedicated` por ter acesso até 4 TB de espaço. A primeiro momento será uma quantidade boa e suficiente para a quantidade de dados e requests que serão utilizados mas poderá ser necessario fazer um Upgrade em algum momento. 
+
 
 ### Terceirização de serviços
 
