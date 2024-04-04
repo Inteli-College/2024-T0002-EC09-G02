@@ -41,7 +41,7 @@ O diagrama ilustra o fluxo de dados de um dispositivo IoT até a apresentação 
 
 Este fluxo assegura que os dados capturados pelos dispositivos IoT sejam transmitidos de maneira segura e eficiente para sistemas de armazenamento e análise, permitindo insights oportunos e a tomada de decisão baseada em dados. A integração do HiveMQ com o Kafka Confluent e MongoDB facilita o processamento e análise escaláveis de eventos em tempo real, enquanto o Metabase permite a visualização de dados de uma forma acessível para os usuários finais.
 
-![Diagrama de Sequência 4](<../../static/img/sequencia-sprint4.png>)
+![Diagrama de Sequência 4](<../../static/img/sequence-sprint4.png>)
 
 ## Vantagens da nova arquitetura
 Esta nova configuração arquitetônica oferece várias vantagens em termos de facilidade de uso, custo e eficiência. A escolha de tecnologias e plataformas líderes de mercado, conhecidas por sua robustez e escalabilidade, juntamente com uma estratégia de custo otimizado, permite-nos enfrentar os desafios de monitoramento ambiental de forma mais eficaz. A simplificação do stack tecnológico não apenas facilita a gestão e a operação do sistema como um todo, mas também assegura uma maior confiabilidade e disponibilidade dos serviços, essenciais para o sucesso de iniciativas de cidades inteligentes e sustentáveis. Através desta abordagem, estamos confiantes em nossa capacidade de fornecer uma solução de monitoramento ambiental que é não apenas tecnologicamente avançada, mas também acessível e sustentável a longo prazo.
