@@ -1,26 +1,28 @@
 sequenceDiagram
     participant Device as Dispositivo
-    participant IotCore as IoT Core
-    participant DynamoDB as DynamoDB
-    participant ColaGlue as AWS Glue
-    participant Athena as Athena
-    participant Grafana as Grafana em EKS
-    participant Admin as Admin
+    participant hive as HiveMQ
+
 
 Device ->> Device: Gera/Coleta dados
-Device ->> IotCore: Envia certificados X.509
-IotCore ->> IotCore: Verifica certificados
-Note over Device, IotCore: Conexão autenticada e segura via TLS
-Device ->> IotCore: Publica dados no tópico associado
-IotCore ->> IotCore: Checa permissões nas políticas
-Note over Device, IotCore: Autorização via políticas
-Note over IotCore, Athena: Início de autorizações via IAM Role (Lab Role)
-IotCore ->> DynamoDB: Salva dados via IoT Rule
-DynamoDB ->> ColaGlue: Dados disponíveis para ETL
-ColaGlue ->> Athena: Dados disponíveis para consulta
-Note over IotCore, Athena: Fim de autorizações via IAM Role (Lab Role)
-Grafana ->> Athena: Consulta dados para visualização via credenciais AWS no container
-Admin ->> Grafana: Utiliza login e senha para acessar Grafana
 
+Note over Device, hive: Estabelece conexão TLS
 
+Device ->> hive: Envia credenciais (username e senha)
 
+hive ->> hive: Verifica credenciais
+
+Note over Device, hive: Conexão autenticada e segura via TLS
+
+hive ->> hive: Verifica roles do usuário
+
+Note over Device, hive: Autorização via roles do HiveMQ
+
+Device ->> hive: Publica dados no tópico associado
+
+hive ->> Kafka Confluent: Encaminha dados do tópico
+
+Kafka Confluent ->> MongoDB: Armazena dados
+
+Note over MongoDB, Metabase: Dados acessíveis para análise
+
+Metabase ->> MongoDB: Consulta dados para visualização e análise
