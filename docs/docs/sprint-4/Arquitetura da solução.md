@@ -29,6 +29,10 @@ Em resposta aos desafios enfrentados e às necessidades identificadas nas fases 
 
 ## Diagrama de Implantação - v4.0
 
+Um diagrama de implantação é um tipo de diagrama UML (Unified Modeling Language) que representa a arquitetura física de um sistema, ou seja, como os seus componentes são distribuídos em hardware e software. Ele mostra como os diferentes elementos do sistema, como nós de processamento, dispositivos de armazenamento e software, estão interconectados e implantados em diversos nós físicos, como servidores, computadores pessoais, dispositivos móveis, entre outros.
+
+A funcionalidade principal de um diagrama de implantação é fornecer uma visão geral da infraestrutura física do sistema, ajudando os desenvolvedores, arquitetos de sistemas e administradores a entender como os componentes do sistema são distribuídos e como eles se comunicam entre si. Isso é útil para planejar a implantação do sistema em um ambiente real, dimensionar os recursos necessários, identificar possíveis pontos de falha e otimizar a comunicação entre os componentes.
+
 ![Diagrama de Implantação 4](<../../static/img/DiagramaImplantacao4.png>)
 
 ## Vantagens da Nova Arquitetura
