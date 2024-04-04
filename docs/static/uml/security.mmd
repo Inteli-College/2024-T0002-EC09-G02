@@ -1,30 +1,28 @@
 sequenceDiagram
     participant Device as Dispositivo
-    participant IotCore as IoT Core
-    participant Kafka as Apache Kafka
-    participant Mongo as MongoDB
-    participant Metabase as Metabase
-    participant Admin as Admin
+    participant hive as HiveMQ
+
 
 Device ->> Device: Gera/Coleta dados
-Device ->> IotCore: Envia certificados X.509
-IotCore ->> IotCore: Verifica certificados
 
-Note over Device, IotCore: Conexão autenticada e segura via TLS
+Note over Device, hive: Estabelece conexão TLS
 
-Device ->> IotCore: Publica dados no tópico associado
-IotCore ->> IotCore: Checa permissões nas políticas
+Device ->> hive: Envia credenciais (username e senha)
 
-Note over Device, IotCore: Autorização via políticas
-Note over IotCore, Kafka: Autorizações via IAM Role (Lab Role)
+hive ->> hive: Verifica credenciais
 
-IotCore ->> Kafka: Envia dados recebidos a fila em Kafka
+Note over Device, hive: Conexão autenticada e segura via TLS
 
-Note over Kafka, Admin: Autorizações via credenciais (usuário, senha, IP)
+hive ->> hive: Verifica roles do usuário
 
-Kafka ->> Mongo: Salva dados no banco NoSQL
-Metabase ->> Mongo: Consulta dados para visualização via credenciais no container
-Admin ->> Metabase: Utiliza login e senha para acessar Metabase
+Note over Device, hive: Autorização via roles do HiveMQ
 
+Device ->> hive: Publica dados no tópico associado
 
+hive ->> Kafka Confluent: Encaminha dados do tópico
 
+Kafka Confluent ->> MongoDB: Armazena dados
+
+Note over MongoDB, Metabase: Dados acessíveis para análise
+
+Metabase ->> MongoDB: Consulta dados para visualização e análise
