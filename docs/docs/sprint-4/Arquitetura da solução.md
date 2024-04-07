@@ -28,11 +28,17 @@ A solução inicial proposta para o projeto, foi de utilização parcila dos ser
 - **MongoDB Atlas**: Serviço de banco de dados gerenciado que permite o armazenamento de dados em nuvem. O MongoDB Atlas foi escolhido para armazenar os dados processados pelo Confluent Cloud.
 - **Amazon Elastic Load Balancer(ELB)**: Serviço de distribuição de tráfego de rede para aprimorar a escalabilidade da aplicação(nosso dashboard). O Load Balancer foi escolhido para melhorar a escalabilidade e estabilidade do nosso dashboard com uma grande quantidade de acessos simultâneos.
 
-### Diagrama de Implantação - v3.0
+### Diagrama de Implantação - v4.0
 
 Um Diagrama UML (Unified Modeling Language ou Linguagem Unificada de Modelagem) é uma forma padronizada de visualizar o design de um sistema. UML é uma linguagem de modelagem de sistemas que permite a representação gráfica de um sistema por meio de diferentes tipos de diagramas. Com a UML, os desenvolvedores e stakeholders podem entender, alterar, construir e documentar aspectos de um sistema de software.
 
 ![alt text](<../../static/img/Diagrama UML - Implatação-v3.jpeg>)
+
+### Diagrama de Sequência v4.0
+
+O Diagrama de Sequência é um tipo de diagrama de interação que descreve como grupos de objetos colaboram em algum comportamento ao longo do tempo. Ele mostra a sequência de mensagens trocadas entre os objetos em um sistema de software e os eventos que desencadeiam essas mensagens. O Diagrama de Sequência é útil para visualizar a lógica de negócios de um sistema e entender como os objetos interagem uns com os outros para realizar uma determinada funcionalidade.
+
+![alt text](<../../static/img/diagrama-sequencia-v4.png>)
 
 ## Proposta Final na Sprint 4
 
@@ -60,7 +66,7 @@ Em resposta aos desafios enfrentados e às necessidades identificadas nas fases 
 
 **Metabase em uma EC2 com Autoscaler:** A implementação do Metabase para visualização e análise de dados em uma instância EC2 da AWS com capacidade de autoscaling representa uma solução inovadora e custo-efetiva para a análise de dados. O Metabase, uma ferramenta open-source de business intelligence, combinado com a flexibilidade e a escalabilidade da infraestrutura AWS EC2, permite uma análise de dados poderosa e acessível. A funcionalidade de autoscaling garante que a plataforma possa se ajustar automaticamente à demanda, otimizando os custos e assegurando que o desempenho não seja comprometido durante picos de uso.
 
-### Diagrama de Implantação - v4.0
+### Diagrama de Implantação - v5.0
 
 Um diagrama de implantação é um tipo de diagrama UML (Unified Modeling Language) que representa a arquitetura física de um sistema, ou seja, como os seus componentes são distribuídos em hardware e software. Ele mostra como os diferentes elementos do sistema, como nós de processamento, dispositivos de armazenamento e software, estão interconectados e implantados em diversos nós físicos, como servidores, computadores pessoais, dispositivos móveis, entre outros.
 
@@ -68,7 +74,7 @@ A funcionalidade principal de um diagrama de implantação é fornecer uma visã
 
 ![Diagrama de Implantação 4](<../../static/img/DiagramaImplantacao4.png>)
 
-### Diagrama de sequência
+### Diagrama de Sequência - v5.0
 
 O diagrama ilustra o fluxo de dados de um dispositivo IoT até a apresentação em um dashboard de análise, utilizando uma arquitetura de processamento de dados baseada em eventos. 
 
