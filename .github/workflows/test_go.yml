@@ -19,4 +19,7 @@ jobs:
           go-version: 'stable'
           check-latest: true
       - name: Test
-        run: cd src/tests && go test -v
+        run: cd src/tests 
+        run: touch .env
+        run: echo ${{ secrets.ENV_CONTENT}}  >> .env
+        run: go test -v
