@@ -22,3 +22,19 @@ src/simulator.egg-info
 ./simulator.egg-info
 .env
 
+.terraform.lock.hcl
+.terraform/
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.terraformrc
+terraform.rc
+*.tfvars
+*.tfvars.json
+terraform.tfstate
+terraform.tfstate.backup
+crash.log
+**/.terraform/*
+*.tfplan
+*.tfplan.json
