@@ -8,11 +8,11 @@ import (
 	godotenv "github.com/joho/godotenv"
 )
 
-var connectHandler mqtt.OnConnectHandler = func(client mqtt.Client) {
+var connectHandlerPublisher mqtt.OnConnectHandler = func(client mqtt.Client) {
 	fmt.Println("Connected")
 }
 
-var connectLostHandler mqtt.ConnectionLostHandler = func(client mqtt.Client, err error) {
+var connectLostHandlerPublisher mqtt.ConnectionLostHandler = func(client mqtt.Client, err error) {
 	fmt.Printf("Connection lost: %v", err)
 }
  

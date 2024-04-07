@@ -38,7 +38,7 @@ func Mongo(password string) *mongo.Client {
 	return ClientPointer
 }
 
-func Select(collection *mongo.Collection, filter bson.D) {
+func Select(collection *mongo.Collection, filter bson.D) Data{
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 	cursor, err := collection.Find(ctx, filter)
@@ -55,7 +55,7 @@ func Select(collection *mongo.Collection, filter bson.D) {
 		valuesString = mapToString(result.values)
 		fmt.Println("sensorType: "+result.sensorType, "values: "+valuesString, "date: "+ dateString, "region: "+result.region)
 	}
-
+	return results[0]
 }
 
 func Insert(collection *mongo.Collection, result Data) {

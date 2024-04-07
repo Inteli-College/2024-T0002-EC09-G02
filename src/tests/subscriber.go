@@ -8,6 +8,8 @@ import (
 	godotenv "github.com/joho/godotenv"
 )
 
+var messageToCompare []byte
+
 var connectHandler mqtt.OnConnectHandler = func(client mqtt.Client) {
 	fmt.Println("Connected")
 }
@@ -16,8 +18,14 @@ var connectLostHandler mqtt.ConnectionLostHandler = func(client mqtt.Client, err
 	fmt.Printf("Connection lost: %v", err)
 }
 
+
 var messageSubHandler mqtt.MessageHandler = func(client mqtt.Client, msg mqtt.Message) {
-	fmt.Printf("[SUBSCRIBER][%s] %s \n", msg.Topic(), msg.Payload())
+	var text = fmt.Sprintf("Recebido: %s do tópico: %s com QoS: %d\n", msg.Payload(), msg.Topic(), msg.Qos())
+	fmt.Print(text)
+	var textBytes = msg.Payload()
+	messageToCompare = textBytes
+	client.Disconnect(1000)
+
 }
 
 func Subscriber() mqtt.Client {
@@ -44,4 +52,15 @@ func Subscriber() mqtt.Client {
 	}
 
 	return client
+}
+
+func CompareMessages() []byte {
+	return messageToCompare
+}
+
+func Subscribe(client mqtt.Client, topic string) {
+	if token := client.Subscribe(topic, 0, messageSubHandler); token.Wait() && token.Error() != nil {
+		fmt.Println(token.Error())
+		os.Exit(1)
+	}
 }

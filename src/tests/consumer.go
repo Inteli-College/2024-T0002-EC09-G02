@@ -37,7 +37,7 @@ func GenerateConsumer() {
 	ConsumerPointer = consumer
 }
 
-func Subscribe(consumer *kafka.Consumer,topic string, t *testing.T) {
+func Consume(consumer *kafka.Consumer,topic string, t *testing.T) {
 	// Assinar tópico
 	err := consumer.SubscribeTopics([]string{topic}, nil)
 
@@ -73,6 +73,25 @@ func Subscribe(consumer *kafka.Consumer,topic string, t *testing.T) {
 			t.Logf("Consumer error: %v (%v)\n", err, msg)
 			break
 		}
+	}
+}
+
+func ConsumeReturn(consumer *kafka.Consumer,topic string) []byte{
+	// Assinar tópico
+	err := consumer.SubscribeTopics([]string{topic}, nil)
+
+	if err != nil {
+		fmt.Printf("Error subscribing: %v", err)
+	} else {
+		fmt.Println("Subscripton in topic north succeeded")
+	}
+
+	// Consumir mensagens
+	for {
+		msg, err := consumer.ReadMessage(-1)
+		if err == nil {
+			return msg.Value
+		} 
 	}
 }
 
