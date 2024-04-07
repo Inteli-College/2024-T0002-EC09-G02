@@ -29,6 +29,26 @@ Para a implementação do projeto, será necessário uma equipe composta por uma
 
 ### Gastos com serviços Cloud
 
+#### Arquitetura Inicial na Sprint 4
+
+Este quadro apresenta um resumo dos custos anuais e mensais associados ao uso de diversos serviços da AWS para o projeto, incluindo AWS Lambda, AWS Elastic Load Balancing, Amazon Elastic Container Registry, Amazon EC2, Amazon VPC, AWS RDS, AWS S3 e Amazon Simple Queue Service (SQS). O total anual em dólares é convertido para reais utilizando a taxa de câmbio de R$4.99, resultando em um custo anual de R$210,259.64 e um custo mensal de R$17,521.64. Essa análise de custos é fundamental para o planejamento financeiro do projeto, permitindo uma avaliação precisa dos gastos com infraestrutura de nuvem e garantindo a alocação eficiente de recursos para operações críticas.
+
+| Serviço                             | Preço p/ Ano   | Preço p/ Mês  |
+|-------------------------------------|----------------|----------------|
+| AWS Lambda                          | $13,768.28     | $1,147.44      |
+| AWS Elastic Load Balancing          | $3,206.88      | $267.24        |
+| Amazon Elastic Container Registry   | $24.00         | $2.00          |
+| Amazon EC2                          | $659.52        | $54.96         |
+| Amazon VPC                          | $8,556.00      | $713.00        |
+| AWS RDS                             | $5,556.00      | $448.08        |
+| AWS S3                              | $14.40         | $1.20          |
+| Amazon Simple Queue Service (SQS)   | $129.60        | $10.80         |
+| **Total em dólares**                | **$42,136.20** | **$3,511.35**  |
+| **Total em reais**                  | **R$210.259,64**|**R$17.521.64**|
+| **Taxa de câmbio (Dólar para Real)**| **R$4.99**     |                |
+
+#### Arquitetura Final na Sprint 4
+
 Este quadro apresenta um resumo dos custos anuais e mensais associados ao uso de diversos serviços da arquitetura em clound para o projeto, incluindo HiveMQ, AWS Elastic Load Balancing, Kafka, Amazon EC2, Amazon VPC e AWS RDS . O total anual em dólares é convertido para reais utilizando a taxa de câmbio de R$5.05, resultando em um custo anual de R$178,665.77 e um custo mensal de R$14,888.81. Essa análise de custos é fundamental para o planejamento financeiro do projeto, permitindo uma avaliação precisa dos gastos com infraestrutura de nuvem e garantindo a alocação eficiente de recursos para operações críticas.
 
 | Arquitetura                             | Preço p/ Ano   | Preço p/ Mês  |
@@ -63,6 +83,21 @@ Este quadro detalha os custos envolvidos em uma possível terceirização de ser
 | **Imposto (10%)**        | **R$463,467.66**| Não aplicável |
 
 ## Custo total do MVP
+
+### Arquitetura Inicial na Sprint 4
+
+Para representar todos os gastos de forma resumida, este quadro apresenta uma visão detalhada dos custos anuais e mensais associados ao desenvolvimento e manutenção do Produto Mínimo Viável (MVP), sem considerar a terceirização de serviços. Os custos incluem a equipe de engenheiros, serviços AWS, implementação do projeto e manutenção do modelo, totalizando R$2,670,919.90 por ano, o que resulta em um custo mensal de R$222,576.66. Além disso, é mencionado um imposto de 20%, resultando em R$3,205,103.88. Este resumo financeiro é crucial para compreender o investimento necessário para o lançamento do MVP, permitindo uma análise aprofundada da viabilidade financeira do projeto antes de prosseguir com a terceirização ou outras expansões.
+
+| Item                   | Preço por Ano    | Preço por Mês  |
+|------------------------|------------------|----------------|
+| Equipe de Engenheiro   | R$1.056.000,00   | R$88.000,00    |
+| AWS                    | R$210.259,64     | R$17,521.64     |
+| Implementação          | R$1.266,259.64   | R$105,521.64    |
+| Manutenção do modelo   | R$355.000,00     | R$29.583,33    |
+| **Total em reais**     | **R$2.887,519.28** | **R$240,626.61**|
+| **Imposto (20%)**      | **R$3,465,023.13**| Não aplicável  |
+
+### Arquitetura Final na Sprint 4
 
 Para representar todos os gastos de forma resumida, este quadro apresenta uma visão detalhada dos custos anuais e mensais associados ao desenvolvimento e manutenção do Produto Mínimo Viável (MVP), sem considerar a terceirização de serviços. Os custos incluem a equipe de engenheiros, arquitetura, implementação do projeto e manutenção do modelo, totalizando R$2.824,331.54 por ano, o que resulta em um custo mensal de R$235,360.96. Além disso, é mencionado um imposto de 20%, resultando em R$3.389.197,84. Este resumo financeiro é crucial para compreender o investimento necessário para o lançamento do MVP, permitindo uma análise aprofundada da viabilidade financeira do projeto antes de prosseguir com a terceirização ou outras expansões.
 
