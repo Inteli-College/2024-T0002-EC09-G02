@@ -26,6 +26,4 @@ series = random_walk_with_mean_reversion(
 )
 
 # save series to csv
-np.savetxt(f"./genarator/data/{sensorType}.csv", series, delimiter=",")
-
-
+np.savetxt(f"../generator/data/{sensorType}.csv", series, delimiter=",")

@@ -22,18 +22,18 @@ type SensorStruct struct {
 }
 
 func Generator(sensors []SensorStruct, amount string, client mqtt.Client, sensorType string, region string) {
-	var Date = time.Date(2024, 1, 1, 0, 0, 0, 0, time.UTC)
+	var Date = time.Date(2024, 3, 1, 0, 0, 0, 0, time.UTC)
 
 	pointerlist := make(map[int]*csv.Reader)
 	fmt.Printf("sensors %v\n", sensors)
 	for i, sensor := range sensors {
-		cmd := exec.Command("python3", "./generator/DataGenerator.py", sensor.sensorType, amount, fmt.Sprintf("%f", sensor.mean), fmt.Sprintf("%f", sensor.volatility), fmt.Sprintf("%f", sensor.mean_reversion_rate))
+		cmd := exec.Command("python3", "../generator/DataGenerator.py", sensor.sensorType, amount, fmt.Sprintf("%f", sensor.mean), fmt.Sprintf("%f", sensor.volatility), fmt.Sprintf("%f", sensor.mean_reversion_rate))
 		err := cmd.Run()
 		if err != nil {
 			panic(err)
 		}
 		// Open CSV file
-		f, err := os.Open("./generator/data/" + sensor.sensorType + ".csv")
+		f, err := os.Open("../generator/data/" + sensor.sensorType + ".csv")
 		if err != nil {
 			panic(err)
 		}
