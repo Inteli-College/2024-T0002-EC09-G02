@@ -11,6 +11,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - name: Set up Go environment
+        run: |
+          mkdir -p $HOME/go
+          echo "export GOPATH=$HOME/go" >> $GITHUB_ENV
+          echo "export PATH=$PATH:$HOME/go/bin" >> $GITHUB_ENV
+        shell: bash
+
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
