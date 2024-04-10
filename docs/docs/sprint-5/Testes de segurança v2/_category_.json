@@ -1,0 +1,8 @@
+{
+  "label": "Testes de segurança v2",
+  "position": 2,
+  "link": {
+    "type": "generated-index",
+    "description": "Nossa infraestrutura de IoT na AWS foi projetada com a segurança como um componente central, empregando as práticas recomendadas e os serviços mais avançados disponíveis. Entretanto, não conduzimos testes de penetração tradicionais nos sistemas por várias razões técnicas e operacionais. A AWS já implementa medidas de segurança de alto nível, como a criptografia de ponta a ponta, firewalls sofisticados e monitoramento contínuo de segurança, diminuindo a necessidade de testes invasivos por parte dos usuários. Além disso, tais testes exigiriam recursos significativos e poderiam violar o Acordo de Nível de Serviço (SLA) com a AWS, potencialmente afetando a disponibilidade do serviço para os usuários. Isso sem mencionar os custos proibitivos e o risco de danos colaterais aos sistemas em operação. Ainda assim, é crucial entender os potenciais vetores de ataque para fortalecer nossa postura de segurança contra possíveis ameaças. Aqui, detalhamos três cenários de ataque que poderiam visar a confidencialidade, integridade e disponibilidade de nosso sistema."
+  }
+}
