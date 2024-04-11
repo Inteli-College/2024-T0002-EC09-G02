@@ -67,7 +67,7 @@ A organização operacional do projeto deu-se a partir dos pilares postulados pe
 
 **Apresentação de sprint review**
 
-[Clique aqui!](<../static/pdf/Grupo 2 Megamente - Sprint 5.pdf>)
+[Clique aqui!](<../static/pdf/Grupo 2 Megamente - Sprint 4.pdf>)
 
 
 ### Sprint 5: Finalização da arquitetura e do dashboard
