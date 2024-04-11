@@ -9,7 +9,7 @@ Bem-vindo à nossa demo final, onde você terá a oportunidade de ver nossa pipe
 ## Vídeo da Pipeline em Ação
 Assista ao vídeo abaixo para ver nossa pipeline de dados em ação. Você será levado por todo o processo, desde a geração e publicação dos dados até sua visualização em um dashboard interativo.
 
-[Inserir link para o vídeo]
+[Vídeo de demonstração](https://github.com/Inteli-College/2024-T0002-EC09-G02/assets/99260684/9bd6c61d-66dc-4651-beb7-18d9acb0fc77)
 
 ## Explorando os Dados no Metabase
 Após assistir ao vídeo, convidamos você a explorar os dados coletados em nosso dashboard interativo no Metabase. O Metabase oferece uma interface intuitiva e poderosa para visualizar e analisar dados em tempo real.
