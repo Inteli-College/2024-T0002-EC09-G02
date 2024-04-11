@@ -58,8 +58,24 @@ A organização operacional do projeto deu-se a partir dos pilares postulados pe
 
 [Clique aqui!](<../static/pdf/Grupo 2 Megamente - Sprint 3.pdf>)
 
-### Sprint 4: 
-<img src="https://i.redd.it/q0dd3k02unqb1.gif" alt="Boot process" style={{ display: 'block', marginLeft: 'auto', maxHeight: '30vh', marginRight: 'auto' }} />
+### Sprint 4: Mudanças na arquitetura e implementação dos dashboards
 
-### Sprint 5: 
-<img src="https://i.redd.it/q0dd3k02unqb1.gif" alt="Boot process" style={{ display: 'block', marginLeft: 'auto', maxHeight: '30vh', marginRight: 'auto' }} />
+- Redução do uso de serviços da AWS
+- Substituição desses serviços
+- Nova pipeline de dados
+- Implementação dos dashboards no metabase
+
+**Apresentação de sprint review**
+
+[Clique aqui!](<../static/pdf/Grupo 2 Megamente - Sprint 5.pdf>)
+
+
+### Sprint 5: Finalização da arquitetura e do dashboard
+
+- Finalização da integração da pipeline com a nova arquitetura
+- Testes de segurança
+- Finalização do dashboard no metabase 
+
+**Apresentação de sprint review**
+
+[Clique aqui!](<../static/pdf/Grupo 2 Megamente - Sprint 5.pdf>)
