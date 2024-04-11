@@ -6,17 +6,17 @@ label: 'Ataques ao banco de dados'
 
 # Ataques ao banco de dados
 
-Os ataques que visam o triângulo da segurança - Confidencialidade, Integridade e Disponibilidade (CIA) - no contexto de um banco de dados como o AWS DynamoDB podem assumir várias formas:
+Os ataques que visam comprometer a segurança do MongoDB, especialmente em relação à Confidencialidade, Integridade e Disponibilidade (CIA) dos dados, podem assumir várias formas.
 
 ## Ataque à Confidencialidade: Exploração de Vazamento de Dados
 
 ### Pré-condição:
-Para realizar um ataque efetivo, um atacante necessitaria ter um conhecimento profundo em métodos de exploração de vulnerabilidades específicas de bancos de dados e serviços de armazenamento em nuvem, como o AWS DynamoDB e o AWS S3. Essa expertise incluiria um entendimento sobre práticas comuns de configuração de segurança e como identificar configurações inadequadas ou permissões IAM excessivas. O atacante também precisaria de acesso a ferramentas de varredura e análise de segurança que possam detectar e explorar essas configurações para extrair informações sensíveis.
+Para realizar um ataque efetivo, um atacante necessitaria ter um conhecimento profundo em métodos de exploração de vulnerabilidades específicas de bancos de dados e serviços de armazenamento em nuvem, como o MongoDB. Essa expertise incluiria um entendimento sobre práticas comuns de configuração de segurança e como identificar configurações inadequadas ou permissões excessivas. O atacante também precisaria de acesso a ferramentas de varredura e análise de segurança que possam detectar e explorar essas configurações para extrair informações sensíveis.
 
 ### Passo a Passo:
-1. **Investigação e Varredura:** O atacante usa ferramentas de varredura automatizadas para procurar instâncias do DynamoDB e buckets do S3 que estejam mal configurados ou que tenham políticas de permissão demasiadamente permissivas. Esse processo incluiria a procura por ACLs (Access Control Lists) mal configuradas, políticas de bucket S3 que permitem acesso público ou políticas IAM que não seguem o princípio de menor privilégio.
+1. **Investigação e Varredura:** O atacante utiliza ferramentas automatizadas para procurar instâncias do MongoDB mal configuradas ou com permissões inadequadas.
 
-2. **Exploração de Configurações:** Uma vez identificada uma configuração vulnerável, o atacante exploraria a falha para ganhar acesso ao bucket do S3 ou às tabelas do DynamoDB. Isso poderia envolver a injeção de comandos, manipulação de tokens de sessão ou uso de credenciais de acesso roubadas.
+2. **Exploração de Configurações:** Uma vez identificada uma configuração vulnerável, o atacante exploraria a falha para ganhar acesso ao database. Isso poderia envolver a injeção de comandos, manipulação de tokens de sessão ou uso de credenciais de acesso roubadas.
 
 3. **Exfiltração de Dados:** Após obter acesso, o atacante extrai dados sensíveis.
 
@@ -26,7 +26,7 @@ A concretização bem-sucedida desse tipo de ataque teria implicações sérias.
 ## Ataque à Integridade: Injeção de SQL ou NoSQL
 
 ### Pré-condição:
-Um agente de ameaças mirando a integridade do banco de dados precisa possuir habilidades avançadas em técnicas de injeção de código e estar familiarizado com as APIs e interfaces de programação que interagem com o AWS DynamoDB. Isso inclui compreender linguagens de consulta NoSQL, a lógica da aplicação e as práticas de validação de entrada de dados. O atacante também precisa identificar pontos fracos onde os comandos de consulta não são devidamente sanitizados ou validados pelo aplicativo, permitindo a injeção de comandos maliciosos.
+Um agente de ameaças mirando a integridade do banco de dados precisa possuir habilidades avançadas em técnicas de injeção de código e estar familiarizado com as APIs e interfaces de programação que interagem com o MongoDB. Isso inclui compreender linguagens de consulta NoSQL, a lógica da aplicação e as práticas de validação de entrada de dados. O atacante também precisa identificar pontos fracos onde os comandos de consulta não são devidamente sanitizados ou validados pelo aplicativo, permitindo a injeção de comandos maliciosos.
 
 ### Passo a Passo:
 1. **Reconhecimento:** O atacante mapeia a aplicação e identifica os endpoints que interagem com o DynamoDB, possivelmente usando técnicas como fuzzing ou análise de código para descobrir campos de entrada vulneráveis a injeções.

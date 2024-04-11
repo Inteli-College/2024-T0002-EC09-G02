@@ -9,24 +9,21 @@ label: 'Ataques ao broker'
 Um atacante com sofisticadas habilidades em criptografia e programação tem a intenção de comprometer a confidencialidade das comunicações entre os dispositivos IoT e o HiveMQ. Para tal, ele deve ter à disposição ferramentas capazes de gerar certificados digitais que aparentam ser legítimos. O atacante também necessita de um meio de inserir esses certificados falsificados no ciclo de confiança dos dispositivos IoT ou do sistema que os verifica, como o HiveMQ. Isso pode envolver técnicas avançadas de engenharia social ou exploração de vulnerabilidades de segurança nas interfaces de gerenciamento de dispositivos ou no próprio serviço.
 
 
-## Ataque à Confidencialidade: Forjamento de Certificados
+## Ataque à Confidencialidade: Força Bruta e Rainbow Tables
+
 
 ### Pré-condição:
-Um atacante com sofisticadas habilidades em criptografia e programação tem a intenção de comprometer a confidencialidade das comunicações entre os dispositivos IoT e o HiveMQ. Para tal, ele deve ter à disposição ferramentas capazes de gerar certificados digitais que aparentam ser legítimos. O atacante também necessita de um meio de inserir esses certificados falsificados no ciclo de confiança dos dispositivos IoT ou do sistema que os verifica, como o HiveMQ. Isso pode envolver técnicas avançadas de engenharia social ou exploração de vulnerabilidades de segurança nas interfaces de gerenciamento de dispositivos ou no próprio serviço.
-
+O atacante possui acesso à interface de login do HiveMQ e está determinado a obter acesso não autorizado ao sistema.
 
 ### Passo a Passo:
 
-1. **Geração de Certificado Falso:** O atacante cria um par de chaves criptográficas (pública e privada) e forja um certificado digital imitando os padrões X.509 usados nos sistemas legítimos.
-
-2. **Inserção do Certificado Falso:** Ele usa técnicas de engenharia social, como phishing, para persuadir um administrador do sistema a instalar o certificado forjado ou explora uma vulnerabilidade de segurança que permite a inserção direta no sistema sem autenticação adequada.
-
-3. **Interceptação de Comunicação:**  Uma vez que o certificado falso é aceito pelo HiveMQ como autêntico, o atacante estabelece uma conexão segura TLS, assumindo a identidade de um dispositivo IoT confiável.
-
-4. **Captura de Dados:** Com a conexão estabelecida, ele pode interceptar, visualizar e potencialmente modificar os dados em trânsito que deveriam estar protegidos pela criptografia TLS.
+1. **Coleta de Informações:** O atacante identifica a interface de login do HiveMQ e obtém informações sobre possíveis usuários válidos.
+2. **Ataque de Força Bruta:** O atacante utiliza ferramentas automatizadas para realizar tentativas repetidas de login, tentando diferentes combinações de usuários e senhas em um esforço para encontrar credenciais válidas.
+3. **Uso de Rainbow Tables:** Para acelerar o processo de quebra de senhas, o atacante pode usar rainbow tables, que são pré-computações de hashes de senhas comuns. Isso permite que ele compare rapidamente os hashes das senhas tentadas com os hashes pré-computados para encontrar correspondências.
+4. **Acesso Não Autorizado:** Uma vez que o atacante obtém sucesso na quebra de uma senha válida, ele ganha acesso não autorizado ao sistema HiveMQ, podendo comprometer a confidencialidade e integridade dos dados.
 
 ### Pós-condição:
-Com o sucesso do ataque, o atacante terá a capacidade de acessar os dados em trânsito entre os dispositivos IoT e o HiveMQ. A confidencialidade dos dados é severamente comprometida, permitindo que o atacante visualize informações sensíveis que podem incluir dados operacionais, pessoais ou de negócios. O ataque pode permanecer não detectado por algum tempo se a presença do certificado falso não for revelada por uma auditoria de segurança ou por mecanismos automatizados de detecção de anomalias. Como resultado, isso pode levar a um comprometimento prolongado da privacidade dos dados.
+O atacante pode acessar o sistema HiveMQ de forma não autorizada, comprometendo a confidencialidade e a integridade dos dados armazenados e transmitidos pelo sistema.
 
 
 ## Ataque à Integridade: Comprometimento do Broker MQTT
@@ -64,12 +61,13 @@ Um ataque DDoS bem-sucedido ao HiveMQ pode levar a uma série de consequências 
 
 Para mitigar os riscos, é fundamental adotar uma abordagem multifacetada que englobe tanto medidas preventivas quanto reativas. Aqui estão algumas delas:
 
-- Implementação de Autenticação e Autorização Fortes: Utilizar mecanismos robustos de autenticação, como certificados X.509, e garantir que as políticas de autorização sejam rigorosamente aplicadas. Isso inclui limitar os privilégios dos dispositivos IoT com base no princípio do menor privilégio, reduzindo o risco de exploração de vulnerabilidades para acessos não autorizados.
-- Atualizações e Patches de Segurança: Manter o software do broker MQTT e os dispositivos IoT atualizados com os últimos patches de segurança. Isso ajuda a proteger contra vulnerabilidades conhecidas que poderiam ser exploradas por atacantes.
-- Monitoramento e Análise de Tráfego: Implementar soluções de monitoramento contínuo e sistemas de detecção de intrusão para identificar padrões de tráfego anormais ou atividades suspeitas. A rápida identificação de um aumento inesperado no tráfego pode ser indicativa de um ataque DDoS em andamento.
-- Limitação de Taxa e Throttling: Configurar o HiveMQ e os dispositivos IoT para aplicar limites de taxa e throttling de mensagens, ajudando a prevenir sobrecargas acidentais ou maliciosas.
-- Utilização de Serviços de Mitigação de DDoS: Empregar serviços especializados em mitigação de DDoS, que oferecem proteção automatizada contra ataques de larga escala, garantindo que o broker MQTT permaneça acessível mesmo sob condições adversas.
-
-- Backup e Recuperação de Dados: Assegurar que existam políticas de backup e recuperação de dados robustas para permitir a rápida restauração dos serviços em caso de comprometimento de dados ou interrupção do serviço.
+- Implementar políticas de senha robustas, exigindo senhas fortes e atualização regular.
+- Implementar mecanismos de bloqueio de conta após um número especificado de tentativas de login malsucedidas.
+- Utilizar autenticação de dois fatores para adicionar uma camada adicional de segurança ao processo de login.
+- Manter o software do broker MQTT e os dispositivos IoT atualizados com os últimos patches de segurança. Isso ajuda a proteger contra vulnerabilidades conhecidas que poderiam ser exploradas por atacantes.
+- Implementar soluções de monitoramento contínuo e sistemas de detecção de intrusão para identificar padrões de tráfego anormais ou atividades suspeitas. A rápida identificação de um aumento inesperado no tráfego pode ser indicativa de um ataque DDoS em andamento.
+- Configurar o HiveMQ e os dispositivos IoT para aplicar limites de taxa e throttling de mensagens, ajudando a prevenir sobrecargas acidentais ou maliciosas.
+- Empregar serviços especializados em mitigação de DDoS, que oferecem proteção automatizada contra ataques de larga escala, garantindo que o broker MQTT permaneça acessível mesmo sob condições adversas.
+- Assegurar que existam políticas de backup e recuperação de dados robustas para permitir a rápida restauração dos serviços em caso de comprometimento de dados ou interrupção do serviço.
 
 Adotando essas medidas, as organizações podem reforçar significativamente a segurança de seus brokers MQTT e a resiliência de seus sistemas de IoT contra 
