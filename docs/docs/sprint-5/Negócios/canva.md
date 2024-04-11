@@ -1,6 +1,6 @@
 ---
 sidebar_position: 1
-slug: '/sprint_1/negocios/proposta_de_valor'
+slug: '/sprint_5/negocios/proposta_de_valor'
 label: "Canva"
 ---
 

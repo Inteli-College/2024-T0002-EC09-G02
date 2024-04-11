@@ -1,6 +1,6 @@
 ---
 sidebar_position: 2
-slug: '/sprint_1/negocios/pestel'
+slug: '/sprint_5/negocios/pestel'
 label: "PESTEL"
 ---
 

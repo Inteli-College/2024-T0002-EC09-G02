@@ -1,9 +1,8 @@
 ---
 sidebar_position: 3
-slug: '/sprint_1/negocios/mercado'
+slug: '/sprint_5/negocios/mercado'
 label: "TAM-SAM-SOM"
 ---
-
 
 
 # TAM-SAM-SOM

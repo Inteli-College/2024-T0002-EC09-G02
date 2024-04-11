@@ -1,6 +1,6 @@
 ---
 sidebar_position: 4
-slug: '/sprint_1/negocios/risco'
+slug: '/sprint_5/negocios/risco'
 label: "Riscos do projeto"
 ---
 

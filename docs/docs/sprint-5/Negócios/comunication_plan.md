@@ -1,6 +1,6 @@
 ---
 sidebar_position: 5
-slug: '/sprint_1/negocios/comunicacao'
+slug: '/sprint_5/negocios/comunicacao'
 label: "Plano de Comunicação"
 ---
 
