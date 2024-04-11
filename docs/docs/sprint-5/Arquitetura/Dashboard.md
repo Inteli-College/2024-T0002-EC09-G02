@@ -1,5 +1,5 @@
 ---
-sidebar_position: 1
+sidebar_position: 2
 slug: 'Dashboard'
 ---
 
@@ -35,7 +35,7 @@ Nesse seção, temos 4 seções menores com gráficos relacioandos, respectivame
 
 Os 2 primeiros alarmes são sobre os níveis de densidade de gases (medida em micro gramas por metro cúbico \[μg/m³]), simbolizando se a densidade de um tipo de partícula (entre PM2.5 e PM10) em determinada região de São Paulo está Boa, Moderada, Ruim ou Muito Ruim.
 
-![alt text](<../../../static/img/sprint-5/dashboard/Geral-densidade.png>)
+![Alarmes sobre densidade de partículas](<../../../static/img/sprint-5/dashboard/Geral-densidade.png>)
 
 #### Poluição sonora
 
@@ -50,13 +50,13 @@ A segunda informação nessa seção é sobre o número de violações que houve
 Os próximos 3 alarmes são sobre os níveis de poluição de gases (medida em partes por milhão ou bilhão), simbolizando se um gás (entre CO, CO2 e NO2) em determinada região de São Paulo está Aceitável, Tolerável ou Perigoso.
 Além disso, há um gráfico de linhas com a variação dos 3 gases em suas medidas.
 
-![alt text](<../../../static/img/sprint-5/dashboard/Geral-gas.png>)
+![Alarmes sobre poluição de gases e um gráfico de linha com os 3 gases](<../../../static/img/sprint-5/dashboard/Geral-gas.png>)
 
 #### Radiação Solar
 
 Para a seção de radiação solar, há um gráfico de linhas com a variação do índice no ano em questão.
 
-![alt text](<../../../static/img/sprint-5/dashboard/Geral-solar.png>)
+![Gráfico de linhas com a variação do índice de radiação solar no ano](<../../../static/img/sprint-5/dashboard/Geral-solar.png>)
 
 ### Poluição de gases
 
