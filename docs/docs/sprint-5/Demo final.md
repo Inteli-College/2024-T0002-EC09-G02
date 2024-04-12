@@ -16,6 +16,12 @@ Após assistir ao vídeo, convidamos você a explorar os dados coletados em noss
 
 [Acesse o dashboard no Metabase](http://metabase-load-balancer-465771358.us-east-1.elb.amazonaws.com/public/dashboard/6c5c5c87-f215-42ea-ba72-6829a20302da)
 
+## Vídeo Demo da Arquiterura
+
+Assista ao vídeo abaixo para ver a arquitetura da nossa pipeline de dados em ação. Você será levado por todo o processo, desde a geração e publicação dos dados até sua visualização em um dashboard interativo.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Ixv3ki6Payw" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## Como rodar
 
 ### Configuração Inicial:
